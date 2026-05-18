@@ -1,0 +1,2227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StockPattern AI — India's Seasonal Pattern Intelligence Platform</title>
+<meta name="description" content="India's first AI-powered seasonal pattern platform. 2,355 NSE+BSE stocks. 91,698 patterns. 20 years of data. Data jhooth nahi bolta.">
+<meta property="og:title" content="StockPattern AI — Seasonal Pattern Intelligence">
+<meta property="og:description" content="91,698 patterns. 2,355 stocks. NSE+BSE. 20yr data. Powered by @StockSeasonBot.">
+<meta property="og:url" content="https://stockpatternai.com">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="StockPattern AI">
+<link rel="canonical" href="https://stockpatternai.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #060910;
+  --bg2: #0d1117;
+  --bg3: #111820;
+  --surface: #141c26;
+  --surface2: #1a2333;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #e8edf5;
+  --text2: #8a96a8;
+  --text3: #4a5568;
+  --accent: #00d4aa;
+  --accent2: #0095ff;
+  --accent3: #ff6b35;
+  --gold: #f5c842;
+  --green: #22c55e;
+  --red: #ef4444;
+  --purple: #a855f7;
+  --glow: rgba(0,212,170,0.15);
+  --glow2: rgba(0,149,255,0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── ANIMATED BACKGROUND ── */
+.bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.bg-canvas canvas { width: 100%; height: 100%; }
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 48px;
+  background: rgba(6,9,16,0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+
+.logo span { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text2);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text); }
+
+.nav-cta {
+  background: var(--accent);
+  color: #000 !important;
+  padding: 9px 22px;
+  border-radius: 8px;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  transition: opacity 0.2s !important;
+}
+.nav-cta:hover { opacity: 0.85; color: #000 !important; }
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 48px 80px;
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,212,170,0.08);
+  border: 1px solid rgba(0,212,170,0.2);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 13px;
+  color: var(--accent);
+  margin-bottom: 28px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.5px;
+  animation: fadeUp 0.6s ease both;
+}
+
+.badge-dot {
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -3px;
+  margin-bottom: 24px;
+  animation: fadeUp 0.7s 0.1s ease both;
+}
+
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(90deg, var(--accent), var(--accent2), var(--purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: clamp(17px, 2.2vw, 22px);
+  color: var(--text2);
+  max-width: 620px;
+  font-weight: 300;
+  margin-bottom: 40px;
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 60px;
+  animation: fadeUp 0.7s 0.3s ease both;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #000;
+  padding: 14px 32px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  letter-spacing: -0.2px;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,212,170,0.35); }
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 15px;
+  text-decoration: none;
+  border: 1px solid var(--border2);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── STATS BAR ── */
+.stats-bar {
+  display: flex;
+  gap: 48px;
+  animation: fadeUp 0.7s 0.4s ease both;
+}
+
+.stat {
+  text-align: center;
+}
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -1px;
+}
+.stat-num span { color: var(--accent); }
+.stat-label {
+  font-size: 12px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 2px;
+}
+.stat-divider {
+  width: 1px;
+  background: var(--border2);
+  align-self: stretch;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── PROOF SECTION ── */
+section {
+  position: relative;
+  z-index: 1;
+}
+
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700;
+  letter-spacing: -2px;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.section-sub {
+  color: var(--text2);
+  font-size: 17px;
+  font-weight: 300;
+  max-width: 520px;
+}
+
+/* ── PROOF TICKER ── */
+.proof-ticker {
+  padding: 64px 0 80px;
+  overflow: hidden;
+}
+
+.ticker-track {
+  display: flex;
+  gap: 16px;
+  animation: ticker 30s linear infinite;
+  width: max-content;
+}
+
+.ticker-track:hover { animation-play-state: paused; }
+
+.proof-card {
+  flex-shrink: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 24px;
+  width: 280px;
+  transition: border-color 0.2s;
+  cursor: default;
+}
+.proof-card:hover { border-color: var(--border2); }
+
+.proof-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.proof-symbol {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent2);
+  background: rgba(0,149,255,0.08);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.proof-grade {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  background: rgba(245,200,66,0.08);
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+.proof-company {
+  font-size: 13px;
+  color: var(--text2);
+  margin-bottom: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.proof-years {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.year-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+}
+.year-dot.loss { background: var(--red); }
+
+.proof-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.proof-winrate {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--green);
+}
+
+.proof-rr {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--text3);
+}
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ── MAIN CONTENT ── */
+.content-section {
+  padding: 100px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── HOW IT WORKS ── */
+.how-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-top: 60px;
+}
+
+.phase-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.phase-item {
+  display: flex;
+  gap: 20px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.phase-item:last-child { border-bottom: none; }
+.phase-item:hover .phase-title { color: var(--accent); }
+
+.phase-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--text3);
+  padding-top: 3px;
+  min-width: 28px;
+}
+
+.phase-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+  transition: color 0.2s;
+}
+
+.phase-desc {
+  font-size: 14px;
+  color: var(--text2);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* ── DASHBOARD PREVIEW ── */
+.dashboard-preview {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.dash-topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.win-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.win-dot.red { background: #ff5f57; }
+.win-dot.yellow { background: #febc2e; }
+.win-dot.green-d { background: #28c840; }
+
+.dash-url {
+  flex: 1;
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text3);
+}
+
+.dash-body {
+  padding: 20px;
+}
+
+.dash-scanner-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.dash-stock-card {
+  background: var(--surface2);
+  border-radius: 10px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  transition: border-color 0.2s;
+}
+.dash-stock-card:hover { border-color: rgba(0,212,170,0.3); }
+
+.dash-stock-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.dash-sym {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.dash-signal {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 5px;
+}
+.dash-signal.bull { background: rgba(34,197,94,0.12); color: var(--green); }
+.dash-signal.bear { background: rgba(239,68,68,0.1); color: var(--red); }
+
+.dash-company {
+  font-size: 11px;
+  color: var(--text3);
+  margin-bottom: 10px;
+}
+
+.dash-metrics {
+  display: flex;
+  gap: 12px;
+}
+
+.dash-m {
+  font-size: 11px;
+  color: var(--text2);
+}
+.dash-m strong {
+  display: block;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* confidence bar */
+.conf-bar {
+  margin-top: 10px;
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.conf-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent2), var(--accent));
+}
+
+.dash-bottom {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text3);
+}
+
+.live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+}
+.live-dot {
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+/* ── FEATURES GRID ── */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 60px;
+}
+
+.feature-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.feature-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-3px);
+}
+.feature-card:hover::before { opacity: 1; }
+
+.feature-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.feature-icon.teal { background: rgba(0,212,170,0.1); }
+.feature-icon.blue { background: rgba(0,149,255,0.1); }
+.feature-icon.gold { background: rgba(245,200,66,0.1); }
+.feature-icon.purple { background: rgba(168,85,247,0.1); }
+.feature-icon.red { background: rgba(239,68,68,0.1); }
+.feature-icon.orange { background: rgba(255,107,53,0.1); }
+
+.feature-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  margin-bottom: 10px;
+}
+
+.feature-desc {
+  font-size: 14px;
+  color: var(--text2);
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+/* ── CONFIDENCE SECTION ── */
+.confidence-section {
+  padding: 100px 48px;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.conf-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.conf-score-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.conf-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.conf-label {
+  font-size: 13px;
+  color: var(--text2);
+  min-width: 140px;
+  font-family: 'DM Mono', monospace;
+}
+
+.conf-track {
+  flex: 1;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.conf-progress {
+  height: 100%;
+  border-radius: 3px;
+  animation: growBar 1.5s ease both;
+}
+
+@keyframes growBar {
+  from { width: 0; }
+}
+
+.conf-pts {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--text3);
+  min-width: 48px;
+  text-align: right;
+}
+
+.score-circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 28px;
+  background: rgba(0,212,170,0.04);
+  border: 1px solid rgba(0,212,170,0.15);
+  border-radius: 16px;
+}
+
+.score-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 56px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -3px;
+  line-height: 1;
+}
+
+.score-label {
+  font-size: 12px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.score-badge {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  background: rgba(0,212,170,0.1);
+  padding: 6px 16px;
+  border-radius: 100px;
+}
+
+/* ── PLANS ── */
+.plans-section {
+  padding: 100px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 60px;
+}
+
+.plan-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 24px;
+  transition: all 0.25s;
+  position: relative;
+}
+
+.plan-card.featured {
+  border-color: var(--accent);
+  background: rgba(0,212,170,0.04);
+}
+
+.plan-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: #000;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 100px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.plan-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text2);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.plan-price {
+  font-family: 'Syne', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.plan-price.free-price { color: var(--accent); }
+
+.plan-period {
+  font-size: 12px;
+  color: var(--text3);
+  margin-bottom: 24px;
+}
+
+.plan-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.plan-features li {
+  font-size: 13px;
+  color: var(--text2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.feat-check { color: var(--accent); font-size: 14px; }
+.feat-lock { color: var(--text3); font-size: 14px; }
+
+.plan-cta {
+  width: 100%;
+  padding: 11px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  transition: all 0.2s;
+}
+
+.plan-cta.outline {
+  background: transparent;
+  border: 1px solid var(--border2);
+  color: var(--text);
+}
+.plan-cta.outline:hover { border-color: var(--accent); color: var(--accent); }
+
+.plan-cta.filled {
+  background: var(--accent);
+  color: #000;
+  border: none;
+}
+.plan-cta.filled:hover { opacity: 0.85; }
+
+/* ── TRUST SECTION ── */
+.trust-section {
+  padding: 80px 48px;
+  border-top: 1px solid var(--border);
+  background: var(--bg2);
+}
+
+.trust-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.trust-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+}
+
+.trust-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -2px;
+}
+.trust-num.green { color: var(--green); }
+.trust-num.blue { color: var(--accent2); }
+.trust-num.gold { color: var(--gold); }
+.trust-num.accent { color: var(--accent); }
+
+.trust-label {
+  font-size: 12px;
+  color: var(--text3);
+  margin-top: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+/* ── DISCLAIMER / CTA ── */
+.cta-section {
+  padding: 100px 48px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cta-section h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 800;
+  letter-spacing: -2px;
+  margin-bottom: 20px;
+  line-height: 1.05;
+}
+
+.cta-section p {
+  color: var(--text2);
+  font-size: 17px;
+  font-weight: 300;
+  margin-bottom: 40px;
+}
+
+.disclaimer {
+  font-size: 12px;
+  color: var(--text3);
+  margin-top: 32px;
+  line-height: 1.6;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-left {
+  font-size: 13px;
+  color: var(--text3);
+}
+
+.footer-right {
+  display: flex;
+  gap: 24px;
+  font-size: 13px;
+}
+
+.footer-right a {
+  color: var(--text3);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-right a:hover { color: var(--text2); }
+
+/* ── SCROLL ANIMATIONS ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── PATTERN HEALTH SECTION ── */
+.health-section {
+  padding: 100px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.health-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  margin-top: 60px;
+}
+
+.health-signals {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.health-signal-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
+  position: relative;
+  overflow: hidden;
+}
+.health-signal-card:hover {
+  border-color: var(--border2);
+  transform: translateX(6px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+}
+
+/* Animated left border that grows on hover */
+.health-signal-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  border-radius: 3px 0 0 3px;
+  transition: width 0.3s ease;
+}
+.health-signal-card:hover::before { width: 4px; }
+.hsc-fresh::before  { background: var(--accent); }
+.hsc-sharp::before  { background: var(--accent2); }
+.hsc-momentum::before { background: var(--purple); }
+
+/* Shimmer sweep on hover */
+.health-signal-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+.health-signal-card:hover::after { left: 150%; }
+
+.hsc-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.hsc-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+.health-signal-card:hover .hsc-icon { transform: scale(1.1) rotate(-3deg); }
+.hsc-icon.teal   { background: rgba(0,212,170,0.1); }
+.hsc-icon.blue   { background: rgba(0,149,255,0.1); }
+.hsc-icon.purple { background: rgba(168,85,247,0.1); }
+
+/* Badge animations */
+@keyframes freshPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,212,170,0.3); }
+  50%       { box-shadow: 0 0 0 4px rgba(0,212,170,0); }
+}
+@keyframes badgeShimmer {
+  0%   { background-position: -200px 0; }
+  100% { background-position: 200px 0; }
+}
+@keyframes floatBadge {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-2px); }
+}
+
+.hsc-label[style*="#00d4aa"] {
+  animation: freshPulse 2.5s ease infinite;
+}
+.hsc-label {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.hsc-label:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Demo card animations */
+.health-demo-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+.health-demo-card:hover {
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,212,170,0.1);
+}
+
+/* Health row hover */
+.hdc-health-row {
+  transition: background 0.15s, padding-left 0.15s;
+}
+.hdc-health-row:hover { padding-left: 18px; }
+
+/* Badge pulse animations */
+.fresh-badge {
+  animation: freshPulse 2.5s ease infinite;
+  position: relative;
+  overflow: hidden;
+}
+.fresh-badge::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  animation: badgeShimmer 2.5s ease infinite;
+}
+.sharp-badge  { animation: floatBadge 3s ease infinite; }
+.momentum-badge { animation: floatBadge 3.5s 0.5s ease infinite; }
+
+.hsc-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px; font-weight: 700;
+  letter-spacing: -0.3px;
+}
+.hsc-tier {
+  margin-left: auto;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; font-weight: 500;
+  padding: 3px 8px; border-radius: 100px;
+  letter-spacing: 0.5px;
+}
+.tier-free   { background: rgba(0,212,170,0.1); color: var(--accent); }
+.tier-basic  { background: rgba(0,149,255,0.1); color: var(--accent2); }
+.tier-vip    { background: rgba(245,200,66,0.1); color: var(--gold); }
+
+.hsc-desc {
+  font-size: 13px; color: var(--text2);
+  font-weight: 300; line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.hsc-labels {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.hsc-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; font-weight: 500;
+  padding: 4px 10px; border-radius: 6px;
+  letter-spacing: 0.3px;
+}
+
+/* Health demo card */
+.health-demo {
+  position: sticky;
+  top: 80px;
+}
+
+.health-demo-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.hdc-topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hdc-dots { display: flex; gap: 5px; }
+.hdc-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+}
+.hdc-dot.r { background: #ff5f57; }
+.hdc-dot.y { background: #febc2e; }
+.hdc-dot.g { background: #28c840; }
+.hdc-url {
+  flex: 1; text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--text3);
+}
+
+.hdc-body { padding: 20px; }
+
+.hdc-stock-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.hdc-sym {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px; font-weight: 800;
+  letter-spacing: -0.5px;
+}
+.hdc-grade {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; padding: 3px 8px;
+  border-radius: 5px; font-weight: 500;
+  background: rgba(0,212,170,0.1);
+  color: var(--accent);
+}
+.hdc-exch {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; padding: 3px 7px;
+  border-radius: 4px;
+  background: rgba(0,149,255,0.1);
+  color: var(--accent2);
+}
+
+.hdc-metrics {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.hdc-m {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+.hdc-m-val {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px; font-weight: 800;
+  letter-spacing: -0.5px;
+}
+.hdc-m-val.green { color: var(--accent); }
+.hdc-m-lbl {
+  font-size: 9px; color: var(--text3);
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.hdc-health-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.hdc-health-title {
+  padding: 10px 14px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; color: var(--text3);
+  letter-spacing: 2px; text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg3);
+}
+.hdc-health-row {
+  display: flex;
+  align-items: center;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  gap: 10px;
+}
+.hdc-health-row:last-child { border-bottom: none; }
+
+.hdc-h-icon {
+  font-size: 14px; width: 20px; flex-shrink: 0;
+}
+.hdc-h-info { flex: 1; }
+.hdc-h-name {
+  font-size: 11px; font-weight: 500; margin-bottom: 2px;
+}
+.hdc-h-desc {
+  font-size: 10px; color: var(--text3);
+  font-family: 'DM Mono', monospace;
+}
+.hdc-h-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; font-weight: 500;
+  padding: 3px 8px; border-radius: 5px;
+  letter-spacing: 0.3px; flex-shrink: 0;
+}
+.fresh-badge      { background: rgba(0,212,170,0.12); color: var(--accent); }
+.sharp-badge      { background: rgba(0,149,255,0.12); color: var(--accent2); }
+.momentum-badge   { background: rgba(168,85,247,0.12); color: var(--purple); }
+.fading-badge     { background: rgba(245,200,66,0.1); color: var(--gold); }
+.stale-badge      { background: rgba(239,68,68,0.1); color: var(--red); }
+.locked-badge     { background: rgba(255,255,255,0.04); color: var(--text3); }
+
+.hdc-action-tip {
+  padding: 10px 14px;
+  background: rgba(0,212,170,0.04);
+  border: 1px solid rgba(0,212,170,0.12);
+  border-radius: 8px;
+  font-size: 11px; color: var(--text2);
+  line-height: 1.5;
+}
+.hdc-action-tip strong { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas" style="position:fixed;inset:0;z-index:0;pointer-events:none;"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="https://stockpatternai.com">
+    <div class="logo-icon">📈</div>
+    StockPattern<span>AI</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#health">Pattern Health</a></li>
+    <li><a href="#plans">Plans</a></li>
+    <li><a href="https://t.me/StockSeasonBot" class="nav-cta">Open Bot ↗</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">
+    <div class="badge-dot"></div>
+    stockpatternai.com &nbsp;·&nbsp; 91,698 Patterns &nbsp;·&nbsp; NSE + BSE
+  </div>
+
+  <h1>
+    India's First<br>
+    <em>Seasonal Pattern</em><br>
+    Intelligence Platform
+  </h1>
+
+  <p class="hero-sub">
+    AI-powered seasonal pattern analysis. 2,355 NSE+BSE stocks. 20 years of data.
+    Not tips. Not guesses. <strong style="color:var(--text);font-weight:500;">Proof.</strong>
+  </p>
+
+  <div class="hero-actions">
+    <a href="https://t.me/StockSeasonBot" class="btn-primary">
+      Start Free on Telegram ↗
+    </a>
+    <a href="#how" class="btn-secondary">
+      See How It Works →
+    </a>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-num">91<span>K+</span></div>
+      <div class="stat-label">Patterns Analyzed</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">2,355</div>
+      <div class="stat-label">NSE + BSE Stocks</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">20<span>yr</span></div>
+      <div class="stat-label">Historical Depth</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">95<span>%+</span></div>
+      <div class="stat-label">A+ Grade Accuracy</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="proof-ticker">
+  <div class="ticker-track" id="ticker">
+    <!-- Cards injected by JS -->
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="content-section">
+  <div class="reveal">
+    <div class="section-label">// How It Works</div>
+    <h2 class="section-title">Three layers of<br>intelligence</h2>
+    <p class="section-sub">Every trade decision is validated through historical patterns, technical analysis, and live market data.</p>
+  </div>
+
+  <div class="how-grid">
+    <div class="phase-list reveal">
+      <div class="phase-item">
+        <div class="phase-num">01</div>
+        <div>
+          <div class="phase-title">Historical Pattern Engine</div>
+          <div class="phase-desc">20 years of NSE + BSE OHLCV data. Seasonal patterns identified, graded, and validated. A+ = 95%+ historical win rate with real year-by-year proof.</div>
+        </div>
+      </div>
+      <div class="phase-item">
+        <div class="phase-num">02</div>
+        <div>
+          <div class="phase-title">Technical Validation</div>
+          <div class="phase-desc">Before entry — EMA 20/50/200, RSI(14), and volume confirmation on both 1-Day and 1-Hour timeframes. Both must confirm for a strong signal.</div>
+        </div>
+      </div>
+      <div class="phase-item">
+        <div class="phase-num">03</div>
+        <div>
+          <div class="phase-title">Confidence Score</div>
+          <div class="phase-desc">0–100 score combining pattern strength, recency, expectancy, technical confirmation, and freshness. 🟢 80+ = High Confidence. No guesswork.</div>
+        </div>
+      </div>
+      <div class="phase-item">
+        <div class="phase-num">04</div>
+        <div>
+          <div class="phase-title">Fundamental + News Filter</div>
+          <div class="phase-desc">Coming soon — fundamental health check and news sentiment analysis. Skip entry if company has negative news or weak fundamentals.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-preview reveal">
+      <div class="dash-topbar">
+        <div class="win-dot red"></div>
+        <div class="win-dot yellow"></div>
+        <div class="win-dot green-d"></div>
+        <div class="dash-url">stockpatternai.com/scanner</div>
+      </div>
+      <div class="dash-body">
+        <div class="dash-scanner-row">
+          <div class="dash-stock-card">
+            <div class="dash-stock-top">
+              <span class="dash-sym">RELIANCE</span>
+              <span class="dash-signal bull">🟢 BULL</span>
+            </div>
+            <div class="dash-company">Reliance Industries Ltd</div>
+            <div class="dash-metrics">
+              <div class="dash-m"><strong>10/10</strong>Win Rate</div>
+              <div class="dash-m"><strong>+18.3%</strong>Avg Return</div>
+              <div class="dash-m"><strong>1:2.4</strong>RR Ratio</div>
+            </div>
+            <div class="conf-bar"><div class="conf-fill" style="width:87%;"></div></div>
+          </div>
+          <div class="dash-stock-card">
+            <div class="dash-stock-top">
+              <span class="dash-sym">HDFCBANK</span>
+              <span class="dash-signal bull">🟢 BULL</span>
+            </div>
+            <div class="dash-company">HDFC Bank Ltd</div>
+            <div class="dash-metrics">
+              <div class="dash-m"><strong>9/10</strong>Win Rate</div>
+              <div class="dash-m"><strong>+12.1%</strong>Avg Return</div>
+              <div class="dash-m"><strong>1:2.1</strong>RR Ratio</div>
+            </div>
+            <div class="conf-bar"><div class="conf-fill" style="width:72%;"></div></div>
+          </div>
+        </div>
+        <div class="dash-scanner-row">
+          <div class="dash-stock-card">
+            <div class="dash-stock-top">
+              <span class="dash-sym">TATASTEEL</span>
+              <span class="dash-signal bear">🔴 BEAR</span>
+            </div>
+            <div class="dash-company">Tata Steel Ltd</div>
+            <div class="dash-metrics">
+              <div class="dash-m"><strong>8/10</strong>Win Rate</div>
+              <div class="dash-m"><strong>+9.6%</strong>Avg Return</div>
+              <div class="dash-m"><strong>1:2.2</strong>RR Ratio</div>
+            </div>
+            <div class="conf-bar"><div class="conf-fill" style="width:65%;"></div></div>
+          </div>
+          <div class="dash-stock-card">
+            <div class="dash-stock-top">
+              <span class="dash-sym">INFY</span>
+              <span class="dash-signal bull">🟢 BULL</span>
+            </div>
+            <div class="dash-company">Infosys Ltd</div>
+            <div class="dash-metrics">
+              <div class="dash-m"><strong>10/10</strong>Win Rate</div>
+              <div class="dash-m"><strong>+15.8%</strong>Avg Return</div>
+              <div class="dash-m"><strong>1:3.1</strong>RR Ratio</div>
+            </div>
+            <div class="conf-bar"><div class="conf-fill" style="width:94%;"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="dash-bottom">
+        <div class="live-indicator"><div class="live-dot"></div> Live · Updated 9 PM IST</div>
+        <span>A+ Grade · 10yr · All Stocks</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="content-section">
+    <div class="reveal" style="text-align:center;margin-bottom:0;">
+      <div class="section-label">// Platform Features</div>
+      <h2 class="section-title">Everything a serious trader needs</h2>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon teal">📊</div>
+        <div class="feature-title">Scanner</div>
+        <div class="feature-desc">Scan next 3–30 days for upcoming patterns. Filter by timeframe, direction, grade, and universe. Both NSE and BSE always included.</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon blue">🔎</div>
+        <div class="feature-title">Analyze Stock</div>
+        <div class="feature-desc">Deep 3-layer analysis for any stock. Pattern summary → pattern list → full detail with T1/T2/SL targets and year-by-year proof.</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon gold">📅</div>
+        <div class="feature-title">Monthly Windows</div>
+        <div class="feature-desc">All A+ patterns for any month across NSE + BSE. Switch between all stocks and the 205-stock Trusted Stocks universe.</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon purple">🏦</div>
+        <div class="feature-title">Trusted Stocks Mode</div>
+        <div class="feature-desc">Curated Nifty100 + bluechips universe. 205 familiar stocks. Relaxed filters for reliability over explosive edge.</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon orange">📄</div>
+        <div class="feature-title">PDF Reports</div>
+        <div class="feature-desc">Dark-designed performance reports with Expectancy, Recency Score, Max Drawdown, and ₹2L simulator. Real data, honest losses.</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon red">🎯</div>
+        <div class="feature-title">Honest Proof Engine</div>
+        <div class="feature-desc">Year-by-year actual results with ₹1L simulation. Wins shown as wins. Losses shown as losses. Data jhooth nahi bolta.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONFIDENCE SCORE -->
+<section class="confidence-section">
+  <div class="conf-inner">
+    <div class="reveal">
+      <div class="section-label">// Confidence Score</div>
+      <h2 class="section-title">Know before<br>you enter</h2>
+      <p class="section-sub" style="margin-top:16px;">Every pattern gets a 0–100 Confidence Score built from your existing data. No external API needed. Just real, honest signal strength.</p>
+
+      <div style="margin-top:32px;display:flex;gap:20px;flex-wrap:wrap;">
+        <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:12px 20px;text-align:center;">
+          <div style="font-size:20px;margin-bottom:4px;">🟢</div>
+          <div style="font-family:'DM Mono',monospace;font-size:13px;color:var(--green);font-weight:500;">80+ Score</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:2px;">High Confidence</div>
+        </div>
+        <div style="background:rgba(245,200,66,0.06);border:1px solid rgba(245,200,66,0.15);border-radius:10px;padding:12px 20px;text-align:center;">
+          <div style="font-size:20px;margin-bottom:4px;">🟡</div>
+          <div style="font-family:'DM Mono',monospace;font-size:13px;color:var(--gold);font-weight:500;">60–79</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:2px;">Moderate</div>
+        </div>
+        <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.12);border-radius:10px;padding:12px 20px;text-align:center;">
+          <div style="font-size:20px;margin-bottom:4px;">🔴</div>
+          <div style="font-family:'DM Mono',monospace;font-size:13px;color:var(--red);font-weight:500;">&lt; 60</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:2px;">Use Caution</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="conf-score-visual">
+        <div class="conf-item">
+          <div class="conf-label">Win Rate (A+)</div>
+          <div class="conf-track"><div class="conf-progress" style="width:100%;background:var(--accent);"></div></div>
+          <div class="conf-pts">30 pts</div>
+        </div>
+        <div class="conf-item">
+          <div class="conf-label">Recency 3yr</div>
+          <div class="conf-track"><div class="conf-progress" style="width:83%;background:var(--accent2);"></div></div>
+          <div class="conf-pts">25 pts</div>
+        </div>
+        <div class="conf-item">
+          <div class="conf-label">Expectancy</div>
+          <div class="conf-track"><div class="conf-progress" style="width:83%;background:var(--purple);"></div></div>
+          <div class="conf-pts">25 pts</div>
+        </div>
+        <div class="conf-item">
+          <div class="conf-label">Data Freshness</div>
+          <div class="conf-track"><div class="conf-progress" style="width:67%;background:var(--gold);"></div></div>
+          <div class="conf-pts">20 pts</div>
+        </div>
+      </div>
+
+      <div class="score-circle">
+        <div class="score-num">87</div>
+        <div class="score-label">Confidence Score</div>
+        <div class="score-badge">🟢 High Confidence — Entry Valid</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PATTERN HEALTH ENGINE — New Section -->
+<section id="health" style="background:var(--bg);border-top:1px solid var(--border);">
+  <div class="health-section">
+    <div class="reveal" style="text-align:center;max-width:640px;margin:0 auto;">
+      <div class="section-label">// Pattern Health Engine · v22.0</div>
+      <h2 class="section-title">Teen signals.<br>Ek decision.</h2>
+      <p class="section-sub" style="margin:16px auto 0;">
+        Sirf historical win rate kaafi nahi hota. Pattern abhi bhi kaam kar raha hai? Return fast aata hai? Pattern improve ho raha hai ya weak pad raha hai? Yeh teeno sawaalon ke jawab — ek jagah.
+      </p>
+    </div>
+
+    <div class="health-intro reveal">
+      <!-- Left: Signal Cards -->
+      <div class="health-signals">
+
+        <!-- Signal 1: Freshness -->
+        <div class="health-signal-card hsc-fresh">
+          <div class="hsc-top">
+            <div class="hsc-icon teal">🔥</div>
+            <div>
+              <div class="hsc-name">Freshness</div>
+            </div>
+            <div class="hsc-tier tier-free">FREE · Sabko</div>
+          </div>
+          <p class="hsc-desc">
+            Pattern <em>abhi bhi</em> kaam kar raha hai ya sirf purana record achha hai? Last 3 saal ki success rate dekh ke pata chalta hai pattern active hai ya stale ho gaya.
+          </p>
+          <div class="hsc-labels">
+            <span class="hsc-label" style="background:rgba(0,212,170,0.1);color:var(--accent);">🔥 FRESH — 3/3 kaam kiya</span>
+            <span class="hsc-label" style="background:rgba(0,149,255,0.1);color:var(--accent2);">✅ ACTIVE — 2/3</span>
+            <span class="hsc-label" style="background:rgba(245,200,66,0.1);color:var(--gold);">⚠️ FADING — 1/3</span>
+            <span class="hsc-label" style="background:rgba(239,68,68,0.1);color:var(--red);">❌ STALE — 0/3</span>
+          </div>
+        </div>
+
+        <!-- Signal 2: Sharpness -->
+        <div class="health-signal-card hsc-sharp">
+          <div class="hsc-top">
+            <div class="hsc-icon blue">⚡</div>
+            <div>
+              <div class="hsc-name">Sharpness</div>
+            </div>
+            <div class="hsc-tier tier-basic">BASIC+</div>
+          </div>
+          <p class="hsc-desc">
+            Return kitna fast aata hai? Ek 30-day pattern mein +18% aur ek 90-day pattern mein +18% — dono alag hain. Sharpness batata hai return per day, taaki aap compare kar sako.
+          </p>
+          <div class="hsc-labels">
+            <span class="hsc-label" style="background:rgba(0,149,255,0.1);color:var(--accent2);">⚡ RAZOR SHARP — 0.5%+/day</span>
+            <span class="hsc-label" style="background:rgba(0,149,255,0.08);color:var(--accent2);">⚡ SHARP — 0.3–0.5%/day</span>
+            <span class="hsc-label" style="background:rgba(255,255,255,0.05);color:var(--text2);">🔆 MODERATE — 0.15–0.3%</span>
+            <span class="hsc-label" style="background:rgba(255,255,255,0.03);color:var(--text3);">🐢 SLOW MOVER</span>
+          </div>
+        </div>
+
+        <!-- Signal 3: Momentum -->
+        <div class="health-signal-card hsc-momentum">
+          <div class="hsc-top">
+            <div class="hsc-icon purple">📈</div>
+            <div>
+              <div class="hsc-name">Momentum</div>
+            </div>
+            <div class="hsc-tier tier-vip">VIP+</div>
+          </div>
+          <p class="hsc-desc">
+            Pattern improve ho raha hai ya weak pad raha hai? Last 3 saal ka average return overall average se compare hota hai. Strengthening pattern = full confidence.
+          </p>
+          <div class="hsc-labels">
+            <span class="hsc-label" style="background:rgba(168,85,247,0.1);color:var(--purple);">📈 STRENGTHENING</span>
+            <span class="hsc-label" style="background:rgba(168,85,247,0.06);color:var(--purple);">📊 STABLE</span>
+            <span class="hsc-label" style="background:rgba(239,68,68,0.08);color:var(--red);">📉 WEAKENING</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right: Live Demo Card -->
+      <div class="health-demo">
+        <div class="health-demo-card">
+          <div class="hdc-topbar">
+            <div class="hdc-dots">
+              <div class="hdc-dot r"></div>
+              <div class="hdc-dot y"></div>
+              <div class="hdc-dot g"></div>
+            </div>
+            <div class="hdc-url">stockpatternai.com · @StockSeasonBot</div>
+          </div>
+
+          <div class="hdc-body">
+            <!-- Stock header -->
+            <div class="hdc-stock-header">
+              <div class="hdc-sym">RELIANCE</div>
+              <div class="hdc-grade">A+</div>
+              <div class="hdc-exch">NSE</div>
+              <div style="margin-left:auto;font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);">May 15 – Jun 20 · 36d</div>
+            </div>
+
+            <!-- Core metrics -->
+            <div class="hdc-metrics">
+              <div class="hdc-m">
+                <div class="hdc-m-val green">10/10</div>
+                <div class="hdc-m-lbl">Win Rate</div>
+              </div>
+              <div class="hdc-m">
+                <div class="hdc-m-val green">+18.3%</div>
+                <div class="hdc-m-lbl">Avg Return</div>
+              </div>
+              <div class="hdc-m">
+                <div class="hdc-m-val" style="color:var(--text);">1:2.4</div>
+                <div class="hdc-m-lbl">RR Ratio</div>
+              </div>
+            </div>
+
+            <!-- Pattern Health Block -->
+            <div class="hdc-health-block">
+              <div class="hdc-health-title">🩺 Pattern Health</div>
+
+              <div class="hdc-health-row">
+                <div class="hdc-h-icon">🔥</div>
+                <div class="hdc-h-info">
+                  <div class="hdc-h-name">Freshness</div>
+                  <div class="hdc-h-desc">Last 3 saal mein 3/3 kaam kiya</div>
+                </div>
+                <div class="hdc-h-badge fresh-badge">FRESH</div>
+              </div>
+
+              <div class="hdc-health-row">
+                <div class="hdc-h-icon">⚡</div>
+                <div class="hdc-h-info">
+                  <div class="hdc-h-name">Sharpness</div>
+                  <div class="hdc-h-desc">0.51% per day — jaldi return</div>
+                </div>
+                <div class="hdc-h-badge sharp-badge">RAZOR SHARP</div>
+              </div>
+
+              <div class="hdc-health-row">
+                <div class="hdc-h-icon">📈</div>
+                <div class="hdc-h-info">
+                  <div class="hdc-h-name">Momentum</div>
+                  <div class="hdc-h-desc">Recent +22.1% vs overall +18.3%</div>
+                </div>
+                <div class="hdc-h-badge momentum-badge">STRENGTHENING</div>
+              </div>
+            </div>
+
+            <!-- Action tip -->
+            <div class="hdc-action-tip">
+              <strong>✔️ Pattern Health: Strong</strong><br>
+              Freshness FRESH + Momentum STRENGTHENING = full position le sakte ho. Pattern abhi bhi peak pe hai.
+            </div>
+
+            <!-- Targets -->
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:12px;">
+              <div style="background:rgba(0,212,170,0.06);border:1px solid rgba(0,212,170,0.15);border-radius:8px;padding:8px;text-align:center;">
+                <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);font-weight:500;">+12%</div>
+                <div style="font-size:9px;color:var(--text3);margin-top:2px;">T1 Target</div>
+              </div>
+              <div style="background:rgba(0,212,170,0.06);border:1px solid rgba(0,212,170,0.15);border-radius:8px;padding:8px;text-align:center;">
+                <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);font-weight:500;">+18%</div>
+                <div style="font-size:9px;color:var(--text3);margin-top:2px;">T2 Target</div>
+              </div>
+              <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.12);border-radius:8px;padding:8px;text-align:center;">
+                <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--red);font-weight:500;">-7.5%</div>
+                <div style="font-size:9px;color:var(--text3);margin-top:2px;">Stop Loss</div>
+              </div>
+            </div>
+
+          </div><!-- /hdc-body -->
+        </div><!-- /health-demo-card -->
+
+        <!-- Comparison: FADING example -->
+        <div style="margin-top:16px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px;">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;">Compare — Same Grade, Different Health</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div style="padding:12px;background:rgba(0,212,170,0.04);border:1px solid rgba(0,212,170,0.15);border-radius:10px;">
+              <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:8px;">RELIANCE <span style="font-size:9px;color:var(--accent);font-family:'DM Mono',monospace;">A+</span></div>
+              <div style="font-size:10px;color:var(--text2);margin-bottom:4px;">🔥 Freshness: <span style="color:var(--accent);">FRESH</span></div>
+              <div style="font-size:10px;color:var(--text2);margin-bottom:4px;">⚡ Sharpness: <span style="color:var(--accent2);">RAZOR SHARP</span></div>
+              <div style="font-size:10px;color:var(--text2);margin-bottom:8px;">📈 Momentum: <span style="color:var(--purple);">STRENGTHENING</span></div>
+              <div style="font-size:10px;font-weight:500;color:var(--accent);">→ Enter karo</div>
+            </div>
+            <div style="padding:12px;background:rgba(239,68,68,0.03);border:1px solid rgba(239,68,68,0.1);border-radius:10px;">
+              <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:8px;">XYZ CORP <span style="font-size:9px;color:var(--accent);font-family:'DM Mono',monospace;">A+</span></div>
+              <div style="font-size:10px;color:var(--text2);margin-bottom:4px;">⚠️ Freshness: <span style="color:var(--gold);">FADING</span></div>
+              <div style="font-size:10px;color:var(--text2);margin-bottom:4px;">🐢 Sharpness: <span style="color:var(--text3);">SLOW MOVER</span></div>
+              <div style="font-size:10px;color:var(--text2);margin-bottom:8px;">📉 Momentum: <span style="color:var(--red);">WEAKENING</span></div>
+              <div style="font-size:10px;font-weight:500;color:var(--text3);">→ Skip karo</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;font-size:11px;color:var(--text3);text-align:center;">Dono A+ hain. Lekin sirf ek enter karne layak hai.</div>
+        </div>
+
+      </div><!-- /health-demo -->
+    </div><!-- /health-intro -->
+  </div>
+</section>
+
+<!-- PLANS -->
+<section id="plans">
+  <div class="plans-section">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-label">// Pricing</div>
+      <h2 class="section-title">Start free.<br>Upgrade when ready.</h2>
+    </div>
+
+    <div class="plans-grid">
+      <div class="plan-card reveal">
+        <div class="plan-name">Free</div>
+        <div class="plan-price free-price">₹0</div>
+        <div class="plan-period">Forever free</div>
+        <ul class="plan-features">
+          <li><span class="feat-check">✓</span> Scanner (3 days)</li>
+          <li><span class="feat-check">✓</span> 10yr timeframe</li>
+          <li><span class="feat-check">✓</span> 3 results per scan</li>
+          <li><span class="feat-check">✓</span> Stock analysis</li>
+          <li><span class="feat-lock">–</span> Year-wise data</li>
+          <li><span class="feat-lock">–</span> PDF reports</li>
+        </ul>
+        <a href="https://t.me/StockSeasonBot" class="plan-cta outline">Start Free</a>
+      </div>
+
+      <div class="plan-card reveal">
+        <div class="plan-name">Basic</div>
+        <div class="plan-price">₹699</div>
+        <div class="plan-period">per month</div>
+        <ul class="plan-features">
+          <li><span class="feat-check">✓</span> Scanner (7 days)</li>
+          <li><span class="feat-check">✓</span> 8yr + 10yr TFs</li>
+          <li><span class="feat-check">✓</span> 5 results per scan</li>
+          <li><span class="feat-check">✓</span> 5yr proof history</li>
+          <li><span class="feat-check">✓</span> PDF reports</li>
+          <li><span class="feat-lock">–</span> All timeframes</li>
+        </ul>
+        <a href="https://t.me/StockSeasonBot" class="plan-cta outline">Subscribe</a>
+      </div>
+
+      <div class="plan-card featured reveal">
+        <div class="plan-badge">Most Popular</div>
+        <div class="plan-name">VIP</div>
+        <div class="plan-price">₹1,499</div>
+        <div class="plan-period">per month</div>
+        <ul class="plan-features">
+          <li><span class="feat-check">✓</span> Scanner (15 days)</li>
+          <li><span class="feat-check">✓</span> All timeframes 3–20yr</li>
+          <li><span class="feat-check">✓</span> 10 results per scan</li>
+          <li><span class="feat-check">✓</span> Full proof history</li>
+          <li><span class="feat-check">✓</span> Trusted Stocks mode</li>
+          <li><span class="feat-check">✓</span> Priority support</li>
+        </ul>
+        <a href="https://t.me/StockSeasonBot" class="plan-cta filled">Subscribe</a>
+      </div>
+
+      <div class="plan-card reveal">
+        <div class="plan-name">Personal</div>
+        <div class="plan-price">₹9,999</div>
+        <div class="plan-period">6 months · save 44%</div>
+        <ul class="plan-features">
+          <li><span class="feat-check">✓</span> Scanner (30 days)</li>
+          <li><span class="feat-check">✓</span> Everything in VIP</li>
+          <li><span class="feat-check">✓</span> 10yr proof history</li>
+          <li><span class="feat-check">✓</span> Confidence Score</li>
+          <li><span class="feat-check">✓</span> Early access features</li>
+          <li><span class="feat-check">✓</span> Direct founder access</li>
+        </ul>
+        <a href="https://t.me/StockSeasonBot" class="plan-cta outline">Subscribe</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STATS -->
+<section class="trust-section">
+  <div class="trust-inner">
+    <div class="reveal">
+      <div class="section-label">// By The Numbers</div>
+      <h2 class="section-title" style="font-size:clamp(28px,3vw,40px);">Built on 20 years of real data</h2>
+    </div>
+    <div class="trust-grid reveal">
+      <div class="trust-card">
+        <div class="trust-num green">91,698</div>
+        <div class="trust-label">Patterns in DB</div>
+      </div>
+      <div class="trust-card">
+        <div class="trust-num blue">2,355</div>
+        <div class="trust-label">NSE + BSE Stocks</div>
+      </div>
+      <div class="trust-card">
+        <div class="trust-num gold">95%+</div>
+        <div class="trust-label">A+ Historical Accuracy</div>
+      </div>
+      <div class="trust-card">
+        <div class="trust-num accent">20 Yrs</div>
+        <div class="trust-label">Data Depth (2005–2026)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="cta-section reveal">
+    <h2>Start making<br><em style="font-style:normal;color:var(--accent);">data-driven</em> decisions</h2>
+    <p>Join free on Telegram. No credit card. No promises. Just 20 years of honest proof.</p>
+    <a href="https://t.me/StockSeasonBot" class="btn-primary" style="font-size:16px;padding:16px 40px;display:inline-flex;">
+      Start Free on @StockSeasonBot ↗
+    </a>
+    <div style="margin-top:16px;font-size:12px;color:var(--text3);font-family:'DM Mono',monospace;">
+      stockpatternai.com &nbsp;·&nbsp; Powered by @StockSeasonBot
+    </div>
+    <div class="disclaimer">
+      ⚠️ StockPattern AI is an educational platform. All data is historical and for informational purposes only. Past performance does not guarantee future results. Always use stop loss. We are not SEBI-registered advisors. Do your own research before investing.<br>
+      <span style="color:var(--text3);margin-top:6px;display:inline-block;">Powered by @StockSeasonBot · stockpatternai.com</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">
+    © 2026 StockPattern AI &nbsp;·&nbsp; NSE + BSE Seasonal Analytics &nbsp;·&nbsp; India<br>
+    <span style="font-size:11px;color:var(--text3);">Powered by @StockSeasonBot · stockpatternai.com</span>
+  </div>
+  <div class="footer-right">
+    <a href="https://t.me/StockSeasonBot">Telegram Bot</a>
+    <a href="https://t.me/StockSeasonSignals">Channel</a>
+    <a href="https://stockpatternai.com/privacy">Privacy</a>
+  </div>
+</footer>
+
+<script>
+/* ── BACKGROUND PARTICLE ANIMATION ── */
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+
+function mkParticle() {
+  return {
+    x: Math.random() * W,
+    y: Math.random() * H,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: (Math.random() - 0.5) * 0.3,
+    r: Math.random() * 1.5 + 0.5,
+    alpha: Math.random() * 0.4 + 0.05,
+    color: ['#00d4aa','#0095ff','#a855f7'][Math.floor(Math.random()*3)]
+  };
+}
+
+function init() {
+  resize();
+  particles = Array.from({length: 120}, mkParticle);
+}
+
+function drawLines() {
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i+1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const d = Math.sqrt(dx*dx + dy*dy);
+      if (d < 140) {
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(0,212,170,${0.04*(1-d/140)})`;
+        ctx.lineWidth = 0.5;
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+  drawLines();
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0) p.x = W;
+    if (p.x > W) p.x = 0;
+    if (p.y < 0) p.y = H;
+    if (p.y > H) p.y = 0;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+    ctx.fillStyle = p.color;
+    ctx.globalAlpha = p.alpha;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  });
+  requestAnimationFrame(animate);
+}
+
+init();
+animate();
+window.addEventListener('resize', () => { init(); });
+
+/* ── TICKER ── */
+const PROOF_DATA = [
+  {sym:'RELIANCE',company:'Reliance Industries',wins:10,total:10,rr:'1:2.4',grade:'A+'},
+  {sym:'HDFCBANK',company:'HDFC Bank Ltd',wins:9,total:10,rr:'1:2.1',grade:'A+'},
+  {sym:'TCS',company:'Tata Consultancy Services',wins:10,total:10,rr:'1:3.1',grade:'A+'},
+  {sym:'INFY',company:'Infosys Ltd',wins:9,total:10,rr:'1:2.8',grade:'A+'},
+  {sym:'SBIN',company:'State Bank of India',wins:8,total:10,rr:'1:2.2',grade:'A+'},
+  {sym:'TITAN',company:'Titan Company Ltd',wins:10,total:10,rr:'1:2.6',grade:'A+'},
+  {sym:'ITC',company:'ITC Ltd',wins:9,total:10,rr:'1:2.0',grade:'A+'},
+  {sym:'LT',company:'Larsen & Toubro Ltd',wins:8,total:10,rr:'1:2.3',grade:'A+'},
+  {sym:'WIPRO',company:'Wipro Ltd',wins:9,total:10,rr:'1:2.5',grade:'A+'},
+  {sym:'KOTAKBANK',company:'Kotak Mahindra Bank',wins:10,total:10,rr:'1:2.7',grade:'A+'},
+  {sym:'AXISBANK',company:'Axis Bank Ltd',wins:8,total:10,rr:'1:2.1',grade:'A+'},
+  {sym:'BAJFINANCE',company:'Bajaj Finance Ltd',wins:9,total:10,rr:'1:3.2',grade:'A+'},
+];
+
+function buildCard(d) {
+  const dots = Array.from({length:d.total}, (_,i) =>
+    `<div class="year-dot ${i >= d.wins ? 'loss':''}"></div>`).join('');
+  return `<div class="proof-card">
+    <div class="proof-card-header">
+      <span class="proof-symbol">${d.sym}</span>
+      <span class="proof-grade">${d.grade}</span>
+    </div>
+    <div class="proof-company">${d.company}</div>
+    <div class="proof-years">${dots}</div>
+    <div class="proof-stats">
+      <div class="proof-winrate">${d.wins}/${d.total}</div>
+      <div class="proof-rr">RR ${d.rr}</div>
+    </div>
+  </div>`;
+}
+
+const ticker = document.getElementById('ticker');
+const double = [...PROOF_DATA, ...PROOF_DATA];
+ticker.innerHTML = double.map(buildCard).join('');
+
+/* ── SCROLL REVEAL ── */
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, {threshold: 0.12});
+reveals.forEach(el => observer.observe(el));
+
+/* ── SMOOTH COUNTER ANIMATION ── */
+function animateCount(el, target, suffix) {
+  let start = 0;
+  const dur = 2000;
+  const step = (timestamp) => {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / dur, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(eased * target).toLocaleString() + (suffix||'');
+    if (progress < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+const statObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const nums = e.target.querySelectorAll('.trust-num');
+      nums.forEach(n => {
+        const t = n.textContent;
+        if (t.includes('91,698')) { n.textContent='0'; animateCount(n,91698,''); }
+        if (t.includes('2,355'))  { n.textContent='0'; animateCount(n,2355,''); }
+      });
+      statObs.unobserve(e.target);
+    }
+  });
+}, {threshold: 0.3});
+document.querySelectorAll('.trust-grid').forEach(el => statObs.observe(el));
+
+/* ── PATTERN HEALTH SECTION — staggered reveal ── */
+const healthObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const cards = e.target.querySelectorAll('.health-signal-card');
+    cards.forEach((card, i) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateX(-20px)';
+      setTimeout(() => {
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1), border-color 0.3s, box-shadow 0.3s';
+        card.style.opacity = '1';
+        card.style.transform = 'translateX(0)';
+      }, i * 120 + 100);
+    });
+    // Demo card slides in from right
+    const demo = e.target.querySelector('.health-demo');
+    if (demo) {
+      demo.style.opacity = '0';
+      demo.style.transform = 'translateX(20px)';
+      setTimeout(() => {
+        demo.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.22,1,0.36,1)';
+        demo.style.opacity = '1';
+        demo.style.transform = 'translateX(0)';
+      }, 200);
+    }
+    healthObs.unobserve(e.target);
+  });
+}, {threshold: 0.1});
+document.querySelectorAll('.health-intro').forEach(el => healthObs.observe(el));
+
+/* ── PATTERN HEALTH DEMO CARD — health row entry animation ── */
+const healthRowObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const rows = e.target.querySelectorAll('.hdc-health-row');
+    rows.forEach((row, i) => {
+      row.style.opacity = '0';
+      row.style.transform = 'translateY(8px)';
+      setTimeout(() => {
+        row.style.transition = 'opacity 0.4s ease, transform 0.4s ease, background 0.15s, padding-left 0.15s';
+        row.style.opacity = '1';
+        row.style.transform = 'translateY(0)';
+      }, i * 100 + 400);
+    });
+    healthRowObs.unobserve(e.target);
+  });
+}, {threshold: 0.2});
+document.querySelectorAll('.health-demo-card').forEach(el => healthRowObs.observe(el));
+
+/* ── FEATURE CARDS — stagger on scroll ── */
+const featureObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const cards = e.target.querySelectorAll('.feature-card');
+    cards.forEach((card, i) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(16px)';
+      setTimeout(() => {
+        card.style.transition = 'opacity 0.4s ease, transform 0.4s ease, border-color 0.25s, box-shadow 0.25s';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, i * 70 + 60);
+    });
+    featureObs.unobserve(e.target);
+  });
+}, {threshold: 0.05});
+document.querySelectorAll('.features-grid').forEach(el => featureObs.observe(el));
+
+/* ── PLAN CARDS — stagger on scroll ── */
+const planObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const cards = e.target.querySelectorAll('.plan-card');
+    cards.forEach((card, i) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px) scale(0.97)';
+      setTimeout(() => {
+        card.style.transition = 'opacity 0.45s ease, transform 0.45s cubic-bezier(0.22,1,0.36,1), border-color 0.25s, box-shadow 0.25s';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0) scale(1)';
+      }, i * 80 + 60);
+    });
+    planObs.unobserve(e.target);
+  });
+}, {threshold: 0.05});
+document.querySelectorAll('.plans-grid').forEach(el => planObs.observe(el));
+
+/* ── TRUST CARDS — scale-in on scroll ── */
+const trustObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const cards = e.target.querySelectorAll('.trust-card');
+    cards.forEach((card, i) => {
+      card.style.opacity = '0';
+      card.style.transform = 'scale(0.9)';
+      setTimeout(() => {
+        card.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1)';
+        card.style.opacity = '1';
+        card.style.transform = 'scale(1)';
+      }, i * 80 + 60);
+    });
+    trustObs.unobserve(e.target);
+  });
+}, {threshold: 0.2});
+document.querySelectorAll('.trust-grid').forEach(el => trustObs.observe(el));
+
+/* ── NAV LINK HOVER — underline slide ── */
+document.querySelectorAll('.nav-links a:not(.nav-cta)').forEach(a => {
+  a.style.position = 'relative';
+  const underline = document.createElement('span');
+  underline.style.cssText = `
+    position:absolute; bottom:-2px; left:0; right:100%;
+    height:1px; background:var(--accent);
+    transition: right 0.25s ease; pointer-events:none;
+  `;
+  a.appendChild(underline);
+  a.addEventListener('mouseenter', () => { underline.style.right = '0'; });
+  a.addEventListener('mouseleave', () => { underline.style.right = '100%'; });
+});
+
+/* ── HERO STATS BAR — count up on load ── */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const statNums = document.querySelectorAll('.stat-num');
+    statNums.forEach(el => {
+      const text = el.innerHTML;
+      if (text.includes('91')) {
+        el.innerHTML = '0<span>K+</span>';
+        animateCount(el.childNodes[0].nodeType === 3
+          ? el : el, 91, 'K+');
+      }
+      if (text.includes('2,355')) {
+        el.textContent = '0';
+        animateCount(el, 2355, '');
+      }
+    });
+  }, 600);
+});
+</script>
+</body>
+</html>
