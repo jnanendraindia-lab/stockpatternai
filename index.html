@@ -3,1318 +3,1062 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StockPattern AI — India's Seasonal Pattern Intelligence Platform</title>
-<meta name="description" content="India's first AI-powered seasonal pattern platform. 2,355 NSE+BSE stocks. 91,698 patterns. 20 years of data. Data jhooth nahi bolta.">
-<meta property="og:title" content="StockPattern AI — Seasonal Pattern Intelligence">
-<meta property="og:description" content="91,698 patterns. 2,355 stocks. NSE+BSE. 20yr data. Powered by @StockSeasonBot.">
+<title>StockPattern AI — Historical Seasonal Patterns for NSE + BSE</title>
+<meta name="description" content="20 years of NSE+BSE historical data. Seasonal patterns analyzed across 2,355 stocks. Wins shown as wins. Losses shown as losses. Educational tool, not financial advice.">
+<meta property="og:title" content="StockPattern AI — Seasonal Pattern Analysis">
+<meta property="og:description" content="Historical seasonal patterns from 20 years of NSE+BSE data. Educational tool. Not tips. Not predictions.">
 <meta property="og:url" content="https://stockpatternai.com">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="StockPattern AI">
 <link rel="canonical" href="https://stockpatternai.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
+/* ══════════════════════════════════════════════
+   DESIGN SYSTEM — Trust-first, clean fintech
+   Font: Inter (body + headings) + DM Mono (data)
+   Colors: #060910 bg · #00d4aa accent · #0095ff blue
+══════════════════════════════════════════════ */
 :root {
-  --bg: #060910;
-  --bg2: #0d1117;
-  --bg3: #111820;
+  --bg:      #060910;
+  --bg2:     #0b1118;
+  --bg3:     #101820;
   --surface: #141c26;
-  --surface2: #1a2333;
-  --border: rgba(255,255,255,0.07);
+  --surface2:#1a2333;
+  --border:  rgba(255,255,255,0.07);
   --border2: rgba(255,255,255,0.12);
-  --text: #e8edf5;
-  --text2: #8a96a8;
-  --text3: #4a5568;
-  --accent: #00d4aa;
+  --text:    #e8edf5;
+  --text2:   #8a96a8;
+  --text3:   #4a5568;
+  --accent:  #00d4aa;
   --accent2: #0095ff;
-  --accent3: #ff6b35;
-  --gold: #f5c842;
-  --green: #22c55e;
-  --red: #ef4444;
-  --purple: #a855f7;
-  --glow: rgba(0,212,170,0.15);
-  --glow2: rgba(0,149,255,0.1);
+  --gold:    #f5c842;
+  --red:     #ef4444;
+  --purple:  #a855f7;
+  --green:   #22c55e;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-  overflow-x: hidden;
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  overflow-x:hidden;
 }
 
-/* ── ANIMATED BACKGROUND ── */
-.bg-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-.bg-canvas canvas { width: 100%; height: 100%; }
+/* CANVAS */
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:rgba(0,212,170,0.2);border-radius:2px;}
 
 /* ── NAV ── */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18px 48px;
-  background: rgba(6,9,16,0.8);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:64px;
+  background:rgba(6,9,16,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
 }
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 20px;
-  letter-spacing: -0.5px;
-  color: var(--text);
-  text-decoration: none;
+.logo{
+  display:flex;align-items:center;gap:10px;
+  font-weight:700;font-size:18px;
+  color:var(--text);text-decoration:none;letter-spacing:-0.3px;
 }
-
-.logo-icon {
-  width: 36px; height: 36px;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
+.logo-mark{
+  width:32px;height:32px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;color:#000;
+  font-family:'DM Mono',monospace;letter-spacing:-0.5px;
 }
-
-.logo span { color: var(--accent); }
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  list-style: none;
+.logo span{color:var(--accent);}
+.nav-links{display:flex;align-items:center;gap:8px;list-style:none;}
+.nav-links a{
+  color:var(--text2);text-decoration:none;font-size:14px;
+  padding:6px 12px;border-radius:6px;
+  transition:color 0.15s;
 }
-
-.nav-links a {
-  color: var(--text2);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 400;
-  transition: color 0.2s;
+.nav-links a:hover{color:var(--text);}
+.nav-cta{
+  background:var(--accent)!important;color:#000!important;
+  font-weight:600!important;padding:8px 18px!important;
+  border-radius:8px!important;transition:opacity 0.2s!important;
 }
-.nav-links a:hover { color: var(--text); }
+.nav-cta:hover{opacity:0.85!important;}
 
-.nav-cta {
-  background: var(--accent);
-  color: #000 !important;
-  padding: 9px 22px;
-  border-radius: 8px;
-  font-weight: 500 !important;
-  font-size: 14px !important;
-  transition: opacity 0.2s !important;
+/* ── SECTIONS ── */
+section{position:relative;z-index:1;}
+.section-inner{max-width:1100px;margin:0 auto;padding:96px 48px;}
+.section-label{
+  font-family:'DM Mono',monospace;
+  font-size:11px;color:var(--accent);
+  letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:14px;
 }
-.nav-cta:hover { opacity: 0.85; color: #000 !important; }
+.section-title{
+  font-size:clamp(28px,3.5vw,44px);
+  font-weight:800;letter-spacing:-1.5px;
+  line-height:1.1;margin-bottom:18px;
+}
+.section-sub{
+  font-size:17px;color:var(--text2);
+  font-weight:300;line-height:1.7;max-width:560px;
+}
 
 /* ── HERO ── */
-.hero {
-  position: relative;
-  z-index: 1;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 120px 48px 80px;
-  text-align: center;
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:120px 48px 80px;text-align:left;
+}
+.hero-inner{
+  max-width:1100px;margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;align-items:center;
+}
+.hero-left{}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--text3);letter-spacing:1.5px;
+  padding:6px 12px;border:1px solid var(--border);
+  border-radius:100px;margin-bottom:24px;
+}
+.hero-eyebrow span{
+  width:6px;height:6px;background:var(--accent);
+  border-radius:50%;display:inline-block;
+}
+.hero h1{
+  font-size:clamp(32px,4vw,52px);
+  font-weight:800;letter-spacing:-2px;
+  line-height:1.05;margin-bottom:20px;
+}
+.hero h1 em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-sub{
+  font-size:17px;color:var(--text2);
+  font-weight:300;line-height:1.7;margin-bottom:12px;
+}
+.hero-honest{
+  font-size:14px;color:var(--text3);
+  font-family:'DM Mono',monospace;
+  padding:12px 16px;background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);border-radius:8px;
+  margin-bottom:28px;line-height:1.6;
+}
+.hero-honest strong{color:var(--text2);}
+
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px;}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent);color:#000;
+  font-weight:600;font-size:15px;
+  padding:13px 24px;border-radius:10px;
+  text-decoration:none;transition:all 0.2s;letter-spacing:-0.2px;
+}
+.btn-primary:hover{background:#00bfa0;transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,212,170,0.25);}
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;color:var(--text2);
+  font-weight:500;font-size:15px;
+  padding:13px 24px;border-radius:10px;
+  border:1px solid var(--border2);
+  text-decoration:none;transition:all 0.2s;
+}
+.btn-secondary:hover{color:var(--text);border-color:var(--accent);}
+
+.hero-steps{
+  display:flex;flex-direction:column;gap:8px;
+}
+.hero-step{
+  display:flex;align-items:center;gap:10px;
+  font-size:13px;color:var(--text3);
+}
+.step-num{
+  width:22px;height:22px;border-radius:50%;
+  background:var(--surface);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);
+  flex-shrink:0;
+}
+.step-arrow{color:var(--accent);font-size:11px;}
+
+/* ── HERO RIGHT — PROOF CARD ── */
+.hero-proof-card{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:16px;overflow:hidden;
+}
+.hpc-header{
+  padding:14px 18px;border-bottom:1px solid var(--border);
+  background:var(--bg3);
+  display:flex;align-items:center;gap:8px;
+}
+.hpc-dot{
+  width:7px;height:7px;border-radius:50%;
+}
+.hpc-dot.r{background:#ff5f57;}
+.hpc-dot.y{background:#febc2e;}
+.hpc-dot.g{background:#28c840;}
+.hpc-title{
+  margin-left:6px;font-family:'DM Mono',monospace;
+  font-size:10px;color:var(--text3);
+}
+.hpc-badge{
+  margin-left:auto;font-family:'DM Mono',monospace;
+  font-size:9px;color:var(--accent);
+  background:rgba(0,212,170,0.08);
+  padding:3px 8px;border-radius:4px;
 }
 
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(0,212,170,0.08);
-  border: 1px solid rgba(0,212,170,0.2);
-  border-radius: 100px;
-  padding: 6px 16px;
-  font-size: 13px;
-  color: var(--accent);
-  margin-bottom: 28px;
-  font-family: 'DM Mono', monospace;
-  letter-spacing: 0.5px;
-  animation: fadeUp 0.6s ease both;
+.hpc-body{padding:18px;}
+.hpc-stock-name{
+  font-size:17px;font-weight:700;letter-spacing:-0.5px;
+  margin-bottom:2px;
 }
+.hpc-stock-meta{
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--text3);margin-bottom:16px;
+}
+.hpc-metrics{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:8px;margin-bottom:16px;
+}
+.hpc-m{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;padding:10px;text-align:center;
+}
+.hpc-m-val{
+  font-weight:700;font-size:16px;letter-spacing:-0.5px;
+  margin-bottom:2px;
+}
+.hpc-m-val.green{color:var(--accent);}
+.hpc-m-lbl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;}
 
-.badge-dot {
-  width: 6px; height: 6px;
-  background: var(--accent);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
+.hpc-proof-label{
+  font-family:'DM Mono',monospace;font-size:9px;
+  color:var(--text3);letter-spacing:1.5px;
+  text-transform:uppercase;margin-bottom:10px;
 }
+.hpc-years{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
+.hpc-yr{
+  display:flex;align-items:center;gap:10px;
+  font-family:'DM Mono',monospace;font-size:11px;
+}
+.hpc-yr-label{color:var(--text3);min-width:34px;}
+.hpc-yr-bar{
+  flex:1;height:3px;background:rgba(0,212,170,0.08);
+  border-radius:2px;overflow:hidden;
+}
+.hpc-yr-fill{height:100%;background:var(--accent);border-radius:2px;}
+.hpc-yr-ret{color:var(--accent);font-weight:500;min-width:44px;text-align:right;}
+.hpc-yr-res{font-size:10px;color:var(--accent);}
+/* loss year */
+.hpc-yr-fill.loss{background:var(--red);}
+.hpc-yr-ret.loss{color:var(--red);}
+.hpc-yr-res.loss{color:var(--red);}
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.8); }
-}
-
-.hero h1 {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(48px, 7vw, 88px);
-  font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: -3px;
-  margin-bottom: 24px;
-  animation: fadeUp 0.7s 0.1s ease both;
-}
-
-.hero h1 em {
-  font-style: normal;
-  background: linear-gradient(90deg, var(--accent), var(--accent2), var(--purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.hero-sub {
-  font-size: clamp(17px, 2.2vw, 22px);
-  color: var(--text2);
-  max-width: 620px;
-  font-weight: 300;
-  margin-bottom: 40px;
-  animation: fadeUp 0.7s 0.2s ease both;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  margin-bottom: 60px;
-  animation: fadeUp 0.7s 0.3s ease both;
-}
-
-.btn-primary {
-  background: var(--accent);
-  color: #000;
-  padding: 14px 32px;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 15px;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.2s;
-  letter-spacing: -0.2px;
-}
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,212,170,0.35); }
-
-.btn-secondary {
-  background: var(--surface);
-  color: var(--text);
-  padding: 14px 28px;
-  border-radius: 10px;
-  font-weight: 500;
-  font-size: 15px;
-  text-decoration: none;
-  border: 1px solid var(--border2);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.2s;
-}
-.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
-
-/* ── STATS BAR ── */
-.stats-bar {
-  display: flex;
-  gap: 48px;
-  animation: fadeUp 0.7s 0.4s ease both;
-}
-
-.stat {
-  text-align: center;
-}
-.stat-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: -1px;
-}
-.stat-num span { color: var(--accent); }
-.stat-label {
-  font-size: 12px;
-  color: var(--text3);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 2px;
-}
-.stat-divider {
-  width: 1px;
-  background: var(--border2);
-  align-self: stretch;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ── PROOF SECTION ── */
-section {
-  position: relative;
-  z-index: 1;
-}
-
-.section-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 16px;
-}
-
-.section-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(32px, 4vw, 52px);
-  font-weight: 700;
-  letter-spacing: -2px;
-  line-height: 1.1;
-  margin-bottom: 16px;
-}
-
-.section-sub {
-  color: var(--text2);
-  font-size: 17px;
-  font-weight: 300;
-  max-width: 520px;
+.hpc-footer{
+  padding:10px 14px;background:rgba(239,68,68,0.04);
+  border:1px solid rgba(239,68,68,0.1);border-radius:8px;
+  font-size:11px;color:var(--text3);
 }
 
 /* ── PROOF TICKER ── */
-.proof-ticker {
-  padding: 64px 0 80px;
-  overflow: hidden;
+.proof-ticker{
+  overflow:hidden;border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  background:var(--bg2);padding:16px 0;
+  position:relative;z-index:1;
 }
+.ticker-track{display:flex;gap:16px;animation:ticker 45s linear infinite;}
+.ticker-track:hover{animation-play-state:paused;}
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
-.ticker-track {
-  display: flex;
-  gap: 16px;
-  animation: ticker 30s linear infinite;
-  width: max-content;
+.proof-card{
+  flex-shrink:0;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:14px 16px;width:200px;
+  transition:border-color 0.2s;
 }
-
-.ticker-track:hover { animation-play-state: paused; }
-
-.proof-card {
-  flex-shrink: 0;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 20px 24px;
-  width: 280px;
-  transition: border-color 0.2s;
-  cursor: default;
+.proof-card:hover{border-color:rgba(0,212,170,0.2);}
+.proof-card-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:4px;
 }
-.proof-card:hover { border-color: var(--border2); }
-
-.proof-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 14px;
+.proof-symbol{font-weight:700;font-size:13px;letter-spacing:-0.3px;}
+.proof-grade{
+  font-family:'DM Mono',monospace;font-size:9px;
+  background:rgba(0,212,170,0.1);color:var(--accent);
+  padding:2px 6px;border-radius:4px;
 }
-
-.proof-symbol {
-  font-family: 'DM Mono', monospace;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--accent2);
-  background: rgba(0,149,255,0.08);
-  padding: 4px 10px;
-  border-radius: 6px;
+.proof-company{font-size:10px;color:var(--text3);margin-bottom:10px;}
+.proof-years{display:flex;gap:3px;margin-bottom:8px;}
+.year-dot{
+  width:9px;height:9px;border-radius:50%;
+  background:var(--accent);
 }
-
-.proof-grade {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--gold);
-  background: rgba(245,200,66,0.08);
-  padding: 4px 10px;
-  border-radius: 6px;
-  letter-spacing: 0.5px;
+.year-dot.loss{background:var(--red);}
+.proof-stats{display:flex;justify-content:space-between;}
+.proof-winrate{
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--accent);font-weight:500;
 }
+.proof-rr{font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);}
 
-.proof-company {
-  font-size: 13px;
-  color: var(--text2);
-  margin-bottom: 14px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+/* ── HONEST SECTION ── */
+.honest-section{
+  background:var(--bg2);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
 }
-
-.proof-years {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-bottom: 14px;
+.honest-inner{
+  max-width:1100px;margin:0 auto;padding:80px 48px;
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;
 }
-
-.year-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--green);
+.honest-left .section-title{font-size:clamp(24px,2.8vw,36px);}
+.not-list,.is-list{
+  list-style:none;margin-top:20px;
+  display:flex;flex-direction:column;gap:10px;
 }
-.year-dot.loss { background: var(--red); }
-
-.proof-stats {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+.not-list li,.is-list li{
+  font-size:14px;display:flex;align-items:flex-start;gap:10px;
+  color:var(--text2);line-height:1.5;
 }
+.not-icon{color:var(--red);font-size:13px;margin-top:2px;flex-shrink:0;}
+.is-icon{color:var(--accent);font-size:13px;margin-top:2px;flex-shrink:0;}
+.not-list li strong,.is-list li strong{color:var(--text);font-weight:500;}
 
-.proof-winrate {
-  font-family: 'Syne', sans-serif;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--green);
+.honest-right{}
+.honest-right-title{
+  font-size:16px;font-weight:600;margin-bottom:16px;
+  letter-spacing:-0.3px;
 }
-
-.proof-rr {
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  color: var(--text3);
+.honest-example-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;overflow:hidden;
 }
-
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+.hec-header{
+  padding:10px 16px;border-bottom:1px solid var(--border);
+  background:var(--bg3);
+  font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);
+  letter-spacing:1px;
+  display:flex;align-items:center;justify-content:space-between;
 }
-
-/* ── MAIN CONTENT ── */
-.content-section {
-  padding: 100px 48px;
-  max-width: 1200px;
-  margin: 0 auto;
+.hec-rows{padding:12px 16px;display:flex;flex-direction:column;gap:8px;}
+.hec-row{
+  display:flex;align-items:center;gap:10px;
+  font-family:'DM Mono',monospace;font-size:12px;
+}
+.hec-year{color:var(--text3);min-width:36px;}
+.hec-result-win{color:var(--accent);}
+.hec-result-loss{color:var(--red);}
+.hec-bar{
+  flex:1;height:4px;border-radius:2px;
+  background:rgba(255,255,255,0.04);overflow:hidden;
+}
+.hec-bar-fill{height:100%;border-radius:2px;}
+.hec-bar-fill.win{background:var(--accent);}
+.hec-bar-fill.loss{background:var(--red);}
+.hec-val-win{color:var(--accent);font-weight:500;min-width:48px;text-align:right;}
+.hec-val-loss{color:var(--red);font-weight:500;min-width:48px;text-align:right;}
+.hec-footer{
+  padding:10px 16px;border-top:1px solid var(--border);
+  background:var(--bg3);font-size:11px;color:var(--text3);
+  font-family:'DM Mono',monospace;
 }
 
 /* ── HOW IT WORKS ── */
-.how-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-  margin-top: 60px;
+.how-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:64px;align-items:start;margin-top:48px;
+}
+.steps-list{display:flex;flex-direction:column;gap:0;}
+.step-item{
+  display:flex;gap:20px;
+  padding:20px 0;border-bottom:1px solid var(--border);
+}
+.step-item:last-child{border-bottom:none;}
+.step-badge{
+  width:32px;height:32px;border-radius:8px;
+  background:var(--surface);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--text3);flex-shrink:0;
+  transition:all 0.2s;
+}
+.step-item:hover .step-badge{
+  background:rgba(0,212,170,0.08);
+  border-color:rgba(0,212,170,0.2);color:var(--accent);
+}
+.step-content{}
+.step-title{font-size:15px;font-weight:600;margin-bottom:6px;letter-spacing:-0.3px;}
+.step-desc{font-size:13px;color:var(--text2);line-height:1.6;}
+.step-tag{
+  display:inline-block;margin-top:8px;
+  font-family:'DM Mono',monospace;font-size:9px;
+  padding:2px 8px;border-radius:4px;letter-spacing:0.5px;
+}
+.tag-live{background:rgba(0,212,170,0.08);color:var(--accent);}
+.tag-soon{background:rgba(0,149,255,0.08);color:var(--accent2);}
+.tag-dev{background:rgba(255,255,255,0.04);color:var(--text3);}
+
+.how-right{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:16px;overflow:hidden;position:sticky;top:80px;
+}
+.how-right-header{
+  padding:12px 16px;border-bottom:1px solid var(--border);
+  background:var(--bg3);display:flex;align-items:center;gap:6px;
+}
+.win-dot{width:9px;height:9px;border-radius:50%;}
+.win-dot.r{background:#ff5f57;}
+.win-dot.y{background:#febc2e;}
+.win-dot.g{background:#28c840;}
+.dash-url{
+  margin-left:8px;font-family:'DM Mono',monospace;
+  font-size:10px;color:var(--text3);
+}
+.how-right-body{padding:16px;}
+.scan-row{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px;border-radius:8px;
+  background:var(--surface);border:1px solid var(--border);
+  margin-bottom:8px;transition:border-color 0.2s;
+}
+.scan-row:hover{border-color:rgba(0,212,170,0.15);}
+.scan-sym{font-weight:700;font-size:13px;letter-spacing:-0.3px;min-width:80px;}
+.scan-dir{
+  font-family:'DM Mono',monospace;font-size:10px;
+  padding:2px 7px;border-radius:4px;font-weight:500;
+}
+.dir-bull{background:rgba(0,212,170,0.08);color:var(--accent);}
+.dir-bear{background:rgba(239,68,68,0.08);color:var(--red);}
+.scan-ret{
+  font-family:'DM Mono',monospace;font-size:12px;font-weight:500;
+  margin-left:auto;
+}
+.scan-ret.pos{color:var(--accent);}
+.scan-ret.neg{color:var(--red);}
+.scan-win{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);}
+.scan-grade{
+  font-family:'DM Mono',monospace;font-size:9px;
+  background:rgba(0,212,170,0.08);color:var(--accent);
+  padding:2px 6px;border-radius:4px;
+}
+.how-right-footer{
+  padding:10px 16px;border-top:1px solid var(--border);
+  background:var(--bg3);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.data-note{font-family:'DM Mono',monospace;font-size:9px;color:var(--text3);}
+
+/* ── FEATURES ── */
+.features-section{
+  background:var(--bg2);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.features-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:16px;margin-top:48px;
+}
+.feat-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:24px;
+  transition:all 0.2s;position:relative;overflow:hidden;
+}
+.feat-card:hover{border-color:var(--border2);transform:translateY(-2px);}
+.feat-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:0;transition:opacity 0.2s;
+}
+.feat-card:hover::before{opacity:1;}
+.feat-icon{
+  width:40px;height:40px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;margin-bottom:16px;
+}
+.feat-icon.teal{background:rgba(0,212,170,0.08);}
+.feat-icon.blue{background:rgba(0,149,255,0.08);}
+.feat-icon.gold{background:rgba(245,200,66,0.08);}
+.feat-icon.purple{background:rgba(168,85,247,0.08);}
+.feat-icon.red{background:rgba(239,68,68,0.08);}
+.feat-icon.green{background:rgba(34,197,94,0.08);}
+.feat-title{font-size:15px;font-weight:600;margin-bottom:8px;letter-spacing:-0.3px;}
+.feat-desc{font-size:13px;color:var(--text2);line-height:1.65;}
+.feat-status{
+  margin-top:12px;display:inline-block;
+  font-family:'DM Mono',monospace;font-size:9px;
+  padding:2px 8px;border-radius:4px;letter-spacing:0.5px;
+}
+.feat-live{background:rgba(0,212,170,0.08);color:var(--accent);}
+.feat-soon{background:rgba(0,149,255,0.08);color:var(--accent2);}
+.feat-dev{background:rgba(255,255,255,0.04);color:var(--text3);}
+
+/* ── PATTERN HEALTH ── */
+.health-section{max-width:1100px;margin:0 auto;padding:96px 48px;}
+.health-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:64px;align-items:start;margin-top:48px;
+}
+.health-cards{display:flex;flex-direction:column;gap:16px;}
+.health-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:20px;
+  position:relative;overflow:hidden;
+  transition:all 0.25s;
+}
+.health-card:hover{border-color:var(--border2);transform:translateX(4px);}
+.health-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;
+  width:3px;border-radius:3px 0 0 3px;
+}
+.hc-fresh::before{background:var(--accent);}
+.hc-sharp::before{background:var(--accent2);}
+.hc-momentum::before{background:var(--purple);}
+.hc-top{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.hc-icon{
+  width:34px;height:34px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;flex-shrink:0;
+}
+.hc-icon.teal{background:rgba(0,212,170,0.08);}
+.hc-icon.blue{background:rgba(0,149,255,0.08);}
+.hc-icon.purple{background:rgba(168,85,247,0.08);}
+.hc-name{font-size:14px;font-weight:600;letter-spacing:-0.3px;}
+.hc-tier{
+  margin-left:auto;font-family:'DM Mono',monospace;
+  font-size:9px;padding:3px 8px;border-radius:100px;letter-spacing:0.5px;
+}
+.tier-all{background:rgba(0,212,170,0.08);color:var(--accent);}
+.tier-basic{background:rgba(0,149,255,0.08);color:var(--accent2);}
+.tier-vip{background:rgba(245,200,66,0.08);color:var(--gold);}
+.hc-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:12px;}
+.hc-labels{display:flex;gap:6px;flex-wrap:wrap;}
+.hc-label{
+  font-family:'DM Mono',monospace;font-size:10px;
+  padding:3px 9px;border-radius:5px;letter-spacing:0.2px;
 }
 
-.phase-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+.health-demo-wrap{position:sticky;top:80px;}
+.health-demo-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:14px;overflow:hidden;transition:box-shadow 0.3s;
 }
-
-.phase-item {
-  display: flex;
-  gap: 20px;
-  padding: 24px 0;
-  border-bottom: 1px solid var(--border);
-  cursor: pointer;
-  transition: all 0.2s;
+.health-demo-card:hover{box-shadow:0 20px 48px rgba(0,0,0,0.4);}
+.hdc-bar{
+  padding:11px 16px;border-bottom:1px solid var(--border);
+  background:var(--bg3);display:flex;align-items:center;gap:6px;
 }
-.phase-item:last-child { border-bottom: none; }
-.phase-item:hover .phase-title { color: var(--accent); }
-
-.phase-num {
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  color: var(--text3);
-  padding-top: 3px;
-  min-width: 28px;
+.hdc-dots{display:flex;gap:5px;}
+.hdc-dot{width:9px;height:9px;border-radius:50%;}
+.hdc-dot.r{background:#ff5f57;} .hdc-dot.y{background:#febc2e;} .hdc-dot.g{background:#28c840;}
+.hdc-url{flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);}
+.hdc-body{padding:16px;}
+.hdc-sym{font-size:16px;font-weight:700;letter-spacing:-0.3px;margin-bottom:2px;}
+.hdc-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);margin-bottom:14px;}
+.hdc-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.hdc-m{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;padding:9px;text-align:center;
 }
-
-.phase-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: -0.5px;
-  margin-bottom: 6px;
-  transition: color 0.2s;
+.hdc-m-val{font-size:15px;font-weight:700;letter-spacing:-0.5px;margin-bottom:2px;}
+.hdc-m-val.g{color:var(--accent);}
+.hdc-m-lbl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;}
+.hdc-ph-block{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;overflow:hidden;margin-bottom:12px;
 }
-
-.phase-desc {
-  font-size: 14px;
-  color: var(--text2);
-  font-weight: 300;
-  line-height: 1.6;
+.hdc-ph-header{
+  padding:8px 14px;border-bottom:1px solid var(--border);
+  background:var(--bg3);font-family:'DM Mono',monospace;
+  font-size:9px;color:var(--text3);letter-spacing:2px;text-transform:uppercase;
 }
-
-/* ── DASHBOARD PREVIEW ── */
-.dashboard-preview {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  overflow: hidden;
-  position: relative;
+.hdc-ph-row{
+  display:flex;align-items:center;padding:10px 14px;
+  border-bottom:1px solid var(--border);gap:10px;
+  transition:padding-left 0.15s;
 }
-
-.dash-topbar {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 14px 20px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.hdc-ph-row:last-child{border-bottom:none;}
+.hdc-ph-row:hover{padding-left:18px;}
+.hdc-ph-icon{font-size:13px;width:18px;flex-shrink:0;}
+.hdc-ph-info{flex:1;}
+.hdc-ph-name{font-size:11px;font-weight:500;margin-bottom:1px;}
+.hdc-ph-desc{font-family:'DM Mono',monospace;font-size:9px;color:var(--text3);}
+.hdc-ph-badge{
+  font-family:'DM Mono',monospace;font-size:10px;font-weight:500;
+  padding:3px 8px;border-radius:5px;flex-shrink:0;
 }
-
-.win-dot {
-  width: 10px; height: 10px;
-  border-radius: 50%;
+.badge-fresh{background:rgba(0,212,170,0.1);color:var(--accent);}
+.badge-sharp{background:rgba(0,149,255,0.1);color:var(--accent2);}
+.badge-str{background:rgba(168,85,247,0.1);color:var(--purple);}
+.hdc-tip{
+  padding:10px 14px;background:rgba(0,212,170,0.04);
+  border:1px solid rgba(0,212,170,0.1);border-radius:8px;
+  font-size:11px;color:var(--text2);line-height:1.5;
 }
-.win-dot.red { background: #ff5f57; }
-.win-dot.yellow { background: #febc2e; }
-.win-dot.green-d { background: #28c840; }
-
-.dash-url {
-  flex: 1;
-  text-align: center;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--text3);
+.hdc-tip strong{color:var(--accent);}
+.health-compare{
+  margin-top:14px;background:var(--surface);
+  border:1px solid var(--border);border-radius:12px;padding:16px;
 }
-
-.dash-body {
-  padding: 20px;
+.hcmp-label{
+  font-family:'DM Mono',monospace;font-size:9px;color:var(--text3);
+  letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;
 }
-
-.dash-scanner-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.dash-stock-card {
-  background: var(--surface2);
-  border-radius: 10px;
-  padding: 14px;
-  border: 1px solid var(--border);
-  transition: border-color 0.2s;
-}
-.dash-stock-card:hover { border-color: rgba(0,212,170,0.3); }
-
-.dash-stock-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.dash-sym {
-  font-family: 'DM Mono', monospace;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text);
-}
-
-.dash-signal {
-  font-size: 11px;
-  font-weight: 600;
-  padding: 3px 8px;
-  border-radius: 5px;
-}
-.dash-signal.bull { background: rgba(34,197,94,0.12); color: var(--green); }
-.dash-signal.bear { background: rgba(239,68,68,0.1); color: var(--red); }
-
-.dash-company {
-  font-size: 11px;
-  color: var(--text3);
-  margin-bottom: 10px;
-}
-
-.dash-metrics {
-  display: flex;
-  gap: 12px;
-}
-
-.dash-m {
-  font-size: 11px;
-  color: var(--text2);
-}
-.dash-m strong {
-  display: block;
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  color: var(--text);
-  font-weight: 500;
-}
-
-/* confidence bar */
-.conf-bar {
-  margin-top: 10px;
-  height: 3px;
-  background: var(--border);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.conf-fill {
-  height: 100%;
-  border-radius: 2px;
-  background: linear-gradient(90deg, var(--accent2), var(--accent));
-}
-
-.dash-bottom {
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  padding: 12px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 12px;
-  color: var(--text3);
-}
-
-.live-indicator {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--accent);
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-}
-.live-dot {
-  width: 6px; height: 6px;
-  background: var(--accent);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-/* ── FEATURES GRID ── */
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-top: 60px;
-}
-
-.feature-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 28px;
-  transition: all 0.25s;
-  position: relative;
-  overflow: hidden;
-}
-
-.feature-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.feature-card:hover {
-  border-color: var(--border2);
-  transform: translateY(-3px);
-}
-.feature-card:hover::before { opacity: 1; }
-
-.feature-icon {
-  width: 44px; height: 44px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  margin-bottom: 20px;
-}
-.feature-icon.teal { background: rgba(0,212,170,0.1); }
-.feature-icon.blue { background: rgba(0,149,255,0.1); }
-.feature-icon.gold { background: rgba(245,200,66,0.1); }
-.feature-icon.purple { background: rgba(168,85,247,0.1); }
-.feature-icon.red { background: rgba(239,68,68,0.1); }
-.feature-icon.orange { background: rgba(255,107,53,0.1); }
-
-.feature-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: -0.5px;
-  margin-bottom: 10px;
-}
-
-.feature-desc {
-  font-size: 14px;
-  color: var(--text2);
-  font-weight: 300;
-  line-height: 1.65;
-}
-
-/* ── CONFIDENCE SECTION ── */
-.confidence-section {
-  padding: 100px 48px;
-  background: var(--bg2);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-
-.conf-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-
-.conf-score-visual {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.conf-item {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.conf-label {
-  font-size: 13px;
-  color: var(--text2);
-  min-width: 140px;
-  font-family: 'DM Mono', monospace;
-}
-
-.conf-track {
-  flex: 1;
-  height: 6px;
-  background: var(--border);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.conf-progress {
-  height: 100%;
-  border-radius: 3px;
-  animation: growBar 1.5s ease both;
-}
-
-@keyframes growBar {
-  from { width: 0; }
-}
-
-.conf-pts {
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  color: var(--text3);
-  min-width: 48px;
-  text-align: right;
-}
-
-.score-circle {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  margin-top: 24px;
-  padding: 28px;
-  background: rgba(0,212,170,0.04);
-  border: 1px solid rgba(0,212,170,0.15);
-  border-radius: 16px;
-}
-
-.score-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 56px;
-  font-weight: 800;
-  color: var(--accent);
-  letter-spacing: -3px;
-  line-height: 1;
-}
-
-.score-label {
-  font-size: 12px;
-  color: var(--text3);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-}
-
-.score-badge {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--accent);
-  background: rgba(0,212,170,0.1);
-  padding: 6px 16px;
-  border-radius: 100px;
-}
+.hcmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.hcmp-card{padding:12px;border-radius:8px;}
+.hcmp-enter{background:rgba(0,212,170,0.04);border:1px solid rgba(0,212,170,0.12);}
+.hcmp-skip{background:rgba(239,68,68,0.03);border:1px solid rgba(239,68,68,0.1);}
+.hcmp-sym{font-size:13px;font-weight:600;margin-bottom:8px;letter-spacing:-0.3px;}
+.hcmp-row{font-size:10px;color:var(--text2);margin-bottom:4px;}
+.hcmp-verdict{font-size:10px;font-weight:500;margin-top:8px;}
 
 /* ── PLANS ── */
-.plans-section {
-  padding: 100px 48px;
-  max-width: 1100px;
-  margin: 0 auto;
+.plans-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:14px;margin-top:48px;
+}
+.plan-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:24px;
+  transition:all 0.2s;position:relative;
+}
+.plan-card:hover{border-color:var(--border2);transform:translateY(-2px);}
+.plan-card.featured{
+  border-color:rgba(0,212,170,0.3);
+  background:linear-gradient(180deg,rgba(0,212,170,0.03) 0%,var(--surface) 100%);
+}
+.plan-popular{
+  position:absolute;top:-11px;left:50%;transform:translateX(-50%);
+  background:var(--accent);color:#000;font-size:9px;font-weight:700;
+  padding:3px 12px;border-radius:100px;letter-spacing:0.5px;white-space:nowrap;
+  font-family:'DM Mono',monospace;
+}
+.plan-tier{
+  font-family:'DM Mono',monospace;font-size:9px;color:var(--text3);
+  letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;
+}
+.plan-price{
+  font-size:32px;font-weight:800;letter-spacing:-2px;
+  margin-bottom:4px;
+}
+.plan-price.free-color{color:var(--accent);}
+.plan-period{font-size:11px;color:var(--text3);margin-bottom:20px;font-family:'DM Mono',monospace;}
+.plan-feats{
+  list-style:none;margin-bottom:20px;
+  display:flex;flex-direction:column;gap:9px;
+}
+.plan-feats li{font-size:13px;color:var(--text2);display:flex;align-items:flex-start;gap:8px;}
+.feat-on{color:var(--accent);margin-top:1px;flex-shrink:0;}
+.feat-off{color:var(--text3);margin-top:1px;flex-shrink:0;}
+.plan-feats li.off{color:var(--text3);}
+.plan-btn{
+  width:100%;padding:10px;border-radius:8px;
+  font-size:13px;font-weight:600;text-align:center;
+  text-decoration:none;display:block;transition:all 0.2s;
+  font-family:'Inter',sans-serif;cursor:pointer;border:none;
+}
+.plan-btn.outline{
+  background:transparent;border:1px solid var(--border2);color:var(--text);
+}
+.plan-btn.outline:hover{border-color:var(--accent);color:var(--accent);}
+.plan-btn.filled{background:var(--accent);color:#000;}
+.plan-btn.filled:hover{background:#00bfa0;}
+
+/* ── FOUNDER ── */
+.founder-section{
+  background:var(--bg2);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.founder-inner{
+  max-width:1100px;margin:0 auto;padding:80px 48px;
+  display:grid;grid-template-columns:auto 1fr;gap:48px;align-items:start;
+}
+.founder-avatar{
+  width:80px;height:80px;border-radius:50%;
+  background:linear-gradient(135deg,var(--surface2),var(--surface));
+  border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;position:relative;
+}
+.founder-avatar-placeholder{
+  font-size:28px;font-weight:700;color:var(--text3);
+  font-family:'DM Mono',monospace;letter-spacing:-1px;
+}
+/* Add photo later — just swap img src */
+.founder-avatar-img{
+  width:80px;height:80px;border-radius:50%;
+  object-fit:cover;display:none;/* show when photo ready */
 }
 
-.plans-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-top: 60px;
+.founder-content{}
+.founder-name{
+  font-size:20px;font-weight:700;letter-spacing:-0.5px;
+  margin-bottom:4px;
+}
+.founder-handle{
+  font-family:'DM Mono',monospace;font-size:12px;color:var(--text3);
+  margin-bottom:20px;
+}
+.founder-handle a{color:var(--accent);text-decoration:none;}
+.founder-handle a:hover{text-decoration:underline;}
+.founder-story{
+  font-size:15px;color:var(--text2);line-height:1.8;
+  font-weight:300;margin-bottom:20px;max-width:580px;
+}
+.founder-story strong{color:var(--text);font-weight:500;}
+.founder-tags{display:flex;gap:8px;flex-wrap:wrap;}
+.founder-tag{
+  font-family:'DM Mono',monospace;font-size:10px;
+  padding:4px 10px;border-radius:5px;
+  background:var(--surface);border:1px solid var(--border);
+  color:var(--text3);letter-spacing:0.3px;
 }
 
-.plan-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 28px 24px;
-  transition: all 0.25s;
-  position: relative;
+/* ── FEEDBACK ── */
+.feedback-section{max-width:1100px;margin:0 auto;padding:80px 48px;}
+.feedback-inner{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:40px;
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
+}
+.feedback-left .section-title{font-size:28px;}
+.feedback-left .section-sub{font-size:15px;margin-top:12px;}
+.feedback-right{display:flex;flex-direction:column;gap:12px;}
+.feedback-option{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 18px;background:var(--bg2);
+  border:1px solid var(--border);border-radius:10px;
+  text-decoration:none;color:var(--text2);font-size:14px;
+  transition:all 0.2s;
+}
+.feedback-option:hover{border-color:rgba(0,212,170,0.2);color:var(--text);}
+.feedback-icon{font-size:18px;flex-shrink:0;}
+.feedback-label{font-weight:500;}
+.feedback-sub{font-size:12px;color:var(--text3);}
+
+/* ── TRUST STATS ── */
+.trust-section{
+  background:var(--bg2);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.trust-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:20px;margin-top:48px;
+}
+.trust-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:24px;text-align:center;
+  transition:border-color 0.2s;
+}
+.trust-card:hover{border-color:var(--border2);}
+.trust-num{
+  font-size:32px;font-weight:800;letter-spacing:-1px;
+  margin-bottom:6px;
+}
+.trust-num.green{color:var(--accent);}
+.trust-num.blue{color:var(--accent2);}
+.trust-num.gold{color:var(--gold);}
+.trust-num.accent{color:var(--accent);}
+.trust-label{font-size:13px;color:var(--text3);}
+
+/* ── CTA ── */
+.cta-section{
+  max-width:680px;margin:0 auto;
+  padding:96px 48px;text-align:center;
+}
+.cta-section h2{
+  font-size:clamp(28px,3.5vw,42px);font-weight:800;
+  letter-spacing:-1.5px;margin-bottom:16px;
+}
+.cta-section p{font-size:16px;color:var(--text2);margin-bottom:32px;}
+.cta-actions{
+  display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
+  margin-bottom:24px;
 }
 
-.plan-card.featured {
-  border-color: var(--accent);
-  background: rgba(0,212,170,0.04);
+/* ── DISCLAIMER ── */
+.disclaimer{
+  margin-top:32px;padding:20px 24px;
+  background:rgba(255,255,255,0.02);
+  border:1px solid var(--border);border-radius:10px;
+  font-size:12px;color:var(--text3);line-height:1.7;
+  text-align:left;max-width:600px;margin-left:auto;margin-right:auto;
 }
-
-.plan-badge {
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--accent);
-  color: #000;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 14px;
-  border-radius: 100px;
-  letter-spacing: 0.5px;
-  white-space: nowrap;
-}
-
-.plan-name {
-  font-family: 'Syne', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text2);
-  margin-bottom: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.plan-price {
-  font-family: 'Syne', sans-serif;
-  font-size: 32px;
-  font-weight: 800;
-  letter-spacing: -2px;
-  color: var(--text);
-  margin-bottom: 4px;
-}
-
-.plan-price.free-price { color: var(--accent); }
-
-.plan-period {
-  font-size: 12px;
-  color: var(--text3);
-  margin-bottom: 24px;
-}
-
-.plan-features {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 24px;
-}
-
-.plan-features li {
-  font-size: 13px;
-  color: var(--text2);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.feat-check { color: var(--accent); font-size: 14px; }
-.feat-lock { color: var(--text3); font-size: 14px; }
-
-.plan-cta {
-  width: 100%;
-  padding: 11px;
-  border-radius: 9px;
-  font-size: 13px;
-  font-weight: 600;
-  text-align: center;
-  text-decoration: none;
-  display: block;
-  transition: all 0.2s;
-}
-
-.plan-cta.outline {
-  background: transparent;
-  border: 1px solid var(--border2);
-  color: var(--text);
-}
-.plan-cta.outline:hover { border-color: var(--accent); color: var(--accent); }
-
-.plan-cta.filled {
-  background: var(--accent);
-  color: #000;
-  border: none;
-}
-.plan-cta.filled:hover { opacity: 0.85; }
-
-/* ── TRUST SECTION ── */
-.trust-section {
-  padding: 80px 48px;
-  border-top: 1px solid var(--border);
-  background: var(--bg2);
-}
-
-.trust-inner {
-  max-width: 1000px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.trust-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  margin-top: 48px;
-}
-
-.trust-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 24px;
-  text-align: center;
-}
-
-.trust-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 36px;
-  font-weight: 800;
-  letter-spacing: -2px;
-}
-.trust-num.green { color: var(--green); }
-.trust-num.blue { color: var(--accent2); }
-.trust-num.gold { color: var(--gold); }
-.trust-num.accent { color: var(--accent); }
-
-.trust-label {
-  font-size: 12px;
-  color: var(--text3);
-  margin-top: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-}
-
-/* ── DISCLAIMER / CTA ── */
-.cta-section {
-  padding: 100px 48px;
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.cta-section h2 {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(32px, 4vw, 56px);
-  font-weight: 800;
-  letter-spacing: -2px;
-  margin-bottom: 20px;
-  line-height: 1.05;
-}
-
-.cta-section p {
-  color: var(--text2);
-  font-size: 17px;
-  font-weight: 300;
-  margin-bottom: 40px;
-}
-
-.disclaimer {
-  font-size: 12px;
-  color: var(--text3);
-  margin-top: 32px;
-  line-height: 1.6;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
+.disclaimer strong{color:var(--text2);}
 
 /* ── FOOTER ── */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 32px 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  z-index: 1;
+footer{
+  padding:24px 48px;
+  border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  position:relative;z-index:1;
+}
+.footer-left{font-size:12px;color:var(--text3);}
+.footer-right{display:flex;gap:20px;}
+.footer-right a{
+  font-size:12px;color:var(--text3);
+  text-decoration:none;transition:color 0.15s;
+}
+.footer-right a:hover{color:var(--text);}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ══════════════════════════════════════════════
+   ANIMATION FIXES — ensure bg canvas always visible
+══════════════════════════════════════════════ */
+
+/* Canvas always behind, always full screen */
+#bg-canvas{
+  position:fixed;inset:0;
+  width:100vw;height:100vh;
+  z-index:0;pointer-events:none;
+  opacity:1;
 }
 
-.footer-left {
-  font-size: 13px;
-  color: var(--text3);
+/* All sections need z-index:1 to sit above canvas */
+nav,section,.proof-ticker,footer{
+  position:relative;z-index:1;
 }
 
-.footer-right {
-  display: flex;
-  gap: 24px;
-  font-size: 13px;
+/* Sections with bg2 — keep bg but semi-transparent so canvas visible through */
+.honest-section,
+.features-section,
+.founder-section,
+.trust-section{
+  background:rgba(11,17,24,0.92);
+}
+section[style*="bg2"]{
+  background:rgba(11,17,24,0.92)!important;
 }
 
-.footer-right a {
-  color: var(--text3);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.footer-right a:hover { color: var(--text2); }
+/* ══════════════════════════════════════════════
+   MOBILE RESPONSIVE — 768px and below
+   95% users = mobile. This is priority.
+══════════════════════════════════════════════ */
 
-/* ── SCROLL ANIMATIONS ── */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ── PATTERN HEALTH SECTION ── */
-.health-section {
-  padding: 100px 48px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.health-intro {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: start;
-  margin-top: 60px;
+/* ── TABLET: 900px ── */
+@media (max-width:900px){
+  nav{padding:0 24px;}
+  .nav-links li:not(:last-child){display:none;}
+  .section-inner{padding:72px 28px;}
+  .hero{padding:100px 28px 60px;}
+  .hero-inner{grid-template-columns:1fr;gap:40px;}
+  .how-grid{grid-template-columns:1fr;gap:32px;}
+  .how-right{position:static;}
+  .features-grid{grid-template-columns:repeat(2,1fr);}
+  .health-grid{grid-template-columns:1fr;gap:32px;}
+  .health-demo-wrap{position:static;}
+  .honest-inner{grid-template-columns:1fr;gap:32px;}
+  .plans-grid{grid-template-columns:repeat(2,1fr);}
+  .trust-grid{grid-template-columns:repeat(2,1fr);}
+  .founder-inner{grid-template-columns:1fr;gap:24px;}
+  .feedback-inner{grid-template-columns:1fr;gap:28px;}
 }
 
-.health-signals {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+/* ── MOBILE: 640px ── */
+@media (max-width:640px){
+
+  /* NAV */
+  nav{
+    padding:0 18px;height:56px;
+  }
+  .logo{font-size:16px;}
+  .logo-mark{width:28px;height:28px;font-size:12px;}
+  .nav-links{gap:4px;}
+  .nav-links li{display:none;}
+  .nav-links li:last-child{display:block;}
+  .nav-cta{
+    padding:7px 14px!important;font-size:13px!important;
+  }
+
+  /* SECTIONS */
+  .section-inner{padding:56px 18px;}
+  .section-title{font-size:28px;letter-spacing:-1px;}
+  .section-sub{font-size:15px;}
+  .section-label{font-size:10px;}
+
+  /* HERO */
+  .hero{
+    min-height:auto;
+    padding:88px 18px 48px;
+    text-align:left;
+  }
+  .hero-inner{
+    grid-template-columns:1fr;
+    gap:32px;
+  }
+  .hero h1{
+    font-size:32px;letter-spacing:-1.5px;
+    line-height:1.1;
+  }
+  .hero-sub{font-size:15px;}
+  .hero-eyebrow{font-size:10px;padding:5px 10px;}
+  .hero-honest{font-size:13px;}
+
+  .hero-actions{
+    flex-direction:column;gap:10px;
+  }
+  .btn-primary,.btn-secondary{
+    width:100%;justify-content:center;
+    font-size:15px;padding:14px 20px;
+  }
+
+  /* Hero proof card — show simplified on mobile */
+  .hero-proof-card{
+    border-radius:12px;
+  }
+  .hpc-title{font-size:9px;}
+  .hpc-body{padding:14px;}
+  .hpc-stock-name{font-size:15px;}
+  .hpc-metrics{gap:6px;}
+  .hpc-m{padding:8px 6px;}
+  .hpc-m-val{font-size:14px;}
+  .hpc-yr{font-size:10px;}
+
+  /* TICKER */
+  .proof-ticker{padding:12px 0;}
+  .proof-card{width:170px;padding:12px 14px;}
+
+  /* HONEST SECTION */
+  .honest-inner{
+    grid-template-columns:1fr;gap:28px;
+    padding:48px 18px;
+  }
+  .honest-left .section-title{font-size:26px;}
+  .not-list li,.is-list li{font-size:13px;}
+
+  /* HOW IT WORKS */
+  .how-grid{grid-template-columns:1fr;gap:24px;}
+  .how-right{position:static;}
+  .step-item{padding:16px 0;gap:14px;}
+  .step-title{font-size:14px;}
+  .step-desc{font-size:13px;}
+
+  /* Scanner preview — hide on small mobile */
+  .how-right-body .scan-row:nth-child(n+4){display:none;}
+
+  /* FEATURES */
+  .features-grid{
+    grid-template-columns:1fr;gap:12px;
+  }
+  .feat-card{padding:20px;}
+  .feat-icon{width:36px;height:36px;font-size:16px;}
+  .feat-title{font-size:14px;}
+  .feat-desc{font-size:13px;}
+
+  /* PATTERN HEALTH */
+  .health-grid{grid-template-columns:1fr;gap:24px;}
+  .health-demo-wrap{position:static;}
+  .health-section{padding:56px 18px;}
+  .hcmp-grid{grid-template-columns:1fr 1fr;gap:8px;}
+  .hcmp-sym{font-size:12px;}
+
+  /* PLANS */
+  .plans-grid{
+    grid-template-columns:1fr;gap:14px;
+  }
+  section[id="plans"] .section-inner{padding:56px 18px;}
+  .plan-card{padding:22px 18px;}
+  .plan-price{font-size:28px;}
+  .plan-feats li{font-size:13px;}
+
+  /* FOUNDER */
+  .founder-inner{
+    grid-template-columns:1fr;
+    gap:20px;padding:48px 18px;
+  }
+  .founder-avatar{width:64px;height:64px;}
+  .founder-avatar-placeholder{font-size:22px;}
+  .founder-name{font-size:18px;}
+  .founder-story{font-size:14px;}
+  .founder-tags{flex-wrap:wrap;gap:6px;}
+  .founder-tag{font-size:9px;padding:3px 8px;}
+
+  /* FEEDBACK */
+  .feedback-section{padding:56px 18px;}
+  .feedback-inner{
+    grid-template-columns:1fr;
+    gap:24px;padding:28px 20px;
+  }
+  .feedback-left .section-title{font-size:22px;}
+  .feedback-option{padding:12px 14px;}
+
+  /* TRUST STATS */
+  .trust-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+  .trust-num{font-size:26px;}
+  .trust-label{font-size:12px;}
+  section.trust-section .section-inner{padding:56px 18px;}
+
+  /* CTA */
+  .cta-section{padding:64px 18px;}
+  .cta-section h2{font-size:28px;letter-spacing:-1px;}
+  .cta-actions{flex-direction:column;gap:10px;}
+  .cta-actions .btn-primary,
+  .cta-actions .btn-secondary{
+    width:100%;justify-content:center;
+  }
+  .disclaimer{padding:16px;}
+
+  /* FOOTER */
+  footer{
+    flex-direction:column;gap:16px;
+    padding:20px 18px;text-align:center;
+  }
+  .footer-right{justify-content:center;flex-wrap:wrap;gap:16px;}
 }
 
-.health-signal-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px;
-  transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
-  position: relative;
-  overflow: hidden;
-}
-.health-signal-card:hover {
-  border-color: var(--border2);
-  transform: translateX(6px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+/* ── VERY SMALL: 380px ── */
+@media (max-width:380px){
+  .hero h1{font-size:28px;}
+  .plan-price{font-size:24px;}
+  .trust-num{font-size:22px;}
+  .hpc-metrics{grid-template-columns:repeat(3,1fr);}
 }
 
-/* Animated left border that grows on hover */
-.health-signal-card::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 3px;
-  border-radius: 3px 0 0 3px;
-  transition: width 0.3s ease;
-}
-.health-signal-card:hover::before { width: 4px; }
-.hsc-fresh::before  { background: var(--accent); }
-.hsc-sharp::before  { background: var(--accent2); }
-.hsc-momentum::before { background: var(--purple); }
+/* ── ANIMATIONS ── */
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes growBar{from{width:0;}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.6;}}
 
-/* Shimmer sweep on hover */
-.health-signal-card::after {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%; width: 50%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
-  transition: left 0.5s ease;
-  pointer-events: none;
-}
-.health-signal-card:hover::after { left: 150%; }
+.hero-left{animation:fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) both;}
+.hero-proof-card{animation:fadeUp 0.7s 0.15s cubic-bezier(0.22,1,0.36,1) both;}
+.hpc-yr-fill,.hec-bar-fill{animation:growBar 1s ease both;}
 
-.hsc-top {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 10px;
+/* Reveal animation */
+.reveal{
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity 0.65s ease,transform 0.65s ease;
 }
-.hsc-icon {
-  width: 36px; height: 36px;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px; flex-shrink: 0;
-  transition: transform 0.3s ease;
-}
-.health-signal-card:hover .hsc-icon { transform: scale(1.1) rotate(-3deg); }
-.hsc-icon.teal   { background: rgba(0,212,170,0.1); }
-.hsc-icon.blue   { background: rgba(0,149,255,0.1); }
-.hsc-icon.purple { background: rgba(168,85,247,0.1); }
+.reveal.visible{opacity:1;transform:translateY(0);}
 
-/* Badge animations */
-@keyframes freshPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(0,212,170,0.3); }
-  50%       { box-shadow: 0 0 0 4px rgba(0,212,170,0); }
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none;}
+  .ticker-track{animation:none;}
+  .hero-left,.hero-proof-card{animation:none;}
 }
-@keyframes badgeShimmer {
-  0%   { background-position: -200px 0; }
-  100% { background-position: 200px 0; }
-}
-@keyframes floatBadge {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-2px); }
-}
-
-.hsc-label[style*="#00d4aa"] {
-  animation: freshPulse 2.5s ease infinite;
-}
-.hsc-label {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.hsc-label:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-/* Demo card animations */
-.health-demo-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  overflow: hidden;
-  transition: box-shadow 0.3s ease;
-}
-.health-demo-card:hover {
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,212,170,0.1);
-}
-
-/* Health row hover */
-.hdc-health-row {
-  transition: background 0.15s, padding-left 0.15s;
-}
-.hdc-health-row:hover { padding-left: 18px; }
-
-/* Badge pulse animations */
-.fresh-badge {
-  animation: freshPulse 2.5s ease infinite;
-  position: relative;
-  overflow: hidden;
-}
-.fresh-badge::after {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%; width: 50%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  animation: badgeShimmer 2.5s ease infinite;
-}
-.sharp-badge  { animation: floatBadge 3s ease infinite; }
-.momentum-badge { animation: floatBadge 3.5s 0.5s ease infinite; }
-
-.hsc-name {
-  font-family: 'Syne', sans-serif;
-  font-size: 15px; font-weight: 700;
-  letter-spacing: -0.3px;
-}
-.hsc-tier {
-  margin-left: auto;
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; font-weight: 500;
-  padding: 3px 8px; border-radius: 100px;
-  letter-spacing: 0.5px;
-}
-.tier-free   { background: rgba(0,212,170,0.1); color: var(--accent); }
-.tier-basic  { background: rgba(0,149,255,0.1); color: var(--accent2); }
-.tier-vip    { background: rgba(245,200,66,0.1); color: var(--gold); }
-
-.hsc-desc {
-  font-size: 13px; color: var(--text2);
-  font-weight: 300; line-height: 1.6;
-  margin-bottom: 14px;
-}
-
-.hsc-labels {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-.hsc-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; font-weight: 500;
-  padding: 4px 10px; border-radius: 6px;
-  letter-spacing: 0.3px;
-}
-
-/* Health demo card */
-.health-demo {
-  position: sticky;
-  top: 80px;
-}
-
-.health-demo-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  overflow: hidden;
-}
-
-.hdc-topbar {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 12px 18px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.hdc-dots { display: flex; gap: 5px; }
-.hdc-dot {
-  width: 9px; height: 9px; border-radius: 50%;
-}
-.hdc-dot.r { background: #ff5f57; }
-.hdc-dot.y { background: #febc2e; }
-.hdc-dot.g { background: #28c840; }
-.hdc-url {
-  flex: 1; text-align: center;
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; color: var(--text3);
-}
-
-.hdc-body { padding: 20px; }
-
-.hdc-stock-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--border);
-}
-.hdc-sym {
-  font-family: 'Syne', sans-serif;
-  font-size: 18px; font-weight: 800;
-  letter-spacing: -0.5px;
-}
-.hdc-grade {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; padding: 3px 8px;
-  border-radius: 5px; font-weight: 500;
-  background: rgba(0,212,170,0.1);
-  color: var(--accent);
-}
-.hdc-exch {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px; padding: 3px 7px;
-  border-radius: 4px;
-  background: rgba(0,149,255,0.1);
-  color: var(--accent2);
-}
-
-.hdc-metrics {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 8px;
-  margin-bottom: 16px;
-}
-.hdc-m {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 10px;
-  text-align: center;
-}
-.hdc-m-val {
-  font-family: 'Syne', sans-serif;
-  font-size: 16px; font-weight: 800;
-  letter-spacing: -0.5px;
-}
-.hdc-m-val.green { color: var(--accent); }
-.hdc-m-lbl {
-  font-size: 9px; color: var(--text3);
-  margin-top: 2px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.hdc-health-block {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  margin-bottom: 14px;
-}
-.hdc-health-title {
-  padding: 10px 14px;
-  font-family: 'DM Mono', monospace;
-  font-size: 9px; color: var(--text3);
-  letter-spacing: 2px; text-transform: uppercase;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg3);
-}
-.hdc-health-row {
-  display: flex;
-  align-items: center;
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--border);
-  gap: 10px;
-}
-.hdc-health-row:last-child { border-bottom: none; }
-
-.hdc-h-icon {
-  font-size: 14px; width: 20px; flex-shrink: 0;
-}
-.hdc-h-info { flex: 1; }
-.hdc-h-name {
-  font-size: 11px; font-weight: 500; margin-bottom: 2px;
-}
-.hdc-h-desc {
-  font-size: 10px; color: var(--text3);
-  font-family: 'DM Mono', monospace;
-}
-.hdc-h-badge {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; font-weight: 500;
-  padding: 3px 8px; border-radius: 5px;
-  letter-spacing: 0.3px; flex-shrink: 0;
-}
-.fresh-badge      { background: rgba(0,212,170,0.12); color: var(--accent); }
-.sharp-badge      { background: rgba(0,149,255,0.12); color: var(--accent2); }
-.momentum-badge   { background: rgba(168,85,247,0.12); color: var(--purple); }
-.fading-badge     { background: rgba(245,200,66,0.1); color: var(--gold); }
-.stale-badge      { background: rgba(239,68,68,0.1); color: var(--red); }
-.locked-badge     { background: rgba(255,255,255,0.04); color: var(--text3); }
-
-.hdc-action-tip {
-  padding: 10px 14px;
-  background: rgba(0,212,170,0.04);
-  border: 1px solid rgba(0,212,170,0.12);
-  border-radius: 8px;
-  font-size: 11px; color: var(--text2);
-  line-height: 1.5;
-}
-.hdc-action-tip strong { color: var(--accent); }
 </style>
 </head>
 <body>
@@ -1324,556 +1068,644 @@ footer {
 <!-- NAV -->
 <nav>
   <a class="logo" href="https://stockpatternai.com">
-    <div class="logo-icon">📈</div>
+    <div class="logo-mark">SP</div>
     StockPattern<span>AI</span>
   </a>
   <ul class="nav-links">
+    <li><a href="#honest">What This Is</a></li>
     <li><a href="#how">How It Works</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="#health">Pattern Health</a></li>
     <li><a href="#plans">Plans</a></li>
-    <li><a href="https://t.me/StockSeasonBot" class="nav-cta">Open Bot ↗</a></li>
+    <li><a href="https://t.me/StockSeasonSignals" class="nav-cta">Join Channel ↗</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">
-    <div class="badge-dot"></div>
-    stockpatternai.com &nbsp;·&nbsp; 91,698 Patterns &nbsp;·&nbsp; NSE + BSE
-  </div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <span></span>
+        NSE + BSE · Historical Data · 2005–2026
+      </div>
 
-  <h1>
-    India's First<br>
-    <em>Seasonal Pattern</em><br>
-    Intelligence Platform
-  </h1>
+      <h1>
+        20 years of<br>
+        <em>seasonal patterns.</em><br>
+        Honest data.
+      </h1>
 
-  <p class="hero-sub">
-    AI-powered seasonal pattern analysis. 2,355 NSE+BSE stocks. 20 years of data.
-    Not tips. Not guesses. <strong style="color:var(--text);font-weight:500;">Proof.</strong>
-  </p>
+      <p class="hero-sub">
+        Historical seasonal patterns from 2,355 NSE+BSE stocks. No predictions. No tips. Just what actually happened — year by year.
+      </p>
 
-  <div class="hero-actions">
-    <a href="https://t.me/StockSeasonBot" class="btn-primary">
-      Start Free on Telegram ↗
-    </a>
-    <a href="#how" class="btn-secondary">
-      See How It Works →
-    </a>
-  </div>
+      <div class="hero-honest">
+        <strong>Wins shown as wins. Losses shown as losses.</strong><br>
+        Educational tool only. Not SEBI-registered advice. Past performance ≠ future results.
+      </div>
 
-  <div class="stats-bar">
-    <div class="stat">
-      <div class="stat-num">91<span>K+</span></div>
-      <div class="stat-label">Patterns Analyzed</div>
+      <div class="hero-actions">
+        <a href="https://t.me/StockSeasonSignals" class="btn-primary">
+          📢 Join Signals Channel
+        </a>
+        <a href="https://t.me/StockSeasonBot" class="btn-secondary">
+          🤖 Open Bot Free
+        </a>
+      </div>
+
+      <div class="hero-steps">
+        <div class="hero-step">
+          <div class="step-num">1</div>
+          <span>Join <strong>@StockSeasonSignals</strong> — see real proof posts</span>
+        </div>
+        <div class="hero-step">
+          <div class="step-num">2</div>
+          <span>Decide if this approach makes sense for you</span>
+        </div>
+        <div class="hero-step">
+          <div class="step-num">3</div>
+          <span class="step-arrow">→</span>
+          <span>Open <strong>@StockSeasonBot</strong> for deep analysis</span>
+        </div>
+      </div>
     </div>
-    <div class="stat-divider"></div>
-    <div class="stat">
-      <div class="stat-num">2,355</div>
-      <div class="stat-label">NSE + BSE Stocks</div>
-    </div>
-    <div class="stat-divider"></div>
-    <div class="stat">
-      <div class="stat-num">20<span>yr</span></div>
-      <div class="stat-label">Historical Depth</div>
-    </div>
-    <div class="stat-divider"></div>
-    <div class="stat">
-      <div class="stat-num">95<span>%+</span></div>
-      <div class="stat-label">A+ Grade Accuracy</div>
+
+    <!-- Hero Right: Real Proof Card -->
+    <div class="hero-proof-card">
+      <div class="hpc-header">
+        <div class="hpc-dot r"></div>
+        <div class="hpc-dot y"></div>
+        <div class="hpc-dot g"></div>
+        <div class="hpc-title">@StockSeasonBot — Pattern Analysis</div>
+        <div class="hpc-badge">Real Historical Data</div>
+      </div>
+      <div class="hpc-body">
+        <div class="hpc-stock-name">BRITANNIA INDUSTRIES</div>
+        <div class="hpc-stock-meta">NSE · May 06 → Jul 04 · 59 days · 10yr</div>
+        <div class="hpc-metrics">
+          <div class="hpc-m">
+            <div class="hpc-m-val green">10/10</div>
+            <div class="hpc-m-lbl">Win Rate</div>
+          </div>
+          <div class="hpc-m">
+            <div class="hpc-m-val green">+9.4%</div>
+            <div class="hpc-m-lbl">Avg Return</div>
+          </div>
+          <div class="hpc-m">
+            <div class="hpc-m-val" style="color:var(--text);">A+</div>
+            <div class="hpc-m-lbl">Grade</div>
+          </div>
+        </div>
+        <div class="hpc-proof-label">Year-by-year actual results</div>
+        <div class="hpc-years">
+          <div class="hpc-yr">
+            <div class="hpc-yr-label">2025</div>
+            <div class="hpc-yr-bar"><div class="hpc-yr-fill" style="width:100%;animation-delay:0.1s"></div></div>
+            <div class="hpc-yr-ret">+7.5%</div>
+            <div class="hpc-yr-res">✅</div>
+          </div>
+          <div class="hpc-yr">
+            <div class="hpc-yr-label">2024</div>
+            <div class="hpc-yr-bar"><div class="hpc-yr-fill" style="width:90%;animation-delay:0.15s"></div></div>
+            <div class="hpc-yr-ret">+11.5%</div>
+            <div class="hpc-yr-res">✅</div>
+          </div>
+          <div class="hpc-yr">
+            <div class="hpc-yr-label">2023</div>
+            <div class="hpc-yr-bar"><div class="hpc-yr-fill" style="width:80%;animation-delay:0.2s"></div></div>
+            <div class="hpc-yr-ret">+8.2%</div>
+            <div class="hpc-yr-res">✅</div>
+          </div>
+          <div class="hpc-yr">
+            <div class="hpc-yr-label">2022</div>
+            <div class="hpc-yr-bar"><div class="hpc-yr-fill" style="width:75%;animation-delay:0.25s"></div></div>
+            <div class="hpc-yr-ret">+7.1%</div>
+            <div class="hpc-yr-res">✅</div>
+          </div>
+          <div class="hpc-yr">
+            <div class="hpc-yr-label">2021</div>
+            <div class="hpc-yr-bar"><div class="hpc-yr-fill" style="width:100%;animation-delay:0.3s"></div></div>
+            <div class="hpc-yr-ret">+12.8%</div>
+            <div class="hpc-yr-res">✅</div>
+          </div>
+        </div>
+        <div class="hpc-footer">
+          ⚠️ Past performance does not guarantee future results. Always use stop loss.
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- TICKER -->
+<!-- PROOF TICKER -->
 <div class="proof-ticker">
-  <div class="ticker-track" id="ticker">
-    <!-- Cards injected by JS -->
-  </div>
+  <div class="ticker-track" id="ticker"></div>
 </div>
 
-<!-- HOW IT WORKS -->
-<section id="how" class="content-section">
-  <div class="reveal">
-    <div class="section-label">// How It Works</div>
-    <h2 class="section-title">Three layers of<br>intelligence</h2>
-    <p class="section-sub">Every trade decision is validated through historical patterns, technical analysis, and live market data.</p>
-  </div>
+<!-- WHAT THIS IS / IS NOT -->
+<section id="honest" class="honest-section">
+  <div class="honest-inner">
+    <div class="honest-left">
+      <div class="section-label">// Clarity First</div>
+      <h2 class="section-title">What this<br>is and isn't.</h2>
+      <p class="section-sub">Built for traders who are tired of guesswork. Before you use this, know exactly what you're getting.</p>
 
-  <div class="how-grid">
-    <div class="phase-list reveal">
-      <div class="phase-item">
-        <div class="phase-num">01</div>
-        <div>
-          <div class="phase-title">Historical Pattern Engine</div>
-          <div class="phase-desc">20 years of NSE + BSE OHLCV data. Seasonal patterns identified, graded, and validated. A+ = 95%+ historical win rate with real year-by-year proof.</div>
-        </div>
-      </div>
-      <div class="phase-item">
-        <div class="phase-num">02</div>
-        <div>
-          <div class="phase-title">Technical Validation</div>
-          <div class="phase-desc">Before entry — EMA 20/50/200, RSI(14), and volume confirmation on both 1-Day and 1-Hour timeframes. Both must confirm for a strong signal.</div>
-        </div>
-      </div>
-      <div class="phase-item">
-        <div class="phase-num">03</div>
-        <div>
-          <div class="phase-title">Confidence Score</div>
-          <div class="phase-desc">0–100 score combining pattern strength, recency, expectancy, technical confirmation, and freshness. 🟢 80+ = High Confidence. No guesswork.</div>
-        </div>
-      </div>
-      <div class="phase-item">
-        <div class="phase-num">04</div>
-        <div>
-          <div class="phase-title">Fundamental + News Filter</div>
-          <div class="phase-desc">Coming soon — fundamental health check and news sentiment analysis. Skip entry if company has negative news or weak fundamentals.</div>
-        </div>
-      </div>
+      <ul class="not-list">
+        <li><span class="not-icon">✕</span><div>Not SEBI-registered financial advice</div></li>
+        <li><span class="not-icon">✕</span><div>Not a "sure shot call" channel</div></li>
+        <li><span class="not-icon">✕</span><div>Not a guarantee of future returns</div></li>
+        <li><span class="not-icon">✕</span><div>Not a real-time trading signal platform</div></li>
+      </ul>
+
+      <ul class="is-list" style="margin-top:24px;">
+        <li><span class="is-icon">✓</span><div><strong>20 years of historical seasonal patterns</strong> across NSE + BSE</div></li>
+        <li><span class="is-icon">✓</span><div><strong>Honest data</strong> — wins shown as wins, losses shown as losses</div></li>
+        <li><span class="is-icon">✓</span><div><strong>Decision support</strong> — helps you ask better questions</div></li>
+        <li><span class="is-icon">✓</span><div><strong>Educational tool</strong> — you decide, you manage risk</div></li>
+      </ul>
     </div>
 
-    <div class="dashboard-preview reveal">
-      <div class="dash-topbar">
-        <div class="win-dot red"></div>
-        <div class="win-dot yellow"></div>
-        <div class="win-dot green-d"></div>
-        <div class="dash-url">stockpatternai.com/scanner</div>
-      </div>
-      <div class="dash-body">
-        <div class="dash-scanner-row">
-          <div class="dash-stock-card">
-            <div class="dash-stock-top">
-              <span class="dash-sym">RELIANCE</span>
-              <span class="dash-signal bull">🟢 BULL</span>
-            </div>
-            <div class="dash-company">Reliance Industries Ltd</div>
-            <div class="dash-metrics">
-              <div class="dash-m"><strong>10/10</strong>Win Rate</div>
-              <div class="dash-m"><strong>+18.3%</strong>Avg Return</div>
-              <div class="dash-m"><strong>1:2.4</strong>RR Ratio</div>
-            </div>
-            <div class="conf-bar"><div class="conf-fill" style="width:87%;"></div></div>
+    <div class="honest-right">
+      <div class="honest-right-title">Real data — including losses</div>
+      <div class="honest-example-card">
+        <div class="hec-header">
+          <span>GODREJ CONSUMER — MAY PATTERN · 10yr</span>
+          <span style="color:var(--accent);">A+</span>
+        </div>
+        <div class="hec-rows">
+          <div class="hec-row">
+            <div class="hec-year">2025</div>
+            <div class="hec-result-win">WIN</div>
+            <div class="hec-bar"><div class="hec-bar-fill win" style="width:90%;animation-delay:0.1s"></div></div>
+            <div class="hec-val-win">+9.0%</div>
           </div>
-          <div class="dash-stock-card">
-            <div class="dash-stock-top">
-              <span class="dash-sym">HDFCBANK</span>
-              <span class="dash-signal bull">🟢 BULL</span>
-            </div>
-            <div class="dash-company">HDFC Bank Ltd</div>
-            <div class="dash-metrics">
-              <div class="dash-m"><strong>9/10</strong>Win Rate</div>
-              <div class="dash-m"><strong>+12.1%</strong>Avg Return</div>
-              <div class="dash-m"><strong>1:2.1</strong>RR Ratio</div>
-            </div>
-            <div class="conf-bar"><div class="conf-fill" style="width:72%;"></div></div>
+          <div class="hec-row">
+            <div class="hec-year">2024</div>
+            <div class="hec-result-win">WIN</div>
+            <div class="hec-bar"><div class="hec-bar-fill win" style="width:93%;animation-delay:0.15s"></div></div>
+            <div class="hec-val-win">+9.3%</div>
+          </div>
+          <div class="hec-row">
+            <div class="hec-year">2023</div>
+            <div class="hec-result-win">WIN</div>
+            <div class="hec-bar"><div class="hec-bar-fill win" style="width:100%;animation-delay:0.2s"></div></div>
+            <div class="hec-val-win">+16.1%</div>
+          </div>
+          <div class="hec-row">
+            <div class="hec-year">2022</div>
+            <div class="hec-result-win">WIN</div>
+            <div class="hec-bar"><div class="hec-bar-fill win" style="width:78%;animation-delay:0.25s"></div></div>
+            <div class="hec-val-win">+12.7%</div>
+          </div>
+          <div class="hec-row">
+            <div class="hec-year">2021</div>
+            <div class="hec-result-win">WIN</div>
+            <div class="hec-bar"><div class="hec-bar-fill win" style="width:85%;animation-delay:0.3s"></div></div>
+            <div class="hec-val-win">+14.2%</div>
           </div>
         </div>
-        <div class="dash-scanner-row">
-          <div class="dash-stock-card">
-            <div class="dash-stock-top">
-              <span class="dash-sym">TATASTEEL</span>
-              <span class="dash-signal bear">🔴 BEAR</span>
-            </div>
-            <div class="dash-company">Tata Steel Ltd</div>
-            <div class="dash-metrics">
-              <div class="dash-m"><strong>8/10</strong>Win Rate</div>
-              <div class="dash-m"><strong>+9.6%</strong>Avg Return</div>
-              <div class="dash-m"><strong>1:2.2</strong>RR Ratio</div>
-            </div>
-            <div class="conf-bar"><div class="conf-fill" style="width:65%;"></div></div>
+        <div class="hec-footer">10/10 wins · Avg +12.3% · RR 1:2.7 · ⚠️ Past ≠ future</div>
+      </div>
+      <div style="margin-top:10px;font-size:12px;color:var(--text3);line-height:1.6;">
+        Not all patterns are this clean. Many show losses. All data is shown as-is.
+        <a href="https://t.me/StockSeasonSignals" style="color:var(--accent);text-decoration:none;"> See all examples on channel →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;max-width:560px;margin:0 auto;">
+      <div class="section-label">// How It Works</div>
+      <h2 class="section-title">How it's built.<br>What's live now.</h2>
+    </div>
+
+    <div class="how-grid">
+      <div class="steps-list reveal">
+        <div class="step-item">
+          <div class="step-badge">01</div>
+          <div class="step-content">
+            <div class="step-title">Historical Pattern Engine</div>
+            <div class="step-desc">20 years of NSE+BSE OHLCV data. Seasonal patterns identified across 2,355 stocks. A+ grade = 95%+ historical win rate with real year-by-year proof.</div>
+            <span class="step-tag tag-live">✅ Live Now</span>
           </div>
-          <div class="dash-stock-card">
-            <div class="dash-stock-top">
-              <span class="dash-sym">INFY</span>
-              <span class="dash-signal bull">🟢 BULL</span>
-            </div>
-            <div class="dash-company">Infosys Ltd</div>
-            <div class="dash-metrics">
-              <div class="dash-m"><strong>10/10</strong>Win Rate</div>
-              <div class="dash-m"><strong>+15.8%</strong>Avg Return</div>
-              <div class="dash-m"><strong>1:3.1</strong>RR Ratio</div>
-            </div>
-            <div class="conf-bar"><div class="conf-fill" style="width:94%;"></div></div>
+        </div>
+        <div class="step-item">
+          <div class="step-badge">02</div>
+          <div class="step-content">
+            <div class="step-title">Pattern Health Engine</div>
+            <div class="step-desc">Three signals: Freshness (still working recently?), Sharpness (how fast does return come?), Momentum (improving or weakening?). No external API needed.</div>
+            <span class="step-tag tag-live">✅ Live Now</span>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-badge">03</div>
+          <div class="step-content">
+            <div class="step-title">Confidence Score</div>
+            <div class="step-desc">0–100 composite score from win rate, recency, expectancy, and data freshness. Helps compare patterns at a glance.</div>
+            <span class="step-tag tag-soon">🔵 Coming Soon</span>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-badge">04</div>
+          <div class="step-content">
+            <div class="step-title">Technical + Fundamental Layer</div>
+            <div class="step-desc">Live EMA/RSI/Volume validation and fundamental health check. Skip entry when pattern is right but company is not.</div>
+            <span class="step-tag tag-dev">⚫ In Development</span>
           </div>
         </div>
       </div>
-      <div class="dash-bottom">
-        <div class="live-indicator"><div class="live-dot"></div> Live · Updated 9 PM IST</div>
-        <span>A+ Grade · 10yr · All Stocks</span>
+
+      <div class="how-right reveal">
+        <div class="how-right-header">
+          <div class="win-dot r"></div>
+          <div class="win-dot y"></div>
+          <div class="win-dot g"></div>
+          <div class="dash-url">@StockSeasonBot · Scanner</div>
+        </div>
+        <div class="how-right-body">
+          <div class="scan-row">
+            <div class="scan-sym">BRITANNIA</div>
+            <div class="scan-dir dir-bull">BULL</div>
+            <div class="scan-grade">A+</div>
+            <div class="scan-win">10/10</div>
+            <div class="scan-ret pos">+9.4%</div>
+          </div>
+          <div class="scan-row">
+            <div class="scan-sym">GODREJ CP</div>
+            <div class="scan-dir dir-bull">BULL</div>
+            <div class="scan-grade">A+</div>
+            <div class="scan-win">10/10</div>
+            <div class="scan-ret pos">+16.1%</div>
+          </div>
+          <div class="scan-row">
+            <div class="scan-sym">MARUTI</div>
+            <div class="scan-dir dir-bull">BULL</div>
+            <div class="scan-grade">A+</div>
+            <div class="scan-win">10/10</div>
+            <div class="scan-ret pos">+7.7%</div>
+          </div>
+          <div class="scan-row">
+            <div class="scan-sym">BAJAJ FIN</div>
+            <div class="scan-dir dir-bull">BULL</div>
+            <div class="scan-grade">A+</div>
+            <div class="scan-win">10/10</div>
+            <div class="scan-ret pos">+17.6%</div>
+          </div>
+          <div class="scan-row">
+            <div class="scan-sym">TRENT</div>
+            <div class="scan-dir dir-bull">BULL</div>
+            <div class="scan-grade">A+</div>
+            <div class="scan-win">9/10</div>
+            <div class="scan-ret pos">+13.1%</div>
+          </div>
+        </div>
+        <div class="how-right-footer">
+          <div class="data-note">Historical data · NSE Mar 2026 · BSE Apr 2026</div>
+          <div class="data-note">Educational only</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- FEATURES -->
-<section id="features" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
-  <div class="content-section">
-    <div class="reveal" style="text-align:center;margin-bottom:0;">
+<section id="features" class="features-section">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;max-width:540px;margin:0 auto;">
       <div class="section-label">// Platform Features</div>
-      <h2 class="section-title">Everything a serious trader needs</h2>
+      <h2 class="section-title">What's available<br>right now.</h2>
     </div>
-
     <div class="features-grid">
-      <div class="feature-card reveal">
-        <div class="feature-icon teal">📊</div>
-        <div class="feature-title">Scanner</div>
-        <div class="feature-desc">Scan next 3–30 days for upcoming patterns. Filter by timeframe, direction, grade, and universe. Both NSE and BSE always included.</div>
+      <div class="feat-card reveal">
+        <div class="feat-icon teal">📊</div>
+        <div class="feat-title">Smart Scanner</div>
+        <div class="feat-desc">Scan upcoming 3–30 days for seasonal patterns. Filter by timeframe, direction, grade. NSE + BSE always included.</div>
+        <span class="feat-status feat-live">✅ Live</span>
       </div>
-      <div class="feature-card reveal">
-        <div class="feature-icon blue">🔎</div>
-        <div class="feature-title">Analyze Stock</div>
-        <div class="feature-desc">Deep 3-layer analysis for any stock. Pattern summary → pattern list → full detail with T1/T2/SL targets and year-by-year proof.</div>
+      <div class="feat-card reveal">
+        <div class="feat-icon blue">🔎</div>
+        <div class="feat-title">Analyze Any Stock</div>
+        <div class="feat-desc">Deep 3-layer analysis. Pattern summary → full list → year-by-year proof with T1/T2/SL targets. Real data.</div>
+        <span class="feat-status feat-live">✅ Live</span>
       </div>
-      <div class="feature-card reveal">
-        <div class="feature-icon gold">📅</div>
-        <div class="feature-title">Monthly Windows</div>
-        <div class="feature-desc">All A+ patterns for any month across NSE + BSE. Switch between all stocks and the 205-stock Trusted Stocks universe.</div>
+      <div class="feat-card reveal">
+        <div class="feat-icon gold">📅</div>
+        <div class="feat-title">Monthly Windows</div>
+        <div class="feat-desc">All A+ patterns for any month. ₹2L simulator showing honest P&amp;L. PDF report with year-by-year results.</div>
+        <span class="feat-status feat-live">✅ Live</span>
       </div>
-      <div class="feature-card reveal">
-        <div class="feature-icon purple">🏦</div>
-        <div class="feature-title">Trusted Stocks Mode</div>
-        <div class="feature-desc">Curated Nifty100 + bluechips universe. 205 familiar stocks. Relaxed filters for reliability over explosive edge.</div>
+      <div class="feat-card reveal">
+        <div class="feat-icon purple">🏦</div>
+        <div class="feat-title">Trusted Stocks Mode</div>
+        <div class="feat-desc">205 curated Nifty100 + bluechip stocks. Familiar names. Relaxed filters for reliability over raw edge.</div>
+        <span class="feat-status feat-live">✅ Live</span>
       </div>
-      <div class="feature-card reveal">
-        <div class="feature-icon orange">📄</div>
-        <div class="feature-title">PDF Reports</div>
-        <div class="feature-desc">Dark-designed performance reports with Expectancy, Recency Score, Max Drawdown, and ₹2L simulator. Real data, honest losses.</div>
+      <div class="feat-card reveal">
+        <div class="feat-icon green">🩺</div>
+        <div class="feat-title">Pattern Health Engine</div>
+        <div class="feat-desc">Freshness, Sharpness, Momentum — three signals that tell you if a pattern is still worth acting on.</div>
+        <span class="feat-status feat-live">✅ Live — v22.0</span>
       </div>
-      <div class="feature-card reveal">
-        <div class="feature-icon red">🎯</div>
-        <div class="feature-title">Honest Proof Engine</div>
-        <div class="feature-desc">Year-by-year actual results with ₹1L simulation. Wins shown as wins. Losses shown as losses. Data jhooth nahi bolta.</div>
+      <div class="feat-card reveal">
+        <div class="feat-icon red">📄</div>
+        <div class="feat-title">PDF Reports</div>
+        <div class="feat-desc">Dark-designed reports with Expectancy, Recency Score, Max Drawdown. Wins and losses both shown.</div>
+        <span class="feat-status feat-live">✅ Live</span>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONFIDENCE SCORE -->
-<section class="confidence-section">
-  <div class="conf-inner">
-    <div class="reveal">
-      <div class="section-label">// Confidence Score</div>
-      <h2 class="section-title">Know before<br>you enter</h2>
-      <p class="section-sub" style="margin-top:16px;">Every pattern gets a 0–100 Confidence Score built from your existing data. No external API needed. Just real, honest signal strength.</p>
-
-      <div style="margin-top:32px;display:flex;gap:20px;flex-wrap:wrap;">
-        <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:12px 20px;text-align:center;">
-          <div style="font-size:20px;margin-bottom:4px;">🟢</div>
-          <div style="font-family:'DM Mono',monospace;font-size:13px;color:var(--green);font-weight:500;">80+ Score</div>
-          <div style="font-size:12px;color:var(--text3);margin-top:2px;">High Confidence</div>
-        </div>
-        <div style="background:rgba(245,200,66,0.06);border:1px solid rgba(245,200,66,0.15);border-radius:10px;padding:12px 20px;text-align:center;">
-          <div style="font-size:20px;margin-bottom:4px;">🟡</div>
-          <div style="font-family:'DM Mono',monospace;font-size:13px;color:var(--gold);font-weight:500;">60–79</div>
-          <div style="font-size:12px;color:var(--text3);margin-top:2px;">Moderate</div>
-        </div>
-        <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.12);border-radius:10px;padding:12px 20px;text-align:center;">
-          <div style="font-size:20px;margin-bottom:4px;">🔴</div>
-          <div style="font-family:'DM Mono',monospace;font-size:13px;color:var(--red);font-weight:500;">&lt; 60</div>
-          <div style="font-size:12px;color:var(--text3);margin-top:2px;">Use Caution</div>
-        </div>
+      <div class="feat-card reveal" style="opacity:0.6;">
+        <div class="feat-icon" style="background:rgba(0,149,255,0.06);">🎯</div>
+        <div class="feat-title">Confidence Score</div>
+        <div class="feat-desc">0–100 composite score from pattern strength, recency, and expectancy data. No external API needed.</div>
+        <span class="feat-status feat-soon">🔵 Coming Soon</span>
       </div>
-    </div>
-
-    <div class="reveal">
-      <div class="conf-score-visual">
-        <div class="conf-item">
-          <div class="conf-label">Win Rate (A+)</div>
-          <div class="conf-track"><div class="conf-progress" style="width:100%;background:var(--accent);"></div></div>
-          <div class="conf-pts">30 pts</div>
-        </div>
-        <div class="conf-item">
-          <div class="conf-label">Recency 3yr</div>
-          <div class="conf-track"><div class="conf-progress" style="width:83%;background:var(--accent2);"></div></div>
-          <div class="conf-pts">25 pts</div>
-        </div>
-        <div class="conf-item">
-          <div class="conf-label">Expectancy</div>
-          <div class="conf-track"><div class="conf-progress" style="width:83%;background:var(--purple);"></div></div>
-          <div class="conf-pts">25 pts</div>
-        </div>
-        <div class="conf-item">
-          <div class="conf-label">Data Freshness</div>
-          <div class="conf-track"><div class="conf-progress" style="width:67%;background:var(--gold);"></div></div>
-          <div class="conf-pts">20 pts</div>
-        </div>
+      <div class="feat-card reveal" style="opacity:0.5;">
+        <div class="feat-icon" style="background:rgba(255,255,255,0.03);">📡</div>
+        <div class="feat-title">Live Validation</div>
+        <div class="feat-desc">EMA/RSI/Volume live confirmation before entry. Requires Dhan API integration.</div>
+        <span class="feat-status feat-dev">⚫ In Development</span>
       </div>
-
-      <div class="score-circle">
-        <div class="score-num">87</div>
-        <div class="score-label">Confidence Score</div>
-        <div class="score-badge">🟢 High Confidence — Entry Valid</div>
+      <div class="feat-card reveal" style="opacity:0.5;">
+        <div class="feat-icon" style="background:rgba(255,255,255,0.03);">📰</div>
+        <div class="feat-title">Fundamental + News Filter</div>
+        <div class="feat-desc">P/E, promoter holding, FII activity, and news sentiment. Skip entry if company fundamentals are weak.</div>
+        <span class="feat-status feat-dev">⚫ In Development</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PATTERN HEALTH ENGINE — New Section -->
+<!-- PATTERN HEALTH -->
 <section id="health" style="background:var(--bg);border-top:1px solid var(--border);">
   <div class="health-section">
-    <div class="reveal" style="text-align:center;max-width:640px;margin:0 auto;">
+    <div class="reveal" style="text-align:center;max-width:560px;margin:0 auto;">
       <div class="section-label">// Pattern Health Engine · v22.0</div>
-      <h2 class="section-title">Teen signals.<br>Ek decision.</h2>
-      <p class="section-sub" style="margin:16px auto 0;">
-        Sirf historical win rate kaafi nahi hota. Pattern abhi bhi kaam kar raha hai? Return fast aata hai? Pattern improve ho raha hai ya weak pad raha hai? Yeh teeno sawaalon ke jawab — ek jagah.
-      </p>
+      <h2 class="section-title">Same grade.<br>Different story.</h2>
+      <p class="section-sub" style="margin:14px auto 0;">Win rate alone isn't enough. Pattern Health tells you if a pattern is still active — and whether it's getting stronger or weaker.</p>
     </div>
-
-    <div class="health-intro reveal">
-      <!-- Left: Signal Cards -->
-      <div class="health-signals">
-
-        <!-- Signal 1: Freshness -->
-        <div class="health-signal-card hsc-fresh">
-          <div class="hsc-top">
-            <div class="hsc-icon teal">🔥</div>
-            <div>
-              <div class="hsc-name">Freshness</div>
-            </div>
-            <div class="hsc-tier tier-free">FREE · Sabko</div>
+    <div class="health-grid">
+      <div class="health-cards reveal">
+        <div class="health-card hc-fresh">
+          <div class="hc-top">
+            <div class="hc-icon teal">🔥</div>
+            <div class="hc-name">Freshness</div>
+            <div class="hc-tier tier-all">All Users</div>
           </div>
-          <p class="hsc-desc">
-            Pattern <em>abhi bhi</em> kaam kar raha hai ya sirf purana record achha hai? Last 3 saal ki success rate dekh ke pata chalta hai pattern active hai ya stale ho gaya.
-          </p>
-          <div class="hsc-labels">
-            <span class="hsc-label" style="background:rgba(0,212,170,0.1);color:var(--accent);">🔥 FRESH — 3/3 kaam kiya</span>
-            <span class="hsc-label" style="background:rgba(0,149,255,0.1);color:var(--accent2);">✅ ACTIVE — 2/3</span>
-            <span class="hsc-label" style="background:rgba(245,200,66,0.1);color:var(--gold);">⚠️ FADING — 1/3</span>
-            <span class="hsc-label" style="background:rgba(239,68,68,0.1);color:var(--red);">❌ STALE — 0/3</span>
+          <div class="hc-desc">Is this pattern still working recently, or is the win rate from years ago? Last 3 years' success rate tells the truth.</div>
+          <div class="hc-labels">
+            <span class="hc-label" style="background:rgba(0,212,170,0.08);color:var(--accent);">🔥 FRESH — 3/3</span>
+            <span class="hc-label" style="background:rgba(0,149,255,0.08);color:var(--accent2);">✅ ACTIVE — 2/3</span>
+            <span class="hc-label" style="background:rgba(245,200,66,0.08);color:var(--gold);">⚠️ FADING — 1/3</span>
+            <span class="hc-label" style="background:rgba(239,68,68,0.08);color:var(--red);">❌ STALE — 0/3</span>
           </div>
         </div>
-
-        <!-- Signal 2: Sharpness -->
-        <div class="health-signal-card hsc-sharp">
-          <div class="hsc-top">
-            <div class="hsc-icon blue">⚡</div>
-            <div>
-              <div class="hsc-name">Sharpness</div>
-            </div>
-            <div class="hsc-tier tier-basic">BASIC+</div>
+        <div class="health-card hc-sharp">
+          <div class="hc-top">
+            <div class="hc-icon blue">⚡</div>
+            <div class="hc-name">Sharpness</div>
+            <div class="hc-tier tier-basic">BASIC+</div>
           </div>
-          <p class="hsc-desc">
-            Return kitna fast aata hai? Ek 30-day pattern mein +18% aur ek 90-day pattern mein +18% — dono alag hain. Sharpness batata hai return per day, taaki aap compare kar sako.
-          </p>
-          <div class="hsc-labels">
-            <span class="hsc-label" style="background:rgba(0,149,255,0.1);color:var(--accent2);">⚡ RAZOR SHARP — 0.5%+/day</span>
-            <span class="hsc-label" style="background:rgba(0,149,255,0.08);color:var(--accent2);">⚡ SHARP — 0.3–0.5%/day</span>
-            <span class="hsc-label" style="background:rgba(255,255,255,0.05);color:var(--text2);">🔆 MODERATE — 0.15–0.3%</span>
-            <span class="hsc-label" style="background:rgba(255,255,255,0.03);color:var(--text3);">🐢 SLOW MOVER</span>
+          <div class="hc-desc">+18% in 30 days vs +18% in 90 days — very different. Sharpness measures return per day so you can compare patterns fairly.</div>
+          <div class="hc-labels">
+            <span class="hc-label" style="background:rgba(0,149,255,0.08);color:var(--accent2);">⚡ RAZOR SHARP</span>
+            <span class="hc-label" style="background:rgba(0,149,255,0.05);color:var(--accent2);">⚡ SHARP</span>
+            <span class="hc-label" style="background:rgba(255,255,255,0.04);color:var(--text2);">🔆 MODERATE</span>
+            <span class="hc-label" style="background:rgba(255,255,255,0.03);color:var(--text3);">🐢 SLOW MOVER</span>
           </div>
         </div>
-
-        <!-- Signal 3: Momentum -->
-        <div class="health-signal-card hsc-momentum">
-          <div class="hsc-top">
-            <div class="hsc-icon purple">📈</div>
-            <div>
-              <div class="hsc-name">Momentum</div>
-            </div>
-            <div class="hsc-tier tier-vip">VIP+</div>
+        <div class="health-card hc-momentum">
+          <div class="hc-top">
+            <div class="hc-icon purple">📈</div>
+            <div class="hc-name">Momentum</div>
+            <div class="hc-tier tier-vip">VIP+</div>
           </div>
-          <p class="hsc-desc">
-            Pattern improve ho raha hai ya weak pad raha hai? Last 3 saal ka average return overall average se compare hota hai. Strengthening pattern = full confidence.
-          </p>
-          <div class="hsc-labels">
-            <span class="hsc-label" style="background:rgba(168,85,247,0.1);color:var(--purple);">📈 STRENGTHENING</span>
-            <span class="hsc-label" style="background:rgba(168,85,247,0.06);color:var(--purple);">📊 STABLE</span>
-            <span class="hsc-label" style="background:rgba(239,68,68,0.08);color:var(--red);">📉 WEAKENING</span>
+          <div class="hc-desc">Is the pattern improving year over year, or is the recent average lower than the long-term average? Momentum shows the trend.</div>
+          <div class="hc-labels">
+            <span class="hc-label" style="background:rgba(168,85,247,0.08);color:var(--purple);">📈 STRENGTHENING</span>
+            <span class="hc-label" style="background:rgba(168,85,247,0.05);color:var(--purple);">📊 STABLE</span>
+            <span class="hc-label" style="background:rgba(239,68,68,0.06);color:var(--red);">📉 WEAKENING</span>
           </div>
         </div>
-
       </div>
 
-      <!-- Right: Live Demo Card -->
-      <div class="health-demo">
+      <div class="health-demo-wrap reveal">
         <div class="health-demo-card">
-          <div class="hdc-topbar">
-            <div class="hdc-dots">
-              <div class="hdc-dot r"></div>
-              <div class="hdc-dot y"></div>
-              <div class="hdc-dot g"></div>
-            </div>
-            <div class="hdc-url">stockpatternai.com · @StockSeasonBot</div>
+          <div class="hdc-bar">
+            <div class="hdc-dots"><div class="hdc-dot r"></div><div class="hdc-dot y"></div><div class="hdc-dot g"></div></div>
+            <div class="hdc-url">@StockSeasonBot · Pattern Detail</div>
           </div>
-
           <div class="hdc-body">
-            <!-- Stock header -->
-            <div class="hdc-stock-header">
-              <div class="hdc-sym">RELIANCE</div>
-              <div class="hdc-grade">A+</div>
-              <div class="hdc-exch">NSE</div>
-              <div style="margin-left:auto;font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);">May 15 – Jun 20 · 36d</div>
-            </div>
-
-            <!-- Core metrics -->
+            <div class="hdc-sym">RELIANCE INDUSTRIES</div>
+            <div class="hdc-meta">NSE · May 14 – Jun 21 · 38d · 10yr</div>
             <div class="hdc-metrics">
-              <div class="hdc-m">
-                <div class="hdc-m-val green">10/10</div>
-                <div class="hdc-m-lbl">Win Rate</div>
-              </div>
-              <div class="hdc-m">
-                <div class="hdc-m-val green">+18.3%</div>
-                <div class="hdc-m-lbl">Avg Return</div>
-              </div>
-              <div class="hdc-m">
-                <div class="hdc-m-val" style="color:var(--text);">1:2.4</div>
-                <div class="hdc-m-lbl">RR Ratio</div>
-              </div>
+              <div class="hdc-m"><div class="hdc-m-val g">10/10</div><div class="hdc-m-lbl">Win Rate</div></div>
+              <div class="hdc-m"><div class="hdc-m-val g">+6.5%</div><div class="hdc-m-lbl">Avg Return</div></div>
+              <div class="hdc-m"><div class="hdc-m-val" style="color:var(--text);">1:1.1</div><div class="hdc-m-lbl">RR</div></div>
             </div>
-
-            <!-- Pattern Health Block -->
-            <div class="hdc-health-block">
-              <div class="hdc-health-title">🩺 Pattern Health</div>
-
-              <div class="hdc-health-row">
-                <div class="hdc-h-icon">🔥</div>
-                <div class="hdc-h-info">
-                  <div class="hdc-h-name">Freshness</div>
-                  <div class="hdc-h-desc">Last 3 saal mein 3/3 kaam kiya</div>
+            <div class="hdc-ph-block">
+              <div class="hdc-ph-header">🩺 Pattern Health</div>
+              <div class="hdc-ph-row">
+                <div class="hdc-ph-icon">🔥</div>
+                <div class="hdc-ph-info">
+                  <div class="hdc-ph-name">Freshness</div>
+                  <div class="hdc-ph-desc">Last 3 saal mein 3/3 kaam kiya</div>
                 </div>
-                <div class="hdc-h-badge fresh-badge">FRESH</div>
+                <div class="hdc-ph-badge badge-fresh">FRESH</div>
               </div>
-
-              <div class="hdc-health-row">
-                <div class="hdc-h-icon">⚡</div>
-                <div class="hdc-h-info">
-                  <div class="hdc-h-name">Sharpness</div>
-                  <div class="hdc-h-desc">0.51% per day — jaldi return</div>
+              <div class="hdc-ph-row">
+                <div class="hdc-ph-icon">⚡</div>
+                <div class="hdc-ph-info">
+                  <div class="hdc-ph-name">Sharpness</div>
+                  <div class="hdc-ph-desc">0.17% per day — steady mover</div>
                 </div>
-                <div class="hdc-h-badge sharp-badge">RAZOR SHARP</div>
+                <div class="hdc-ph-badge badge-sharp">MODERATE</div>
               </div>
-
-              <div class="hdc-health-row">
-                <div class="hdc-h-icon">📈</div>
-                <div class="hdc-h-info">
-                  <div class="hdc-h-name">Momentum</div>
-                  <div class="hdc-h-desc">Recent +22.1% vs overall +18.3%</div>
+              <div class="hdc-ph-row">
+                <div class="hdc-ph-icon">📈</div>
+                <div class="hdc-ph-info">
+                  <div class="hdc-ph-name">Momentum</div>
+                  <div class="hdc-ph-desc">Recent avg ≈ overall avg</div>
                 </div>
-                <div class="hdc-h-badge momentum-badge">STRENGTHENING</div>
+                <div class="hdc-ph-badge badge-str">STABLE</div>
               </div>
             </div>
-
-            <!-- Action tip -->
-            <div class="hdc-action-tip">
-              <strong>✔️ Pattern Health: Strong</strong><br>
-              Freshness FRESH + Momentum STRENGTHENING = full position le sakte ho. Pattern abhi bhi peak pe hai.
-            </div>
-
-            <!-- Targets -->
-            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:12px;">
-              <div style="background:rgba(0,212,170,0.06);border:1px solid rgba(0,212,170,0.15);border-radius:8px;padding:8px;text-align:center;">
-                <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);font-weight:500;">+12%</div>
-                <div style="font-size:9px;color:var(--text3);margin-top:2px;">T1 Target</div>
-              </div>
-              <div style="background:rgba(0,212,170,0.06);border:1px solid rgba(0,212,170,0.15);border-radius:8px;padding:8px;text-align:center;">
-                <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);font-weight:500;">+18%</div>
-                <div style="font-size:9px;color:var(--text3);margin-top:2px;">T2 Target</div>
-              </div>
-              <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.12);border-radius:8px;padding:8px;text-align:center;">
-                <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--red);font-weight:500;">-7.5%</div>
-                <div style="font-size:9px;color:var(--text3);margin-top:2px;">Stop Loss</div>
-              </div>
-            </div>
-
-          </div><!-- /hdc-body -->
-        </div><!-- /health-demo-card -->
-
-        <!-- Comparison: FADING example -->
-        <div style="margin-top:16px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px;">
-          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;">Compare — Same Grade, Different Health</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-            <div style="padding:12px;background:rgba(0,212,170,0.04);border:1px solid rgba(0,212,170,0.15);border-radius:10px;">
-              <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:8px;">RELIANCE <span style="font-size:9px;color:var(--accent);font-family:'DM Mono',monospace;">A+</span></div>
-              <div style="font-size:10px;color:var(--text2);margin-bottom:4px;">🔥 Freshness: <span style="color:var(--accent);">FRESH</span></div>
-              <div style="font-size:10px;color:var(--text2);margin-bottom:4px;">⚡ Sharpness: <span style="color:var(--accent2);">RAZOR SHARP</span></div>
-              <div style="font-size:10px;color:var(--text2);margin-bottom:8px;">📈 Momentum: <span style="color:var(--purple);">STRENGTHENING</span></div>
-              <div style="font-size:10px;font-weight:500;color:var(--accent);">→ Enter karo</div>
-            </div>
-            <div style="padding:12px;background:rgba(239,68,68,0.03);border:1px solid rgba(239,68,68,0.1);border-radius:10px;">
-              <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:8px;">XYZ CORP <span style="font-size:9px;color:var(--accent);font-family:'DM Mono',monospace;">A+</span></div>
-              <div style="font-size:10px;color:var(--text2);margin-bottom:4px;">⚠️ Freshness: <span style="color:var(--gold);">FADING</span></div>
-              <div style="font-size:10px;color:var(--text2);margin-bottom:4px;">🐢 Sharpness: <span style="color:var(--text3);">SLOW MOVER</span></div>
-              <div style="font-size:10px;color:var(--text2);margin-bottom:8px;">📉 Momentum: <span style="color:var(--red);">WEAKENING</span></div>
-              <div style="font-size:10px;font-weight:500;color:var(--text3);">→ Skip karo</div>
+            <div class="hdc-tip">
+              <strong>Pattern Health: Stable</strong> — FRESH pattern, consistent results. Moderate pace. Standard position size.
             </div>
           </div>
-          <div style="margin-top:10px;font-size:11px;color:var(--text3);text-align:center;">Dono A+ hain. Lekin sirf ek enter karne layak hai.</div>
         </div>
-
-      </div><!-- /health-demo -->
-    </div><!-- /health-intro -->
+        <div class="health-compare">
+          <div class="hcmp-label">Same A+ grade — different health</div>
+          <div class="hcmp-grid">
+            <div class="hcmp-card hcmp-enter">
+              <div class="hcmp-sym">GODREJ CP</div>
+              <div class="hcmp-row">🔥 Freshness: <span style="color:var(--accent);">FRESH</span></div>
+              <div class="hcmp-row">⚡ Sharpness: <span style="color:var(--accent2);">SHARP</span></div>
+              <div class="hcmp-row">📈 Momentum: <span style="color:var(--purple);">STRENGTHENING</span></div>
+              <div class="hcmp-verdict" style="color:var(--accent);">→ Consider</div>
+            </div>
+            <div class="hcmp-card hcmp-skip">
+              <div class="hcmp-sym">XYZ STOCK</div>
+              <div class="hcmp-row">⚠️ Freshness: <span style="color:var(--gold);">FADING</span></div>
+              <div class="hcmp-row">🐢 Sharpness: <span style="color:var(--text3);">SLOW MOVER</span></div>
+              <div class="hcmp-row">📉 Momentum: <span style="color:var(--red);">WEAKENING</span></div>
+              <div class="hcmp-verdict" style="color:var(--text3);">→ Skip this time</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;font-size:11px;color:var(--text3);text-align:center;">Both are A+. Health tells you which one to prioritize.</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- PLANS -->
-<section id="plans">
-  <div class="plans-section">
-    <div class="reveal" style="text-align:center;">
+<section id="plans" style="background:var(--bg2);border-top:1px solid var(--border);">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;max-width:500px;margin:0 auto;">
       <div class="section-label">// Pricing</div>
-      <h2 class="section-title">Start free.<br>Upgrade when ready.</h2>
+      <h2 class="section-title">Start free.<br>No credit card.</h2>
+      <p class="section-sub" style="margin-top:12px;font-size:15px;">All plans on Telegram. Payment via UPI. Manual activation same day.</p>
     </div>
-
     <div class="plans-grid">
       <div class="plan-card reveal">
-        <div class="plan-name">Free</div>
-        <div class="plan-price free-price">₹0</div>
-        <div class="plan-period">Forever free</div>
-        <ul class="plan-features">
-          <li><span class="feat-check">✓</span> Scanner (3 days)</li>
-          <li><span class="feat-check">✓</span> 10yr timeframe</li>
-          <li><span class="feat-check">✓</span> 3 results per scan</li>
-          <li><span class="feat-check">✓</span> Stock analysis</li>
-          <li><span class="feat-lock">–</span> Year-wise data</li>
-          <li><span class="feat-lock">–</span> PDF reports</li>
+        <div class="plan-tier">Free</div>
+        <div class="plan-price free-color">₹0</div>
+        <div class="plan-period">// forever</div>
+        <ul class="plan-feats">
+          <li><span class="feat-on">✓</span>Scanner — 3 days ahead</li>
+          <li><span class="feat-on">✓</span>10yr timeframe</li>
+          <li><span class="feat-on">✓</span>3 results per scan</li>
+          <li><span class="feat-on">✓</span>Basic stock analysis</li>
+          <li><span class="feat-on">✓</span>🔥 Freshness (Pattern Health)</li>
+          <li class="off"><span class="feat-off">—</span>Year-by-year proof</li>
+          <li class="off"><span class="feat-off">—</span>PDF reports</li>
         </ul>
-        <a href="https://t.me/StockSeasonBot" class="plan-cta outline">Start Free</a>
+        <a href="https://t.me/StockSeasonBot" class="plan-btn outline">Start Free</a>
       </div>
-
       <div class="plan-card reveal">
-        <div class="plan-name">Basic</div>
+        <div class="plan-tier">Basic</div>
         <div class="plan-price">₹699</div>
-        <div class="plan-period">per month</div>
-        <ul class="plan-features">
-          <li><span class="feat-check">✓</span> Scanner (7 days)</li>
-          <li><span class="feat-check">✓</span> 8yr + 10yr TFs</li>
-          <li><span class="feat-check">✓</span> 5 results per scan</li>
-          <li><span class="feat-check">✓</span> 5yr proof history</li>
-          <li><span class="feat-check">✓</span> PDF reports</li>
-          <li><span class="feat-lock">–</span> All timeframes</li>
+        <div class="plan-period">// per month</div>
+        <ul class="plan-feats">
+          <li><span class="feat-on">✓</span>Scanner — 7 days ahead</li>
+          <li><span class="feat-on">✓</span>8yr + 10yr timeframes</li>
+          <li><span class="feat-on">✓</span>5 results per scan</li>
+          <li><span class="feat-on">✓</span>5yr year-by-year proof</li>
+          <li><span class="feat-on">✓</span>PDF reports</li>
+          <li><span class="feat-on">✓</span>⚡ Sharpness unlocked</li>
+          <li class="off"><span class="feat-off">—</span>All timeframes</li>
         </ul>
-        <a href="https://t.me/StockSeasonBot" class="plan-cta outline">Subscribe</a>
+        <a href="https://t.me/StockSeasonBot" class="plan-btn outline">Subscribe via UPI</a>
       </div>
-
       <div class="plan-card featured reveal">
-        <div class="plan-badge">Most Popular</div>
-        <div class="plan-name">VIP</div>
+        <div class="plan-popular">Most Popular</div>
+        <div class="plan-tier">VIP</div>
         <div class="plan-price">₹1,499</div>
-        <div class="plan-period">per month</div>
-        <ul class="plan-features">
-          <li><span class="feat-check">✓</span> Scanner (15 days)</li>
-          <li><span class="feat-check">✓</span> All timeframes 3–20yr</li>
-          <li><span class="feat-check">✓</span> 10 results per scan</li>
-          <li><span class="feat-check">✓</span> Full proof history</li>
-          <li><span class="feat-check">✓</span> Trusted Stocks mode</li>
-          <li><span class="feat-check">✓</span> Priority support</li>
+        <div class="plan-period">// per month</div>
+        <ul class="plan-feats">
+          <li><span class="feat-on">✓</span>Scanner — 15 days ahead</li>
+          <li><span class="feat-on">✓</span>All timeframes (3–20yr)</li>
+          <li><span class="feat-on">✓</span>10 results per scan</li>
+          <li><span class="feat-on">✓</span>Full 10yr proof history</li>
+          <li><span class="feat-on">✓</span>🏦 Trusted Stocks mode</li>
+          <li><span class="feat-on">✓</span>📈 Momentum unlocked</li>
+          <li><span class="feat-on">✓</span>Priority support</li>
         </ul>
-        <a href="https://t.me/StockSeasonBot" class="plan-cta filled">Subscribe</a>
+        <a href="https://t.me/StockSeasonBot" class="plan-btn filled">Subscribe via UPI</a>
       </div>
-
       <div class="plan-card reveal">
-        <div class="plan-name">Personal</div>
+        <div class="plan-tier">Personal</div>
         <div class="plan-price">₹9,999</div>
-        <div class="plan-period">6 months · save 44%</div>
-        <ul class="plan-features">
-          <li><span class="feat-check">✓</span> Scanner (30 days)</li>
-          <li><span class="feat-check">✓</span> Everything in VIP</li>
-          <li><span class="feat-check">✓</span> 10yr proof history</li>
-          <li><span class="feat-check">✓</span> Confidence Score</li>
-          <li><span class="feat-check">✓</span> Early access features</li>
-          <li><span class="feat-check">✓</span> Direct founder access</li>
+        <div class="plan-period">// 6 months · save 44%</div>
+        <ul class="plan-feats">
+          <li><span class="feat-on">✓</span>Scanner — 30 days ahead</li>
+          <li><span class="feat-on">✓</span>Everything in VIP</li>
+          <li><span class="feat-on">✓</span>Full proof history</li>
+          <li><span class="feat-on">✓</span>Early access features</li>
+          <li><span class="feat-on">✓</span>Direct founder access</li>
+          <li><span class="feat-on">✓</span>@Staysettl on Telegram</li>
         </ul>
-        <a href="https://t.me/StockSeasonBot" class="plan-cta outline">Subscribe</a>
+        <a href="https://t.me/StockSeasonBot" class="plan-btn outline">Subscribe via UPI</a>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:20px;font-size:12px;color:var(--text3);font-family:'DM Mono',monospace;">
+      UPI payment → Send screenshot to @StockSeasonBot → Activated same day
+    </div>
+    <div style="margin-top:16px;padding:14px 20px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--text3);text-align:center;line-height:1.7;max-width:700px;margin-left:auto;margin-right:auto;">
+      <strong style="color:var(--text2);">Subscription = Platform access only.</strong> You are paying for access to historical data tools and platform features — not for investment advice or stock recommendations. We are not SEBI-registered. All information is educational.
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section class="founder-section">
+  <div class="founder-inner">
+    <div class="founder-avatar">
+      <!-- Replace with actual photo when ready: -->
+      <!-- <img class="founder-avatar-img" src="founder.jpg" alt="Jnanendra"> -->
+      <div class="founder-avatar-placeholder">J</div>
+    </div>
+    <div class="founder-content reveal">
+      <div class="founder-name">Jnanendra</div>
+      <div class="founder-handle">
+        Kolkata, India &nbsp;·&nbsp;
+        <a href="https://t.me/Staysettl" target="_blank">@Staysettl on Telegram</a>
+      </div>
+      <p class="founder-story">
+        After years of studying Indian markets and losing money to <strong>blind tips, operator calls, and guesswork</strong> — I started building what I wish had existed.
+        <br><br>
+        Not a prediction system. Not a guarantee. Just <strong>honest historical seasonal patterns</strong> that show you what actually happened, year by year, so you can make more informed decisions.
+        <br><br>
+        StockPattern AI is not SEBI-registered. I'm not a prediction guru. This is a <strong>decision-support tool</strong> built on 20 years of real NSE+BSE data — built alone, improved with community feedback.
+      </p>
+      <div class="founder-tags">
+        <span class="founder-tag">15+ years market study</span>
+        <span class="founder-tag">NSE + BSE</span>
+        <span class="founder-tag">Not SEBI registered</span>
+        <span class="founder-tag">Educational only</span>
+        <span class="founder-tag">Built in public</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY FEEDBACK -->
+<section id="feedback">
+  <div class="feedback-section">
+    <div class="feedback-inner reveal">
+      <div class="feedback-left">
+        <div class="section-label">// Early Beta</div>
+        <h2 class="section-title" style="font-size:28px;">Help shape<br>StockPattern AI.</h2>
+        <p class="section-sub" style="font-size:14px;margin-top:12px;">
+          This is not a finished product. Every feature was built based on real problems. If something is missing, confusing, or wrong — tell us. Your feedback directly shapes what gets built next.
+        </p>
+      </div>
+      <div class="feedback-right">
+        <a href="https://t.me/Staysettl" target="_blank" class="feedback-option">
+          <div class="feedback-icon">💡</div>
+          <div>
+            <div class="feedback-label">Suggest a feature</div>
+            <div class="feedback-sub">What would make this more useful for you?</div>
+          </div>
+        </a>
+        <a href="https://t.me/Staysettl" target="_blank" class="feedback-option">
+          <div class="feedback-icon">🐛</div>
+          <div>
+            <div class="feedback-label">Report an issue</div>
+            <div class="feedback-sub">Something broken or confusing?</div>
+          </div>
+        </a>
+        <a href="https://t.me/StockSeasonSignals" target="_blank" class="feedback-option">
+          <div class="feedback-icon">📢</div>
+          <div>
+            <div class="feedback-label">Join the channel</div>
+            <div class="feedback-sub">See real proof posts before deciding</div>
+          </div>
+        </a>
       </div>
     </div>
   </div>
@@ -1881,27 +1713,27 @@ footer {
 
 <!-- TRUST STATS -->
 <section class="trust-section">
-  <div class="trust-inner">
-    <div class="reveal">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;max-width:500px;margin:0 auto;">
       <div class="section-label">// By The Numbers</div>
-      <h2 class="section-title" style="font-size:clamp(28px,3vw,40px);">Built on 20 years of real data</h2>
+      <h2 class="section-title" style="font-size:clamp(24px,3vw,38px);">Built on real data.<br>Nothing synthetic.</h2>
     </div>
     <div class="trust-grid reveal">
       <div class="trust-card">
         <div class="trust-num green">91,698</div>
-        <div class="trust-label">Patterns in DB</div>
+        <div class="trust-label">Patterns in database</div>
       </div>
       <div class="trust-card">
         <div class="trust-num blue">2,355</div>
-        <div class="trust-label">NSE + BSE Stocks</div>
+        <div class="trust-label">NSE + BSE stocks</div>
       </div>
       <div class="trust-card">
-        <div class="trust-num gold">95%+</div>
-        <div class="trust-label">A+ Historical Accuracy</div>
+        <div class="trust-num gold">20 Yrs</div>
+        <div class="trust-label">Historical depth (2005–2026)</div>
       </div>
       <div class="trust-card">
-        <div class="trust-num accent">20 Yrs</div>
-        <div class="trust-label">Data Depth (2005–2026)</div>
+        <div class="trust-num accent">NSE+BSE</div>
+        <div class="trust-label">Both exchanges, always</div>
       </div>
     </div>
   </div>
@@ -1910,17 +1742,18 @@ footer {
 <!-- CTA -->
 <section>
   <div class="cta-section reveal">
-    <h2>Start making<br><em style="font-style:normal;color:var(--accent);">data-driven</em> decisions</h2>
-    <p>Join free on Telegram. No credit card. No promises. Just 20 years of honest proof.</p>
-    <a href="https://t.me/StockSeasonBot" class="btn-primary" style="font-size:16px;padding:16px 40px;display:inline-flex;">
-      Start Free on @StockSeasonBot ↗
-    </a>
-    <div style="margin-top:16px;font-size:12px;color:var(--text3);font-family:'DM Mono',monospace;">
-      stockpatternai.com &nbsp;·&nbsp; Powered by @StockSeasonBot
+    <h2>Start with proof.<br><em style="font-style:normal;color:var(--accent);">Not promises.</em></h2>
+    <p>Join the channel first. See real historical proof. Then decide if @StockSeasonBot is for you.</p>
+    <div class="cta-actions">
+      <a href="https://t.me/StockSeasonSignals" class="btn-primary">
+        📢 Join @StockSeasonSignals
+      </a>
+      <a href="https://t.me/StockSeasonBot" class="btn-secondary">
+        🤖 Open Bot Free
+      </a>
     </div>
     <div class="disclaimer">
-      ⚠️ StockPattern AI is an educational platform. All data is historical and for informational purposes only. Past performance does not guarantee future results. Always use stop loss. We are not SEBI-registered advisors. Do your own research before investing.<br>
-      <span style="color:var(--text3);margin-top:6px;display:inline-block;">Powered by @StockSeasonBot · stockpatternai.com</span>
+      <strong>Important:</strong> StockPattern AI is an educational platform. All data is historical and for informational purposes only. Past performance does not guarantee future results. Always use a stop loss. We are not SEBI-registered investment advisors. Do your own research before making any financial decision. Nothing on this platform should be construed as financial advice.
     </div>
   </div>
 </section>
@@ -1928,300 +1761,196 @@ footer {
 <footer>
   <div class="footer-left">
     © 2026 StockPattern AI &nbsp;·&nbsp; NSE + BSE Seasonal Analytics &nbsp;·&nbsp; India<br>
-    <span style="font-size:11px;color:var(--text3);">Powered by @StockSeasonBot · stockpatternai.com</span>
+    <span style="font-size:11px;">Powered by @StockSeasonBot · Educational only · Not SEBI registered</span>
   </div>
   <div class="footer-right">
     <a href="https://t.me/StockSeasonBot">Telegram Bot</a>
-    <a href="https://t.me/StockSeasonSignals">Channel</a>
-    <a href="https://stockpatternai.com/privacy">Privacy</a>
+    <a href="https://t.me/StockSeasonSignals">Signals Channel</a>
+    <a href="https://t.me/Staysettl">Contact</a>
   </div>
 </footer>
 
 <script>
-/* ── BACKGROUND PARTICLE ANIMATION ── */
+/* ── PARTICLE CANVAS ── */
 const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
 let W, H, particles = [];
 
-function resize() {
-  W = canvas.width = window.innerWidth;
+// Mobile pe kam particles — performance
+const isMobile = window.innerWidth < 640;
+const PARTICLE_COUNT = isMobile ? 40 : 80;
+
+function resize(){
+  W = canvas.width  = window.innerWidth;
   H = canvas.height = window.innerHeight;
 }
-
-function mkParticle() {
-  return {
-    x: Math.random() * W,
-    y: Math.random() * H,
-    vx: (Math.random() - 0.5) * 0.3,
-    vy: (Math.random() - 0.5) * 0.3,
-    r: Math.random() * 1.5 + 0.5,
-    alpha: Math.random() * 0.4 + 0.05,
-    color: ['#00d4aa','#0095ff','#a855f7'][Math.floor(Math.random()*3)]
+function mkP(){
+  return{
+    x:Math.random()*W, y:Math.random()*H,
+    vx:(Math.random()-0.5)*0.25,
+    vy:(Math.random()-0.5)*0.25,
+    r:Math.random()*1.2+0.3,
+    alpha:Math.random()*0.25+0.03,
+    color:['#00d4aa','#0095ff','#a855f7'][Math.floor(Math.random()*3)]
   };
 }
-
-function init() {
+function initP(){
   resize();
-  particles = Array.from({length: 120}, mkParticle);
+  particles = Array.from({length:PARTICLE_COUNT}, mkP);
 }
-
-function drawLines() {
-  for (let i = 0; i < particles.length; i++) {
-    for (let j = i+1; j < particles.length; j++) {
-      const dx = particles[i].x - particles[j].x;
-      const dy = particles[i].y - particles[j].y;
-      const d = Math.sqrt(dx*dx + dy*dy);
-      if (d < 140) {
+function drawLines(){
+  const maxDist = isMobile ? 80 : 120;
+  for(let i=0;i<particles.length;i++){
+    for(let j=i+1;j<particles.length;j++){
+      const dx=particles[i].x-particles[j].x;
+      const dy=particles[i].y-particles[j].y;
+      const d=Math.sqrt(dx*dx+dy*dy);
+      if(d<maxDist){
         ctx.beginPath();
-        ctx.strokeStyle = `rgba(0,212,170,${0.04*(1-d/140)})`;
-        ctx.lineWidth = 0.5;
-        ctx.moveTo(particles[i].x, particles[i].y);
-        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle=`rgba(0,212,170,${0.025*(1-d/maxDist)})`;
+        ctx.lineWidth=0.5;
+        ctx.moveTo(particles[i].x,particles[i].y);
+        ctx.lineTo(particles[j].x,particles[j].y);
         ctx.stroke();
       }
     }
   }
 }
-
-function animate() {
-  ctx.clearRect(0, 0, W, H);
+function animP(){
+  ctx.clearRect(0,0,W,H);
   drawLines();
-  particles.forEach(p => {
-    p.x += p.vx; p.y += p.vy;
-    if (p.x < 0) p.x = W;
-    if (p.x > W) p.x = 0;
-    if (p.y < 0) p.y = H;
-    if (p.y > H) p.y = 0;
+  particles.forEach(p=>{
+    p.x+=p.vx; p.y+=p.vy;
+    if(p.x<0)p.x=W; if(p.x>W)p.x=0;
+    if(p.y<0)p.y=H; if(p.y>H)p.y=0;
     ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-    ctx.fillStyle = p.color;
-    ctx.globalAlpha = p.alpha;
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=p.color;
+    ctx.globalAlpha=p.alpha;
     ctx.fill();
-    ctx.globalAlpha = 1;
+    ctx.globalAlpha=1;
   });
-  requestAnimationFrame(animate);
+  requestAnimationFrame(animP);
 }
+initP(); animP();
+window.addEventListener('resize', ()=>{
+  resize();
+  // Redistribute particles on resize
+  particles.forEach(p=>{
+    if(p.x>W) p.x=Math.random()*W;
+    if(p.y>H) p.y=Math.random()*H;
+  });
+});
 
-init();
-animate();
-window.addEventListener('resize', () => { init(); });
-
-/* ── TICKER ── */
-const PROOF_DATA = [
-  {sym:'RELIANCE',company:'Reliance Industries',wins:10,total:10,rr:'1:2.4',grade:'A+'},
-  {sym:'HDFCBANK',company:'HDFC Bank Ltd',wins:9,total:10,rr:'1:2.1',grade:'A+'},
-  {sym:'TCS',company:'Tata Consultancy Services',wins:10,total:10,rr:'1:3.1',grade:'A+'},
-  {sym:'INFY',company:'Infosys Ltd',wins:9,total:10,rr:'1:2.8',grade:'A+'},
-  {sym:'SBIN',company:'State Bank of India',wins:8,total:10,rr:'1:2.2',grade:'A+'},
-  {sym:'TITAN',company:'Titan Company Ltd',wins:10,total:10,rr:'1:2.6',grade:'A+'},
-  {sym:'ITC',company:'ITC Ltd',wins:9,total:10,rr:'1:2.0',grade:'A+'},
-  {sym:'LT',company:'Larsen & Toubro Ltd',wins:8,total:10,rr:'1:2.3',grade:'A+'},
-  {sym:'WIPRO',company:'Wipro Ltd',wins:9,total:10,rr:'1:2.5',grade:'A+'},
-  {sym:'KOTAKBANK',company:'Kotak Mahindra Bank',wins:10,total:10,rr:'1:2.7',grade:'A+'},
-  {sym:'AXISBANK',company:'Axis Bank Ltd',wins:8,total:10,rr:'1:2.1',grade:'A+'},
-  {sym:'BAJFINANCE',company:'Bajaj Finance Ltd',wins:9,total:10,rr:'1:3.2',grade:'A+'},
+/* ── PROOF TICKER ── */
+const PROOF_DATA=[
+  {sym:'BRITANNIA',company:'Britannia Industries',wins:10,total:10,rr:'1:1.1',grade:'A+'},
+  {sym:'GODREJ CP',company:'Godrej Consumer Products',wins:10,total:10,rr:'1:2.7',grade:'A+'},
+  {sym:'MARUTI',company:'Maruti Suzuki India',wins:10,total:10,rr:'1:1.3',grade:'A+'},
+  {sym:'BAJAJ FIN',company:'Bajaj Finance Ltd',wins:10,total:10,rr:'1:1.8',grade:'A+'},
+  {sym:'TRENT',company:'Trent Ltd',wins:9,total:10,rr:'1:1.6',grade:'A+'},
+  {sym:'HDFC BANK',company:'HDFC Bank Ltd',wins:10,total:10,rr:'1:1.1',grade:'A+'},
+  {sym:'ADANI ENT',company:'Adani Enterprises',wins:10,total:10,rr:'1:1.6',grade:'A+'},
+  {sym:'COFORGE',company:'Coforge Ltd',wins:10,total:10,rr:'1:1.2',grade:'A+'},
+  {sym:'PHOENIX',company:'The Phoenix Mills',wins:10,total:10,rr:'1:1.4',grade:'A+'},
+  {sym:'MPHASIS',company:'Mphasis Ltd',wins:10,total:10,rr:'1:1.6',grade:'A+'},
 ];
-
-function buildCard(d) {
-  const dots = Array.from({length:d.total}, (_,i) =>
-    `<div class="year-dot ${i >= d.wins ? 'loss':''}"></div>`).join('');
-  return `<div class="proof-card">
-    <div class="proof-card-header">
-      <span class="proof-symbol">${d.sym}</span>
-      <span class="proof-grade">${d.grade}</span>
-    </div>
-    <div class="proof-company">${d.company}</div>
-    <div class="proof-years">${dots}</div>
-    <div class="proof-stats">
-      <div class="proof-winrate">${d.wins}/${d.total}</div>
-      <div class="proof-rr">RR ${d.rr}</div>
-    </div>
-  </div>`;
+function buildCard(d){
+  const dots=Array.from({length:d.total},(_,i)=>`<div class="year-dot${i>=d.wins?' loss':''}"></div>`).join('');
+  return`<div class="proof-card"><div class="proof-card-header"><span class="proof-symbol">${d.sym}</span><span class="proof-grade">${d.grade}</span></div><div class="proof-company">${d.company}</div><div class="proof-years">${dots}</div><div class="proof-stats"><div class="proof-winrate">${d.wins}/${d.total} wins</div><div class="proof-rr">RR ${d.rr}</div></div></div>`;
 }
-
-const ticker = document.getElementById('ticker');
-const double = [...PROOF_DATA, ...PROOF_DATA];
-ticker.innerHTML = double.map(buildCard).join('');
+const ticker=document.getElementById('ticker');
+const double=[...PROOF_DATA,...PROOF_DATA];
+ticker.innerHTML=double.map(buildCard).join('');
 
 /* ── SCROLL REVEAL ── */
-const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      observer.unobserve(e.target);
-    }
-  });
-}, {threshold: 0.12});
-reveals.forEach(el => observer.observe(el));
+const revealObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revealObs.unobserve(e.target);}});},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
 
-/* ── SMOOTH COUNTER ANIMATION ── */
-function animateCount(el, target, suffix) {
-  let start = 0;
-  const dur = 2000;
-  const step = (timestamp) => {
-    if (!start) start = timestamp;
-    const progress = Math.min((timestamp - start) / dur, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    el.textContent = Math.round(eased * target).toLocaleString() + (suffix||'');
-    if (progress < 1) requestAnimationFrame(step);
-  };
-  requestAnimationFrame(step);
-}
+/* ── STAGGER REVEAL ── */
+const staggerObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(!e.isIntersecting)return;const items=e.target.querySelectorAll('.feat-card,.plan-card,.trust-card,.step-item,.health-card,.scan-row');items.forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(14px)';setTimeout(()=>{el.style.transition='opacity 0.4s ease,transform 0.4s ease';el.style.opacity='1';el.style.transform='translateY(0)';},(i*60)+40);});staggerObs.unobserve(e.target);});},{threshold:0.05});
+document.querySelectorAll('.features-grid,.plans-grid,.trust-grid,.steps-list,.health-cards,.how-right-body').forEach(el=>staggerObs.observe(el));
 
-const statObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const nums = e.target.querySelectorAll('.trust-num');
-      nums.forEach(n => {
-        const t = n.textContent;
-        if (t.includes('91,698')) { n.textContent='0'; animateCount(n,91698,''); }
-        if (t.includes('2,355'))  { n.textContent='0'; animateCount(n,2355,''); }
-      });
-      statObs.unobserve(e.target);
-    }
-  });
-}, {threshold: 0.3});
-document.querySelectorAll('.trust-grid').forEach(el => statObs.observe(el));
+/* ── TRUST COUNTER ── */
+function animateCount(el,target,suffix=''){let start=null;const dur=1800;const step=ts=>{if(!start)start=ts;const p=Math.min((ts-start)/dur,1);const e=1-Math.pow(1-p,3);el.textContent=Math.round(e*target).toLocaleString('en-IN')+(suffix||'');if(p<1)requestAnimationFrame(step);};requestAnimationFrame(step);}
+const countObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(!e.isIntersecting)return;e.target.querySelectorAll('.trust-num').forEach(n=>{const t=n.textContent;if(t.includes('91'))animateCount(n,91698,'');if(t.includes('2,355')||t.includes('2355'))animateCount(n,2355,'');});countObs.unobserve(e.target);});},{threshold:0.3});
+document.querySelectorAll('.trust-grid').forEach(el=>countObs.observe(el));
 
-/* ── PATTERN HEALTH SECTION — staggered reveal ── */
-const healthObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    const cards = e.target.querySelectorAll('.health-signal-card');
-    cards.forEach((card, i) => {
-      card.style.opacity = '0';
-      card.style.transform = 'translateX(-20px)';
-      setTimeout(() => {
-        card.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1), border-color 0.3s, box-shadow 0.3s';
-        card.style.opacity = '1';
-        card.style.transform = 'translateX(0)';
-      }, i * 120 + 100);
-    });
-    // Demo card slides in from right
-    const demo = e.target.querySelector('.health-demo');
-    if (demo) {
-      demo.style.opacity = '0';
-      demo.style.transform = 'translateX(20px)';
-      setTimeout(() => {
-        demo.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.22,1,0.36,1)';
-        demo.style.opacity = '1';
-        demo.style.transform = 'translateX(0)';
-      }, 200);
-    }
-    healthObs.unobserve(e.target);
-  });
-}, {threshold: 0.1});
-document.querySelectorAll('.health-intro').forEach(el => healthObs.observe(el));
+/* ── NAV SCROLL EFFECT ── */
+window.addEventListener('scroll',()=>{
+  const nav=document.querySelector('nav');
+  if(window.scrollY>50){
+    nav.style.borderBottomColor='rgba(255,255,255,0.1)';
+    nav.style.background='rgba(6,9,16,0.95)';
+  } else {
+    nav.style.borderBottomColor='rgba(255,255,255,0.07)';
+    nav.style.background='rgba(6,9,16,0.85)';
+  }
+});
 
-/* ── PATTERN HEALTH DEMO CARD — health row entry animation ── */
-const healthRowObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    const rows = e.target.querySelectorAll('.hdc-health-row');
-    rows.forEach((row, i) => {
-      row.style.opacity = '0';
-      row.style.transform = 'translateY(8px)';
-      setTimeout(() => {
-        row.style.transition = 'opacity 0.4s ease, transform 0.4s ease, background 0.15s, padding-left 0.15s';
-        row.style.opacity = '1';
-        row.style.transform = 'translateY(0)';
-      }, i * 100 + 400);
-    });
-    healthRowObs.unobserve(e.target);
-  });
-}, {threshold: 0.2});
-document.querySelectorAll('.health-demo-card').forEach(el => healthRowObs.observe(el));
+/* ── MOBILE NAV — Add hamburger button ── */
+(function(){
+  const navEl = document.querySelector('nav');
+  const links  = navEl.querySelector('.nav-links');
 
-/* ── FEATURE CARDS — stagger on scroll ── */
-const featureObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    const cards = e.target.querySelectorAll('.feature-card');
-    cards.forEach((card, i) => {
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(16px)';
-      setTimeout(() => {
-        card.style.transition = 'opacity 0.4s ease, transform 0.4s ease, border-color 0.25s, box-shadow 0.25s';
-        card.style.opacity = '1';
-        card.style.transform = 'translateY(0)';
-      }, i * 70 + 60);
-    });
-    featureObs.unobserve(e.target);
-  });
-}, {threshold: 0.05});
-document.querySelectorAll('.features-grid').forEach(el => featureObs.observe(el));
-
-/* ── PLAN CARDS — stagger on scroll ── */
-const planObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    const cards = e.target.querySelectorAll('.plan-card');
-    cards.forEach((card, i) => {
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(20px) scale(0.97)';
-      setTimeout(() => {
-        card.style.transition = 'opacity 0.45s ease, transform 0.45s cubic-bezier(0.22,1,0.36,1), border-color 0.25s, box-shadow 0.25s';
-        card.style.opacity = '1';
-        card.style.transform = 'translateY(0) scale(1)';
-      }, i * 80 + 60);
-    });
-    planObs.unobserve(e.target);
-  });
-}, {threshold: 0.05});
-document.querySelectorAll('.plans-grid').forEach(el => planObs.observe(el));
-
-/* ── TRUST CARDS — scale-in on scroll ── */
-const trustObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    const cards = e.target.querySelectorAll('.trust-card');
-    cards.forEach((card, i) => {
-      card.style.opacity = '0';
-      card.style.transform = 'scale(0.9)';
-      setTimeout(() => {
-        card.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1)';
-        card.style.opacity = '1';
-        card.style.transform = 'scale(1)';
-      }, i * 80 + 60);
-    });
-    trustObs.unobserve(e.target);
-  });
-}, {threshold: 0.2});
-document.querySelectorAll('.trust-grid').forEach(el => trustObs.observe(el));
-
-/* ── NAV LINK HOVER — underline slide ── */
-document.querySelectorAll('.nav-links a:not(.nav-cta)').forEach(a => {
-  a.style.position = 'relative';
-  const underline = document.createElement('span');
-  underline.style.cssText = `
-    position:absolute; bottom:-2px; left:0; right:100%;
-    height:1px; background:var(--accent);
-    transition: right 0.25s ease; pointer-events:none;
+  // Create hamburger button
+  const burger = document.createElement('button');
+  burger.innerHTML = '☰';
+  burger.style.cssText = `
+    display:none;background:none;border:none;color:var(--text2);
+    font-size:22px;cursor:pointer;padding:4px 8px;
+    position:absolute;right:60px;top:50%;transform:translateY(-50%);
+    z-index:200;
   `;
-  a.appendChild(underline);
-  a.addEventListener('mouseenter', () => { underline.style.right = '0'; });
-  a.addEventListener('mouseleave', () => { underline.style.right = '100%'; });
-});
+  navEl.style.position = 'fixed';
+  navEl.appendChild(burger);
 
-/* ── HERO STATS BAR — count up on load ── */
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const statNums = document.querySelectorAll('.stat-num');
-    statNums.forEach(el => {
-      const text = el.innerHTML;
-      if (text.includes('91')) {
-        el.innerHTML = '0<span>K+</span>';
-        animateCount(el.childNodes[0].nodeType === 3
-          ? el : el, 91, 'K+');
-      }
-      if (text.includes('2,355')) {
-        el.textContent = '0';
-        animateCount(el, 2355, '');
-      }
-    });
-  }, 600);
-});
+  // Mobile menu overlay
+  const menu = document.createElement('div');
+  menu.style.cssText = `
+    display:none;position:fixed;inset:0;top:56px;
+    background:rgba(6,9,16,0.98);backdrop-filter:blur(20px);
+    z-index:150;padding:24px 18px;
+    flex-direction:column;gap:4px;
+  `;
+  const menuLinks = [
+    {href:'#honest',  label:'What This Is'},
+    {href:'#how',     label:'How It Works'},
+    {href:'#features',label:'Features'},
+    {href:'#health',  label:'Pattern Health'},
+    {href:'#plans',   label:'Plans'},
+    {href:'https://t.me/StockSeasonSignals', label:'📢 Join Channel', primary:true},
+    {href:'https://t.me/StockSeasonBot',     label:'🤖 Open Bot Free'},
+  ];
+  menuLinks.forEach(l=>{
+    const a = document.createElement('a');
+    a.href = l.href;
+    a.textContent = l.label;
+    a.style.cssText = `
+      display:block;padding:16px 18px;font-size:16px;font-weight:500;
+      color:${l.primary ? '#000' : 'var(--text2)'};
+      background:${l.primary ? 'var(--accent)' : 'transparent'};
+      border-radius:10px;text-decoration:none;
+      border-bottom:${l.primary ? 'none' : '1px solid rgba(255,255,255,0.05)'};
+      transition:color 0.15s;
+    `;
+    a.addEventListener('click',()=>{ menu.style.display='none'; burger.innerHTML='☰'; open=false; });
+    menu.appendChild(a);
+  });
+  document.body.appendChild(menu);
+
+  let open = false;
+  function showBurger(){
+    burger.style.display = window.innerWidth <= 640 ? 'block' : 'none';
+  }
+  burger.addEventListener('click',()=>{
+    open = !open;
+    menu.style.display = open ? 'flex' : 'none';
+    burger.innerHTML = open ? '✕' : '☰';
+  });
+  window.addEventListener('resize', showBurger);
+  showBurger();
+})();
 </script>
 </body>
 </html>
