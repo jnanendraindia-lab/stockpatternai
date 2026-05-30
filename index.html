@@ -53,19 +53,66 @@ body{
 /* CANVAS */
 #bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
 
-/* SCROLLBAR */
-::-webkit-scrollbar{width:4px;}
+/* ── SECTIONS BACKGROUND — semi-transparent so particles visible ── */
+.honest-section{
+  background:rgba(8,13,20,0.85)!important;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.features-section{
+  background:rgba(8,13,20,0.85)!important;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.founder-section{
+  background:rgba(8,13,20,0.85)!important;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.trust-section{
+  background:rgba(8,13,20,0.85)!important;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+section[id="plans"]{
+  background:rgba(8,13,20,0.85)!important;
+}
+section[id="how"]{
+  background:rgba(6,9,16,0.78)!important;
+}
+section[id="health"]{
+  background:rgba(6,9,16,0.78)!important;
+}
+section[id="feedback"]{
+  background:rgba(6,9,16,0.78)!important;
+}
+.proof-ticker{
+  background:rgba(8,13,20,0.85)!important;
+  position:relative;z-index:1;
+}
+.hero{
+  background:transparent!important;
+}
+/* CTA section transparent */
+.cta-section{
+  position:relative;z-index:1;
+}
+
+/* Body — transparent so canvas shows everywhere */
+body{
+  background:transparent;
+}
+/* Page root background — dark base */
+html{
+  background:var(--bg);
+}
 ::-webkit-scrollbar-track{background:var(--bg2);}
 ::-webkit-scrollbar-thumb{background:rgba(0,212,170,0.2);border-radius:2px;}
 
 /* ── NAV ── */
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
+  position:fixed;top:0;left:0;right:0;z-index:1000;
   display:flex;align-items:center;justify-content:space-between;
   padding:0 48px;height:64px;
-  background:rgba(6,9,16,0.85);
-  backdrop-filter:blur(20px);
+  background:rgba(6,9,16,0.92);
   border-bottom:1px solid var(--border);
+  isolation:isolate;
 }
 .logo{
   display:flex;align-items:center;gap:10px;
@@ -81,11 +128,14 @@ nav{
   font-family:'DM Mono',monospace;letter-spacing:-0.5px;
 }
 .logo span{color:var(--accent);}
-.nav-links{display:flex;align-items:center;gap:8px;list-style:none;}
+.nav-links{display:flex;align-items:center;gap:8px;list-style:none;position:relative;z-index:1001;}
+.nav-links li{position:relative;z-index:1001;}
 .nav-links a{
   color:var(--text2);text-decoration:none;font-size:14px;
   padding:6px 12px;border-radius:6px;
-  transition:color 0.15s;
+  transition:color 0.15s;cursor:pointer;
+  position:relative;z-index:1001;
+  display:block;pointer-events:auto;
 }
 .nav-links a:hover{color:var(--text);}
 .nav-cta{
@@ -833,8 +883,13 @@ footer{
 }
 
 /* All sections need z-index:1 to sit above canvas */
-nav,section,.proof-ticker,footer{
+section,.proof-ticker,footer{
   position:relative;z-index:1;
+}
+/* Nav separately — fixed position, high z-index */
+nav{
+  z-index:1000!important;
+  position:fixed!important;
 }
 
 /* Sections with bg2 — keep bg but semi-transparent so canvas visible through */
@@ -1077,7 +1132,7 @@ section[style*="bg2"]{
     <li><a href="#features">Features</a></li>
     <li><a href="#health">Pattern Health</a></li>
     <li><a href="#plans">Plans</a></li>
-    <li><a href="https://t.me/StockSeasonSignals" class="nav-cta">Join Channel ↗</a></li>
+    <li><a href="https://t.me/StockSeasonSignals" class="nav-cta">Join @StockSeasonSignals ↗</a></li>
   </ul>
 </nav>
 
@@ -1107,7 +1162,7 @@ section[style*="bg2"]{
 
       <div class="hero-actions">
         <a href="https://t.me/StockSeasonSignals" class="btn-primary">
-          📢 Join Signals Channel
+          📢 Join @StockSeasonSignals
         </a>
         <a href="https://t.me/StockSeasonBot" class="btn-secondary">
           🤖 Open Bot Free
@@ -1702,7 +1757,7 @@ section[style*="bg2"]{
         <a href="https://t.me/StockSeasonSignals" target="_blank" class="feedback-option">
           <div class="feedback-icon">📢</div>
           <div>
-            <div class="feedback-label">Join the channel</div>
+            <div class="feedback-label">Join @StockSeasonSignals</div>
             <div class="feedback-sub">See real proof posts before deciding</div>
           </div>
         </a>
@@ -1743,7 +1798,7 @@ section[style*="bg2"]{
 <section>
   <div class="cta-section reveal">
     <h2>Start with proof.<br><em style="font-style:normal;color:var(--accent);">Not promises.</em></h2>
-    <p>Join the channel first. See real historical proof. Then decide if @StockSeasonBot is for you.</p>
+    <p>Join @StockSeasonSignals first. See real historical proof. Then decide if @StockSeasonBot is for you.</p>
     <div class="cta-actions">
       <a href="https://t.me/StockSeasonSignals" class="btn-primary">
         📢 Join @StockSeasonSignals
@@ -1765,7 +1820,7 @@ section[style*="bg2"]{
   </div>
   <div class="footer-right">
     <a href="https://t.me/StockSeasonBot">Telegram Bot</a>
-    <a href="https://t.me/StockSeasonSignals">Signals Channel</a>
+    <a href="https://t.me/StockSeasonSignals">@StockSeasonSignals</a>
     <a href="https://t.me/Staysettl">Contact</a>
   </div>
 </footer>
@@ -1778,7 +1833,7 @@ let W, H, particles = [];
 
 // Mobile pe kam particles — performance
 const isMobile = window.innerWidth < 640;
-const PARTICLE_COUNT = isMobile ? 40 : 80;
+const PARTICLE_COUNT = isMobile ? 120 : 240;
 
 function resize(){
   W = canvas.width  = window.innerWidth;
@@ -1787,10 +1842,10 @@ function resize(){
 function mkP(){
   return{
     x:Math.random()*W, y:Math.random()*H,
-    vx:(Math.random()-0.5)*0.25,
-    vy:(Math.random()-0.5)*0.25,
-    r:Math.random()*1.2+0.3,
-    alpha:Math.random()*0.25+0.03,
+    vx:(Math.random()-0.5)*0.35,
+    vy:(Math.random()-0.5)*0.35,
+    r:Math.random()*2.0+0.6,
+    alpha:Math.random()*0.45+0.08,
     color:['#00d4aa','#0095ff','#a855f7'][Math.floor(Math.random()*3)]
   };
 }
@@ -1799,7 +1854,7 @@ function initP(){
   particles = Array.from({length:PARTICLE_COUNT}, mkP);
 }
 function drawLines(){
-  const maxDist = isMobile ? 80 : 120;
+  const maxDist = isMobile ? 100 : 150;
   for(let i=0;i<particles.length;i++){
     for(let j=i+1;j<particles.length;j++){
       const dx=particles[i].x-particles[j].x;
@@ -1807,8 +1862,8 @@ function drawLines(){
       const d=Math.sqrt(dx*dx+dy*dy);
       if(d<maxDist){
         ctx.beginPath();
-        ctx.strokeStyle=`rgba(0,212,170,${0.025*(1-d/maxDist)})`;
-        ctx.lineWidth=0.5;
+        ctx.strokeStyle=`rgba(0,212,170,${0.06*(1-d/maxDist)})`;
+        ctx.lineWidth=0.8;
         ctx.moveTo(particles[i].x,particles[i].y);
         ctx.lineTo(particles[j].x,particles[j].y);
         ctx.stroke();
@@ -1876,15 +1931,27 @@ function animateCount(el,target,suffix=''){let start=null;const dur=1800;const s
 const countObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(!e.isIntersecting)return;e.target.querySelectorAll('.trust-num').forEach(n=>{const t=n.textContent;if(t.includes('91'))animateCount(n,91698,'');if(t.includes('2,355')||t.includes('2355'))animateCount(n,2355,'');});countObs.unobserve(e.target);});},{threshold:0.3});
 document.querySelectorAll('.trust-grid').forEach(el=>countObs.observe(el));
 
-/* ── NAV SCROLL EFFECT ── */
+/* ── NAV SMOOTH SCROLL — explicit for all anchor links ── */
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const id = this.getAttribute('href').slice(1);
+    const target = document.getElementById(id);
+    if(target){
+      const offset = 70; // nav height
+      const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({top: top, behavior: 'smooth'});
+    }
+  });
+});
 window.addEventListener('scroll',()=>{
   const nav=document.querySelector('nav');
   if(window.scrollY>50){
     nav.style.borderBottomColor='rgba(255,255,255,0.1)';
-    nav.style.background='rgba(6,9,16,0.95)';
+    nav.style.background='rgba(6,9,16,0.97)';
   } else {
     nav.style.borderBottomColor='rgba(255,255,255,0.07)';
-    nav.style.background='rgba(6,9,16,0.85)';
+    nav.style.background='rgba(6,9,16,0.92)';
   }
 });
 
@@ -1909,7 +1976,7 @@ window.addEventListener('scroll',()=>{
   const menu = document.createElement('div');
   menu.style.cssText = `
     display:none;position:fixed;inset:0;top:56px;
-    background:rgba(6,9,16,0.98);backdrop-filter:blur(20px);
+    background:rgba(6,9,16,0.98);
     z-index:150;padding:24px 18px;
     flex-direction:column;gap:4px;
   `;
@@ -1919,7 +1986,7 @@ window.addEventListener('scroll',()=>{
     {href:'#features',label:'Features'},
     {href:'#health',  label:'Pattern Health'},
     {href:'#plans',   label:'Plans'},
-    {href:'https://t.me/StockSeasonSignals', label:'📢 Join Channel', primary:true},
+    {href:'https://t.me/StockSeasonSignals', label:'📢 Join @StockSeasonSignals', primary:true},
     {href:'https://t.me/StockSeasonBot',     label:'🤖 Open Bot Free'},
   ];
   menuLinks.forEach(l=>{
