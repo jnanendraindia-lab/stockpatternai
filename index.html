@@ -142,8 +142,26 @@ nav{
   background:var(--accent)!important;color:#000!important;
   font-weight:600!important;padding:8px 18px!important;
   border-radius:8px!important;transition:opacity 0.2s!important;
+  white-space:nowrap!important;
 }
 .nav-cta:hover{opacity:0.85!important;}
+.cta-short{display:none;}
+.cta-full{display:inline;}
+/* ── Bot Guide CTA — outline/ghost style (secondary, distinct from green Join) ── */
+.nav-guide{
+  background:transparent!important;
+  color:var(--accent)!important;
+  font-weight:600!important;padding:8px 16px!important;
+  border:1px solid rgba(0,212,170,0.45)!important;
+  border-radius:8px!important;
+  transition:background 0.2s,border-color 0.2s,box-shadow 0.2s!important;
+}
+.nav-guide:hover{
+  background:rgba(0,212,170,0.1)!important;
+  border-color:var(--accent)!important;
+  box-shadow:0 4px 16px rgba(0,212,170,0.18)!important;
+  color:var(--accent)!important;
+}
 
 /* ── SECTIONS ── */
 section{position:relative;z-index:1;}
@@ -912,6 +930,7 @@ section[style*="bg2"]{
 @media (max-width:900px){
   nav{padding:0 24px;}
   .nav-links li:not(:last-child){display:none;}
+  .nav-links li.nav-guide-li{display:block;}
   .section-inner{padding:72px 28px;}
   .hero{padding:100px 28px 60px;}
   .hero-inner{grid-template-columns:1fr;gap:40px;}
@@ -939,9 +958,13 @@ section[style*="bg2"]{
   .nav-links{gap:4px;}
   .nav-links li{display:none;}
   .nav-links li:last-child{display:block;}
+  .nav-links li.nav-guide-li{display:block;}
+  .nav-guide{padding:7px 11px!important;font-size:12px!important;white-space:nowrap!important;}
   .nav-cta{
     padding:7px 14px!important;font-size:13px!important;
   }
+  .cta-full{display:none;}
+  .cta-short{display:inline;}
 
   /* SECTIONS */
   .section-inner{padding:56px 18px;}
@@ -1088,6 +1111,13 @@ section[style*="bg2"]{
   .plan-price{font-size:24px;}
   .trust-num{font-size:22px;}
   .hpc-metrics{grid-template-columns:repeat(3,1fr);}
+  /* NAV — keep logo + Bot Guide + Join all on one row on tiny phones */
+  nav{padding:0 12px;}
+  .logo{font-size:14px;}
+  .logo-mark{width:24px;height:24px;font-size:11px;}
+  .nav-links{gap:6px;}
+  .nav-guide{padding:6px 9px!important;font-size:11px!important;}
+  .nav-cta{padding:6px 10px!important;font-size:11px!important;}
 }
 
 /* ── ANIMATIONS ── */
@@ -1132,7 +1162,8 @@ section[style*="bg2"]{
     <li><a href="#features">Features</a></li>
     <li><a href="#health">Pattern Health</a></li>
     <li><a href="#plans">Plans</a></li>
-    <li><a href="https://t.me/StockSeasonSignals" class="nav-cta">Join @StockSeasonSignals ↗</a></li>
+    <li class="nav-guide-li"><a href="botguide.html" class="nav-guide">📖 Bot Guide</a></li>
+    <li><a href="https://t.me/StockSeasonSignals" class="nav-cta"><span class="cta-full">Join @StockSeasonSignals ↗</span><span class="cta-short">Join ↗</span></a></li>
   </ul>
 </nav>
 
@@ -1819,6 +1850,7 @@ section[style*="bg2"]{
     <span style="font-size:11px;">Powered by @StockSeasonBot · Educational only · Not SEBI registered</span>
   </div>
   <div class="footer-right">
+    <a href="botguide.html">📖 Bot Guide</a>
     <a href="https://t.me/StockSeasonBot">Telegram Bot</a>
     <a href="https://t.me/StockSeasonSignals">@StockSeasonSignals</a>
     <a href="https://t.me/Staysettl">Contact</a>

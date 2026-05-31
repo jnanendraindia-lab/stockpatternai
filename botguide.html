@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Use the Bot — StockPattern AI</title>
+<meta name="description" content="Step-by-step guide to using @StockSeasonBot. 20 years of NSE+BSE seasonal patterns. Honest data. Educational only.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:      #060910;
+  --bg2:     #0b1118;
+  --bg3:     #101820;
+  --surface: #141c26;
+  --text:    #e8edf5;
+  --text2:   #8a96a8;
+  --text3:   #4a5568;
+  --accent:  #00d4aa;
+  --accent2: #0095ff;
+  --gold:    #f5c842;
+  --red:     #ef4444;
+  --line:    rgba(255,255,255,0.06);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{background:var(--bg);scroll-behavior:smooth;}
+body{
+  background:transparent;
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+::-webkit-scrollbar{width:9px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:#1e2a38;border-radius:4px;}
+::-webkit-scrollbar-thumb:hover{background:var(--accent);}
+
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+
+.wrap{max-width:920px;margin:0 auto;padding:0 22px;position:relative;z-index:1;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 28px;
+  background:rgba(6,9,16,0.82);
+  border-bottom:1px solid var(--line);
+}
+.logo{
+  display:flex;align-items:center;gap:10px;
+  color:var(--text);text-decoration:none;
+  font-family:'DM Mono',monospace;font-size:17px;font-weight:500;
+  letter-spacing:-0.5px;
+}
+.logo-mark{
+  width:30px;height:30px;border-radius:8px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:#000;
+}
+.logo span{color:var(--accent);}
+.nav-cta{
+  background:var(--accent);color:#000!important;
+  padding:9px 16px;border-radius:9px;
+  text-decoration:none;font-size:13px;font-weight:600;
+  transition:transform .15s,box-shadow .15s;white-space:nowrap;
+}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,212,170,0.3);}
+
+/* ── HERO ── */
+.hero{padding:140px 0 60px;text-align:center;}
+.eyebrow{
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--accent);letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:18px;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);
+  animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+.hero h1{
+  font-size:clamp(32px,6vw,52px);font-weight:800;
+  letter-spacing:-1.5px;line-height:1.1;margin-bottom:20px;
+}
+.hero h1 .grad{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.hero p{font-size:18px;color:var(--text2);max-width:560px;margin:0 auto 14px;}
+.tagline{
+  font-family:'DM Mono',monospace;font-size:14px;color:var(--gold);
+  margin-top:18px;
+}
+.hero-time{
+  margin-top:26px;font-size:13px;color:var(--text3);
+  font-family:'DM Mono',monospace;
+}
+
+/* ── SECTION ── */
+section{padding:48px 0;position:relative;}
+.sec-head{margin-bottom:34px;text-align:center;}
+.sec-num{
+  font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);
+  letter-spacing:2px;
+}
+.sec-head h2{
+  font-size:clamp(24px,4vw,34px);font-weight:700;
+  letter-spacing:-1px;margin-top:6px;
+}
+.sec-head p{color:var(--text2);margin-top:8px;font-size:15px;}
+
+/* ── STEP CARDS ── */
+.steps{display:flex;flex-direction:column;gap:16px;}
+.step{
+  display:flex;gap:18px;align-items:flex-start;
+  background:var(--bg2);
+  border:1px solid var(--line);border-radius:16px;
+  padding:22px 24px;
+  opacity:0;transform:translateY(24px);
+  transition:opacity .6s,transform .6s,border-color .25s;
+}
+.step.in{opacity:1;transform:translateY(0);}
+.step:hover{border-color:rgba(0,212,170,0.35);}
+.step-num{
+  flex-shrink:0;width:42px;height:42px;border-radius:12px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#000;font-weight:800;font-size:18px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Mono',monospace;
+}
+.step-body h3{font-size:18px;font-weight:600;margin-bottom:6px;}
+.step-body p{color:var(--text2);font-size:15px;}
+.step-body code{
+  font-family:'DM Mono',monospace;font-size:13px;
+  background:var(--bg3);color:var(--accent);
+  padding:2px 8px;border-radius:6px;border:1px solid var(--line);
+}
+
+/* ── FEATURE GRID ── */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.fcard{
+  background:var(--bg2);border:1px solid var(--line);
+  border-radius:16px;padding:24px;
+  opacity:0;transform:translateY(24px);
+  transition:opacity .6s,transform .6s,border-color .25s,box-shadow .25s;
+}
+.fcard.in{opacity:1;transform:translateY(0);}
+.fcard:hover{border-color:rgba(0,212,170,0.35);
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);}
+.fcard .ico{font-size:30px;margin-bottom:12px;display:block;}
+.fcard h3{font-size:18px;font-weight:600;margin-bottom:8px;}
+.fcard p{color:var(--text2);font-size:14px;}
+.fcard .hint{
+  margin-top:12px;font-family:'DM Mono',monospace;font-size:12px;
+  color:var(--accent);
+}
+
+/* ── PROOF DEMO ── */
+.proof-demo{
+  background:var(--bg2);border:1px solid rgba(0,212,170,0.2);
+  border-radius:18px;padding:28px;max-width:520px;margin:0 auto;
+  opacity:0;transform:scale(0.97);
+  transition:opacity .7s,transform .7s;
+}
+.proof-demo.in{opacity:1;transform:scale(1);}
+.proof-demo .pd-head{
+  font-family:'DM Mono',monospace;font-size:13px;color:var(--gold);
+  border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:14px;
+}
+.pd-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:8px 0;font-size:15px;
+  border-bottom:1px solid rgba(255,255,255,0.03);
+}
+.pd-row .yr{font-family:'DM Mono',monospace;color:var(--text2);}
+.pd-win{color:var(--accent);font-weight:600;}
+.pd-loss{color:var(--red);font-weight:600;}
+.pd-net{
+  margin-top:14px;padding-top:14px;border-top:1px solid var(--line);
+  font-weight:700;font-size:16px;color:var(--accent);text-align:center;
+}
+.pd-note{margin-top:10px;font-size:12px;color:var(--text3);text-align:center;}
+
+/* ── GLOSSARY ── */
+.gloss{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.gitem{
+  background:var(--bg2);border:1px solid var(--line);border-radius:12px;
+  padding:16px 18px;
+  opacity:0;transform:translateX(-10px);
+  transition:opacity .5s,transform .5s;
+}
+.gitem.in{opacity:1;transform:translateX(0);}
+.gitem b{color:var(--accent);font-family:'DM Mono',monospace;font-size:14px;}
+.gitem span{display:block;color:var(--text2);font-size:13px;margin-top:4px;}
+
+/* ── PLANS MINI ── */
+.plan-split{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.plan-box{
+  background:var(--bg2);border:1px solid var(--line);
+  border-radius:16px;padding:24px;
+  opacity:0;transform:translateY(20px);
+  transition:opacity .6s,transform .6s;
+}
+.plan-box.in{opacity:1;transform:translateY(0);}
+.plan-box.paid{border-color:rgba(245,200,66,0.3);}
+.plan-box h3{font-size:17px;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.plan-box ul{list-style:none;}
+.plan-box li{padding:6px 0;font-size:14px;color:var(--text2);
+  display:flex;gap:8px;align-items:flex-start;}
+.plan-box li::before{content:'✓';color:var(--accent);flex-shrink:0;}
+.plan-box.paid li::before{content:'★';color:var(--gold);}
+
+/* ── FUTURE / ROADMAP ── */
+.roadmap{position:relative;padding-left:30px;}
+.roadmap::before{
+  content:'';position:absolute;left:9px;top:8px;bottom:8px;width:2px;
+  background:linear-gradient(var(--accent),var(--accent2),var(--text3));
+}
+.ritem{
+  position:relative;margin-bottom:22px;
+  opacity:0;transform:translateX(-12px);
+  transition:opacity .6s,transform .6s;
+}
+.ritem.in{opacity:1;transform:translateX(0);}
+.ritem::before{
+  content:'';position:absolute;left:-25px;top:5px;
+  width:14px;height:14px;border-radius:50%;
+  background:var(--bg);border:3px solid var(--accent);
+}
+.ritem.soon::before{border-color:var(--accent2);}
+.ritem.dev::before{border-color:var(--text3);}
+.ritem .rtag{
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px;
+  padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:6px;
+}
+.rtag.live{background:rgba(0,212,170,0.12);color:var(--accent);}
+.rtag.soon{background:rgba(0,149,255,0.12);color:var(--accent2);}
+.rtag.dev{background:rgba(74,85,104,0.18);color:var(--text2);}
+.ritem h3{font-size:17px;font-weight:600;margin-bottom:4px;}
+.ritem p{color:var(--text2);font-size:14px;}
+
+/* ── CTA ── */
+.cta{text-align:center;padding:70px 0 50px;}
+.cta h2{font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:-1px;
+  margin-bottom:14px;}
+.cta p{color:var(--text2);margin-bottom:26px;}
+.btn-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{
+  background:var(--accent);color:#000;
+  padding:14px 26px;border-radius:11px;text-decoration:none;
+  font-weight:600;font-size:15px;
+  transition:transform .15s,box-shadow .15s;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,212,170,0.35);}
+.btn-secondary{
+  background:transparent;color:var(--text2);
+  padding:14px 26px;border-radius:11px;text-decoration:none;
+  font-weight:600;font-size:15px;border:1px solid var(--line);
+  transition:color .15s,border-color .15s;
+}
+.btn-secondary:hover{color:var(--text);border-color:var(--accent);}
+
+/* ── DISCLAIMER ── */
+.disc{
+  max-width:620px;margin:0 auto;text-align:center;
+  font-size:13px;color:var(--text3);line-height:1.7;
+  border-top:1px solid var(--line);padding-top:28px;
+}
+
+/* ── FOOTER ── */
+footer{
+  text-align:center;padding:34px 0;
+  border-top:1px solid var(--line);margin-top:30px;
+  color:var(--text3);font-size:13px;
+}
+footer a{color:var(--text2);text-decoration:none;}
+footer a:hover{color:var(--accent);}
+
+/* ── MOBILE ── */
+@media(max-width:640px){
+  .grid,.gloss,.plan-split{grid-template-columns:1fr;}
+  .hero{padding:120px 0 40px;}
+  nav{padding:14px 18px;}
+  .logo{font-size:15px;}
+  .nav-cta{padding:8px 12px;font-size:12px;}
+  .step{padding:18px;}
+}
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+
+<nav>
+  <a class="logo" href="index.html">
+    <span class="logo-mark">SP</span> StockPattern<span>AI</span>
+  </a>
+  <a href="https://t.me/StockSeasonBot" class="nav-cta">🤖 Open Bot</a>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="eyebrow"><span class="dot"></span> Bot Walkthrough · 2 Min Read</div>
+    <h1>Pehli baar bot use kar rahe ho?<br><span class="grad">2 minute mein samajh jaoge.</span></h1>
+    <p>Yeh bot tips nahi deta. Yeh aapko 20 saal ka NSE + BSE ka historical data dikhata hai — taaki aap khud decide kar sako.</p>
+    <div class="tagline">"Data jhooth nahi bolta."</div>
+    <div class="hero-time">⏱ Setup time: 30 seconds · Cost: Free to start</div>
+  </header>
+
+  <!-- START STEPS -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">01 · GETTING STARTED</div>
+      <h2>Start kaise karein</h2>
+      <p>Bas 3 step. Koi signup form nahi, koi OTP nahi.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Bot kholo</h3>
+          <p>Telegram pe <code>@StockSeasonBot</code> search karo aur open karo.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Start dabao</h3>
+          <p><code>/start</code> type karo ya "Start" button dabao. Bas — aap andar ho.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Home screen pe 5 options aayenge</h3>
+          <p>🔍 Scanner &nbsp;·&nbsp; 🔎 Analyze Stock &nbsp;·&nbsp; 📅 Monthly Windows &nbsp;·&nbsp; 💼 Plans &nbsp;·&nbsp; 📢 Join Channel</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EASIEST WAY -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">02 · THE EASIEST WAY</div>
+      <h2>Bas stock ka naam type karo</h2>
+      <p>Sabse simple tareeka — koi button dhoondhne ki zaroorat nahi.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">⌨</div>
+        <div class="step-body">
+          <h3>Type karo: <code>ACC</code></h3>
+          <p>ACC ke saare seasonal patterns dikhenge — direct.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">🔎</div>
+        <div class="step-body">
+          <h3>Type karo: <code>Adani</code></h3>
+          <p>Saare Adani group stocks ki list aayegi. List me se number type karo (jaise <code>1</code>) — pehla result khul jaayega.</p>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center;color:var(--text2);margin-top:20px;font-size:14px;">
+      Bot dikhayega: ✅ kaunsa mahina historically achha/bura raha · ✅ win rate · ✅ Target (T1) + Stop Loss · ✅ 🔥 Freshness signal
+    </p>
+  </section>
+
+  <!-- FEATURES -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">03 · WHAT EACH BUTTON DOES</div>
+      <h2>Bot ke 3 main tools</h2>
+    </div>
+    <div class="grid">
+      <div class="fcard reveal">
+        <span class="ico">🔍</span>
+        <h3>Scanner</h3>
+        <p>Aaj ke best seasonal patterns dhundo. Choose karo: All Stocks (poora NSE+BSE) ya Trusted Stocks (200+ reliable). Phir Days → Timeframe → Bullish/Bearish → Grade.</p>
+        <div class="hint">🟢 Bullish = upar · 🔴 Bearish = neeche</div>
+      </div>
+      <div class="fcard reveal">
+        <span class="ico">🔎</span>
+        <h3>Analyze Stock</h3>
+        <p>Kisi ek stock ki poori history. Naam type karo, aur 20 saal ka seasonal pattern, targets, stop loss, aur Pattern Health dekho.</p>
+        <div class="hint">Layer-by-layer deep analysis</div>
+      </div>
+      <div class="fcard reveal">
+        <span class="ico">📅</span>
+        <h3>Monthly Windows</h3>
+        <p>Mahine ke hisaab se — "is mahine kaunse stocks historically chalte hain?" Plus ₹2L Simulator aur PDF report.</p>
+        <div class="hint">⭐ BASIC plan feature</div>
+      </div>
+      <div class="fcard reveal">
+        <span class="ico">📢</span>
+        <h3>Join Channel</h3>
+        <p>@StockSeasonSignals pe free proof posts aate hain — real stocks, real year-by-year data. Pehle yahan dekho, phir bot kholo.</p>
+        <div class="hint">100% free</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">04 · OUR IDENTITY</div>
+      <h2>🏆 Proof dekho — yahi hamari pehchaan hai</h2>
+      <p>Kisi bhi stock pe "Bull Proof" dabao. Saal-dar-saal asli result dikhega — wins bhi, losses bhi.</p>
+    </div>
+    <div class="proof-demo reveal">
+      <div class="pd-head">🏆 EXAMPLE — ₹1L per trade</div>
+      <div class="pd-row"><span class="yr">2025</span> <span class="pd-win">✅ +11.3% &nbsp; +₹11,350</span></div>
+      <div class="pd-row"><span class="yr">2024</span> <span class="pd-win">✅ +10.0% &nbsp; +₹10,020</span></div>
+      <div class="pd-row"><span class="yr">2023</span> <span class="pd-win">✅ +8.4% &nbsp; +₹8,400</span></div>
+      <div class="pd-row"><span class="yr">2022</span> <span class="pd-loss">❌ -3.2% &nbsp; -₹3,200</span></div>
+      <div class="pd-row"><span class="yr">2021</span> <span class="pd-win">✅ +9.1% &nbsp; +₹9,100</span></div>
+      <div class="pd-net">Overall: PROFIT 🔥 (1 loss honestly included)</div>
+      <div class="pd-note">Hum nuksaan chhupate nahi. Wahi to proof hai. 💪 &nbsp;(Sample data — actual bot mein real numbers aayenge)</div>
+    </div>
+  </section>
+
+  <!-- GLOSSARY -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">05 · NO JARGON</div>
+      <h2>Important words (ghabrao mat!)</h2>
+      <p>Bas itne shabd samajh lo — baaki sab easy hai.</p>
+    </div>
+    <div class="gloss">
+      <div class="gitem reveal"><b>Win Rate</b><span>10 saal mein kitni baar pattern ne kaam kiya</span></div>
+      <div class="gitem reveal"><b>T1 / T2 / T3</b><span>Target — kitna upar/neeche ja sakta hai</span></div>
+      <div class="gitem reveal"><b>SL (Stop Loss)</b><span>Yahan nikal jao — risk control ke liye</span></div>
+      <div class="gitem reveal"><b>RR Ratio</b><span>Risk vs Reward — zyada = behtar deal</span></div>
+      <div class="gitem reveal"><b>🔥 Freshness</b><span>Pattern recent saalon mein kaam kar raha?</span></div>
+      <div class="gitem reveal"><b>A+ Grade</b><span>Sabse reliable pattern (95%+ historical)</span></div>
+    </div>
+  </section>
+
+  <!-- PLANS -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">06 · FREE vs PAID</div>
+      <h2>Free mein bahut kuch milta hai</h2>
+      <p>Start karne ke liye credit card ki zaroorat nahi.</p>
+    </div>
+    <div class="plan-split">
+      <div class="plan-box reveal">
+        <h3>🆓 Free</h3>
+        <ul>
+          <li>Roz 2 stocks analyze</li>
+          <li>10-saal ka data</li>
+          <li>Top pattern + 2-saal proof</li>
+          <li>Scanner (top 3 results)</li>
+          <li>🔥 Freshness signal</li>
+        </ul>
+      </div>
+      <div class="plan-box paid reveal">
+        <h3>⭐ Paid (BASIC se shuru)</h3>
+        <ul>
+          <li>10+ stocks roz (Unlimited VIP mein)</li>
+          <li>4-6 patterns per stock</li>
+          <li>Monthly Windows + ₹2L Simulator</li>
+          <li>PDF reports + full 10-saal proof</li>
+          <li>Saare timeframes + advanced stats</li>
+        </ul>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:20px;font-size:14px;color:var(--text2);">
+      Detail dekhne ke liye bot mein <code style="font-family:'DM Mono',monospace;color:var(--accent);">/plans</code> type karo.
+      <br>Subscription = platform access only. Not investment advice.
+    </p>
+  </section>
+
+  <!-- ROADMAP / FUTURE -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">07 · WHAT'S COMING</div>
+      <h2>Future &amp; upcoming features</h2>
+      <p>Yeh platform roz behtar ho raha hai. Aage kya aa raha hai 👇</p>
+    </div>
+    <div class="roadmap">
+      <div class="ritem reveal">
+        <span class="rtag live">✅ LIVE NOW</span>
+        <h3>Historical Pattern Engine + Pattern Health</h3>
+        <p>20 saal ka data, Freshness / Sharpness / Momentum signals, honest proof. Sab abhi available.</p>
+      </div>
+      <div class="ritem soon reveal">
+        <span class="rtag soon">🔵 COMING SOON</span>
+        <h3>Confidence Score</h3>
+        <p>Har pattern ko ek single score (0-100) — taaki ek nazar mein pata chale kitna strong setup hai. Koi extra API nahi chahiye.</p>
+      </div>
+      <div class="ritem dev reveal">
+        <span class="rtag dev">⚫ IN DEVELOPMENT</span>
+        <h3>Live Technical Validation</h3>
+        <p>Seasonal pattern + live chart check (EMA, RSI, Volume) — "abhi entry ke liye sahi time hai?" ka jawab.</p>
+      </div>
+      <div class="ritem dev reveal">
+        <span class="rtag dev">⚫ IN DEVELOPMENT</span>
+        <h3>Fundamentals + News Filter</h3>
+        <p>P/E, promoter holding, FII activity, aur recent news — sab ek jagah, pattern ke saath.</p>
+      </div>
+      <div class="ritem dev reveal">
+        <span class="rtag dev">⚫ PLANNED</span>
+        <h3>Layman Mode — Zero Jargon</h3>
+        <p>"Markets ka kuch nahi pata" wale user ke liye — screen dekho, samjho, action lo. Bilkul simple.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta">
+    <h2>Ready? Abhi try karo.</h2>
+    <p>Bot kholo aur <code style="font-family:'DM Mono',monospace;color:var(--accent);background:var(--bg3);padding:2px 8px;border-radius:6px;">RELIANCE</code> type karke dekho.</p>
+    <div class="btn-row">
+      <a href="https://t.me/StockSeasonBot" class="btn-primary">🤖 Open @StockSeasonBot</a>
+      <a href="https://t.me/StockSeasonSignals" class="btn-secondary">📢 Join Free Channel</a>
+    </div>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="disc">
+    ⚠️ <b>Educational only.</b> Past performance ≠ future results. We are not SEBI-registered.
+    This is a historical data tool, not investment advice. Always use a stop loss.
+    Koi sawaal? Contact <a href="https://t.me/Staysettl" style="color:var(--accent);text-decoration:none;">@Staysettl</a>.
+  </div>
+
+  <footer>
+    © 2026 StockPattern AI · Not SEBI registered · Educational only<br>
+    <a href="https://stockpatternai.com">stockpatternai.com</a> ·
+    <a href="https://t.me/StockSeasonBot">Bot</a> ·
+    <a href="https://t.me/StockSeasonSignals">Channel</a> ·
+    <a href="https://t.me/Staysettl">Contact</a>
+    <br><span style="color:var(--text3);font-size:11px;">Powered by @StockSeasonBot</span>
+  </footer>
+
+</div>
+
+<script>
+// ── Particle background (matches main site) ──
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles;
+const isMobile = window.innerWidth < 640;
+const COUNT = isMobile ? 60 : 120;
+const COLORS = ['#00d4aa','#0095ff','#a855f7'];
+
+function resize(){
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+function init(){
+  particles = [];
+  for(let i=0;i<COUNT;i++){
+    particles.push({
+      x:Math.random()*W, y:Math.random()*H,
+      vx:(Math.random()-0.5)*0.3, vy:(Math.random()-0.5)*0.3,
+      r:Math.random()*2+0.6,
+      c:COLORS[Math.floor(Math.random()*COLORS.length)],
+      a:Math.random()*0.45+0.08
+    });
+  }
+}
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  for(let i=0;i<particles.length;i++){
+    const p=particles[i];
+    p.x+=p.vx; p.y+=p.vy;
+    if(p.x<0||p.x>W)p.vx*=-1;
+    if(p.y<0||p.y>H)p.vy*=-1;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=p.c; ctx.globalAlpha=p.a; ctx.fill();
+    for(let j=i+1;j<particles.length;j++){
+      const q=particles[j];
+      const dx=p.x-q.x, dy=p.y-q.y;
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<140){
+        ctx.beginPath();
+        ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y);
+        ctx.strokeStyle=p.c;
+        ctx.globalAlpha=(1-dist/140)*0.06;
+        ctx.lineWidth=1; ctx.stroke();
+      }
+    }
+  }
+  ctx.globalAlpha=1;
+  requestAnimationFrame(draw);
+}
+resize(); init(); draw();
+window.addEventListener('resize',()=>{resize();init();});
+
+// ── Scroll reveal (staggered) ──
+const obs = new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('in'), (e.target.dataset.delay||0));
+      obs.unobserve(e.target);
+    }
+  });
+},{threshold:0.15});
+
+document.querySelectorAll('.reveal').forEach((el,i)=>{
+  // stagger items within the same section
+  el.dataset.delay = (i % 6) * 70;
+  obs.observe(el);
+});
+</script>
+</body>
+</html>
