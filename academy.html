@@ -1,0 +1,2696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Academy — Zero se Expert tak | StockPattern AI</title>
+<meta name="description" content="StockPattern AI Academy — Indian stock market ka A-to-Z gyan, bilkul simple Hinglish mein. 7 modules, 50 chapters. Basics se Advanced tak. Free.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060910; --bg2:#0b1118; --bg3:#101820; --surface:#141c26;
+  --text:#e8edf5; --text2:#8a96a8; --text3:#4a5568;
+  --accent:#00d4aa; --accent2:#0095ff; --gold:#f5c842; --red:#ef4444; --purple:#a855f7;
+  --line:rgba(255,255,255,0.06);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{background:var(--bg);scroll-behavior:smooth;}
+body{background:transparent;color:var(--text);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+::-webkit-scrollbar{width:9px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:#1e2a38;border-radius:4px;}
+::-webkit-scrollbar-thumb:hover{background:var(--accent);}
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px;position:relative;z-index:1;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:16px 28px;background:rgba(6,9,16,0.82);border-bottom:1px solid var(--line);}
+.logo{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-family:'DM Mono',monospace;font-size:17px;font-weight:500;letter-spacing:-0.5px;}
+.logo-mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000;}
+.logo span{color:var(--accent);}
+.nav-cta{background:var(--accent);color:#000!important;padding:9px 16px;border-radius:9px;text-decoration:none;font-size:13px;font-weight:600;transition:transform .15s,box-shadow .15s;white-space:nowrap;}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,212,170,0.3);}
+
+/* HERO */
+.hero{padding:130px 0 50px;text-align:center;}
+.eyebrow{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:18px;display:inline-flex;align-items:center;gap:8px;}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+.hero h1{font-size:clamp(32px,6vw,54px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:18px;}
+.hero h1 .grad{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{font-size:18px;color:var(--text2);max-width:600px;margin:0 auto 16px;}
+.hero .tagline{font-family:'DM Mono',monospace;font-size:14px;color:var(--gold);margin-top:16px;}
+.stats-row{display:flex;gap:30px;justify-content:center;margin-top:32px;flex-wrap:wrap;}
+.stat{text-align:center;}
+.stat .n{font-size:28px;font-weight:800;color:var(--accent);font-family:'DM Mono',monospace;}
+.stat .l{font-size:12px;color:var(--text2);margin-top:2px;}
+
+/* PROGRESS NOTE */
+.note{max-width:680px;margin:30px auto 0;background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:18px 22px;text-align:center;font-size:14px;color:var(--text2);}
+.note b{color:var(--text);}
+
+/* MODULE SECTION */
+.modules{padding:40px 0 30px;}
+.sec-title{text-align:center;margin-bottom:36px;}
+.sec-title h2{font-size:clamp(24px,4vw,32px);font-weight:700;letter-spacing:-1px;}
+.sec-title p{color:var(--text2);margin-top:8px;font-size:15px;}
+
+.module{background:var(--bg2);border:1px solid var(--line);border-radius:16px;margin-bottom:16px;overflow:hidden;transition:border-color .25s;}
+.module:hover{border-color:rgba(0,212,170,0.3);}
+.module-head{display:flex;align-items:center;gap:16px;padding:22px 24px;cursor:pointer;user-select:none;}
+.module-emoji{font-size:32px;flex-shrink:0;}
+.module-info{flex:1;}
+.module-info h3{font-size:19px;font-weight:700;margin-bottom:3px;}
+.module-info .sub{font-size:13px;color:var(--text2);}
+.module-meta{font-family:'DM Mono',monospace;font-size:12px;color:var(--text3);flex-shrink:0;text-align:right;}
+.module-arrow{font-size:14px;color:var(--accent);transition:transform .3s;flex-shrink:0;}
+.module.open .module-arrow{transform:rotate(90deg);}
+
+.chapters{max-height:0;overflow:hidden;transition:max-height .4s ease;}
+.module.open .chapters{max-height:1200px;}
+.chapter{display:flex;align-items:center;gap:14px;padding:14px 24px 14px 70px;border-top:1px solid var(--line);cursor:pointer;text-decoration:none;color:var(--text2);transition:background .15s,color .15s;}
+.chapter:hover{background:var(--bg3);color:var(--text);}
+.chapter .ch-num{font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);width:28px;flex-shrink:0;}
+.chapter .ch-title{flex:1;font-size:15px;}
+.chapter .ch-status{font-size:11px;font-family:'DM Mono',monospace;padding:2px 8px;border-radius:10px;flex-shrink:0;}
+.ch-status.ready{background:rgba(0,212,170,0.12);color:var(--accent);}
+.ch-status.soon{background:rgba(74,85,104,0.18);color:var(--text3);}
+
+/* CHAPTER READER (modal-ish inline) */
+.reader{display:none;position:fixed;inset:0;z-index:2000;background:var(--bg);overflow-y:auto;padding:0;}
+.reader.show{display:block;}
+.reader-inner{max-width:760px;margin:0 auto;padding:80px 24px 60px;}
+.reader-top{position:fixed;top:0;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;z-index:2001;}
+.reader-top .back{background:none;border:1px solid var(--line);color:var(--text2);padding:8px 16px;border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit;transition:color .15s,border-color .15s;}
+.reader-top .back:hover{color:var(--text);border-color:var(--accent);}
+.reader-top .mod-tag{font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);}
+.reader h1{font-size:clamp(26px,5vw,38px);font-weight:800;letter-spacing:-1px;margin-bottom:8px;line-height:1.15;}
+.reader .ch-eyebrow{font-family:'DM Mono',monospace;font-size:12px;color:var(--text3);letter-spacing:1px;margin-bottom:14px;}
+.reader h2{font-size:22px;font-weight:700;margin:32px 0 12px;color:var(--text);}
+.reader h3{font-size:18px;font-weight:600;margin:24px 0 10px;color:var(--accent);}
+.reader p{font-size:16px;color:var(--text2);margin-bottom:16px;line-height:1.75;}
+.reader ul{margin:0 0 16px 0;padding-left:4px;list-style:none;}
+.reader li{font-size:16px;color:var(--text2);margin-bottom:10px;padding-left:26px;position:relative;line-height:1.7;}
+.reader li::before{content:'▸';position:absolute;left:4px;color:var(--accent);}
+.reader .callout{background:var(--bg2);border-left:3px solid var(--accent);border-radius:8px;padding:16px 20px;margin:20px 0;font-size:15px;color:var(--text);}
+.reader .callout.warn{border-left-color:var(--gold);}
+.reader .example{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:20px;margin:20px 0;}
+.reader .example .ex-label{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:1px;margin-bottom:10px;}
+.reader b{color:var(--text);}
+.reader .svg-wrap{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:18px;margin:22px 0;}
+.reader-nav{display:flex;justify-content:space-between;gap:14px;margin-top:48px;padding-top:28px;border-top:1px solid var(--line);}
+.reader-nav a{flex:1;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:16px 20px;text-decoration:none;color:var(--text2);transition:border-color .2s,color .2s;}
+.reader-nav a:hover{border-color:var(--accent);color:var(--text);}
+.reader-nav .dir{font-size:11px;font-family:'DM Mono',monospace;color:var(--text3);}
+.reader-nav .t{font-size:14px;font-weight:600;margin-top:4px;}
+.reader-nav .next{text-align:right;}
+
+/* CTA */
+.cta{text-align:center;padding:60px 0 40px;}
+.cta h2{font-size:clamp(24px,4vw,34px);font-weight:800;letter-spacing:-1px;margin-bottom:12px;}
+.cta p{color:var(--text2);margin-bottom:24px;}
+.btn-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{background:var(--accent);color:#000;padding:14px 26px;border-radius:11px;text-decoration:none;font-weight:600;font-size:15px;transition:transform .15s,box-shadow .15s;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,212,170,0.35);}
+.btn-secondary{background:transparent;color:var(--text2);padding:14px 26px;border-radius:11px;text-decoration:none;font-weight:600;font-size:15px;border:1px solid var(--line);transition:color .15s,border-color .15s;}
+.btn-secondary:hover{color:var(--text);border-color:var(--accent);}
+
+.disc{max-width:620px;margin:0 auto;text-align:center;font-size:13px;color:var(--text3);line-height:1.7;border-top:1px solid var(--line);padding-top:28px;}
+footer{text-align:center;padding:34px 0;border-top:1px solid var(--line);margin-top:30px;color:var(--text3);font-size:13px;}
+footer a{color:var(--text2);text-decoration:none;}
+footer a:hover{color:var(--accent);}
+
+@media(max-width:640px){
+  nav{padding:14px 16px;}
+  .logo{font-size:14px;}
+  .hero{padding:110px 0 40px;}
+  .module-head{padding:18px;gap:12px;}
+  .module-emoji{font-size:26px;}
+  .module-info h3{font-size:16px;}
+  .module-meta{display:none;}
+  .chapter{padding:13px 18px 13px 52px;}
+  .stats-row{gap:20px;}
+}
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+
+<nav>
+  <a class="logo" href="index.html"><span class="logo-mark">SP</span> StockPattern<span>AI</span></a>
+  <a href="https://t.me/StockSeasonBot" class="nav-cta">🤖 Open Bot</a>
+</nav>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow"><span class="dot"></span> StockPattern AI Academy</div>
+    <h1>Zero se Expert tak.<br><span class="grad">Bilkul simple bhasha mein.</span></h1>
+    <p>Stock market ka A-to-Z gyan — jaise ek bachcha dheere-dheere sab seekhta hai. Koi jargon nahi, koi dar nahi. Sirf saaf samajh.</p>
+    <div class="tagline">"Pehle samjho. Phir kamao."</div>
+    <div class="stats-row">
+      <div class="stat"><div class="n">7</div><div class="l">Modules</div></div>
+      <div class="stat"><div class="n">50</div><div class="l">Chapters</div></div>
+      <div class="stat"><div class="n">₹0</div><div class="l">Bilkul Free</div></div>
+    </div>
+    <div class="note">
+      📚 <b>Yeh ek growing library hai.</b> Hum har hafte naye chapters add kar rahe hain — basics se advanced tak. Jo "Ready" hain woh abhi padh sakte ho; baaki jald aa rahe hain.
+    </div>
+  </header>
+
+  <section class="modules">
+    <div class="sec-title">
+      <h2>📖 Poora Course — 7 Modules</h2>
+      <p>Order se padho, ya jo chahiye wahan se shuru karo</p>
+    </div>
+    <div id="module-list"></div>
+  </section>
+
+  <div class="cta">
+    <h2>Seekha? Ab practice karo.</h2>
+    <p>Bot pe 20 saal ka real data dekho aur jo seekha use apply karo.</p>
+    <div class="btn-row">
+      <a href="https://t.me/StockSeasonBot" class="btn-primary">🤖 Open @StockSeasonBot</a>
+      <a href="botguide.html" class="btn-secondary">📖 Bot Guide</a>
+    </div>
+  </div>
+
+  <div class="disc">
+    ⚠️ <b>Educational only.</b> Yeh content sirf seekhne ke liye hai — investment advice nahi. We are not SEBI-registered. Hamesha apni research karo aur stop loss use karo.
+  </div>
+
+  <footer>
+    © 2026 StockPattern AI · Educational only · Not SEBI registered<br>
+    <a href="index.html">Home</a> · <a href="botguide.html">Bot Guide</a> ·
+    <a href="https://t.me/StockSeasonBot">Bot</a> · <a href="https://t.me/StockSeasonSignals">Channel</a>
+  </footer>
+</div>
+
+<!-- CHAPTER READER -->
+<div class="reader" id="reader">
+  <div class="reader-top">
+    <button class="back" onclick="closeReader()">← Back to Academy</button>
+    <span class="mod-tag" id="reader-modtag"></span>
+  </div>
+  <div class="reader-inner" id="reader-content"></div>
+</div>
+
+<script>
+// ═══════════════════ CURRICULUM DATA ═══════════════════
+// Each chapter: {n, title, status, body?}  status: 'ready' | 'soon'
+// To fill a chapter later: add a `body` HTML string + set status:'ready'
+const CURRICULUM = [
+  { emoji:"📗", title:"Bilkul Shuruaat", sub:"Stock market kya hai? (Pehla kadam)", chapters:[
+    { n:1, title:"Stock / Share kya hota hai?", status:"ready", body:CH1() },
+    { n:2, title:"Stock market kya hai? (NSE, BSE)", status:"ready", body:CH2() },
+    { n:3, title:"Stock upar-niche kyun jaata hai?", status:"ready", body:CH3() },
+    { n:4, title:"Demat & Trading account kya hai?", status:"ready", body:CH4() },
+    { n:5, title:"Order kaise lagta hai? (Market vs Limit)", status:"ready", body:CH5() },
+    { n:6, title:"Sensex / Nifty kya hai?", status:"ready", body:CH6() },
+    { n:7, title:"Intraday vs Swing vs Long-term", status:"ready", body:CH_STYLE() },
+  ]},
+  { emoji:"📘", title:"Zaroori Shabd", sub:"Foundation vocabulary", chapters:[
+    { n:8, title:"Market Cap (Large / Mid / Small)", status:"ready", body:CH7() },
+    { n:9, title:"Bull vs Bear", status:"ready", body:CH8() },
+    { n:10, title:"IPO kya hai?", status:"ready", body:CH9() },
+    { n:11, title:"Dividend kya hai?", status:"ready", body:CH10() },
+    { n:12, title:"Sectors & Industries", status:"ready", body:CH11() },
+    { n:13, title:"Volume kya batata hai?", status:"ready", body:CH12() },
+  ]},
+  { emoji:"📙", title:"Fundamental Analysis", sub:"Company achhi hai ya nahi?", chapters:[
+    { n:14, title:"Fundamental analysis kya hai?", status:"ready", body:CH13() },
+    { n:15, title:"P/E Ratio", status:"ready", body:CH14() },
+    { n:16, title:"Balance Sheet basics", status:"ready", body:CH15() },
+    { n:17, title:"Profit & Loss statement", status:"ready", body:CH16() },
+    { n:18, title:"Promoter holding & pledging", status:"ready", body:CH17() },
+    { n:19, title:"Debt — kitna khatarnaak?", status:"ready", body:CH18() },
+    { n:20, title:"ROE, ROCE (efficiency)", status:"ready", body:CH19() },
+    { n:21, title:"Valuation Methods (P/B, EV/EBITDA)", status:"ready", body:CH_VALUATION() },
+    { n:22, title:"DCF Model (bonus, advanced)", status:"ready", body:CH_DCF() },
+    { n:23, title:"Stock kharidne ki full checklist", status:"ready", body:CH20() },
+  ]},
+  { emoji:"📕", title:"Technical Analysis", sub:"Chart kaise padhein (StockPattern AI core)", chapters:[
+    { n:24, title:"Technical analysis kya hai?", status:"ready", body:CH21() },
+    { n:25, title:"Candlestick kya hai? Kaise padhein", status:"ready", body:CH22() },
+    { n:26, title:"Important candlestick patterns", status:"ready", body:CH23() },
+    { n:27, title:"Support & Resistance", status:"ready", body:CH24() },
+    { n:28, title:"Trends (up, down, sideways)", status:"ready", body:CH25() },
+    { n:29, title:"Trendlines kaise banayein", status:"ready", body:CH26() },
+    { n:30, title:"Chart patterns (H&S, Triangle, Flag)", status:"ready", body:CH27() },
+    { n:31, title:"Fibonacci Levels", status:"ready", body:CH_FIB() },
+    { n:32, title:"Volume + price action", status:"ready", body:CH28() },
+  ]},
+  { emoji:"📔", title:"Indicators", sub:"Tools jo madad karte hain", chapters:[
+    { n:33, title:"Indicators kya hote hain (aur limit)", status:"ready", body:CH29() },
+    { n:34, title:"Moving Average (EMA, SMA)", status:"ready", body:CH30() },
+    { n:35, title:"RSI (overbought / oversold)", status:"ready", body:CH31() },
+    { n:36, title:"MACD", status:"ready", body:CH32() },
+    { n:37, title:"Bollinger Bands", status:"ready", body:CH33() },
+    { n:38, title:"Seasonality — StockPattern AI ka USP", status:"ready", body:CH34() },
+  ]},
+  { emoji:"📓", title:"Bade Khiladi & Market Forces", sub:"Market ko kaun chalata hai", chapters:[
+    { n:39, title:"FII / DII kya hain, kaise kaam karte hain", status:"ready", body:CH35() },
+    { n:40, title:"News ka asar (results, budget, global)", status:"ready", body:CH36() },
+    { n:41, title:"Market cycles (bull, bear, correction)", status:"ready", body:CH37() },
+    { n:42, title:"Sector rotation", status:"ready", body:CH38() },
+    { n:43, title:"Market sentiment kaise samjhein", status:"ready", body:CH39() },
+  ]},
+  { emoji:"📒", title:"Psychology, Risk & Discipline", sub:"Jo trader ko zinda rakhta hai", chapters:[
+    { n:44, title:"Trading psychology (dar, lalach, FOMO)", status:"ready", body:CH40() },
+    { n:45, title:"Risk management (stop loss, sizing)", status:"ready", body:CH41() },
+    { n:46, title:"Capital protection", status:"ready", body:CH42() },
+    { n:47, title:"Trading vs Investing — farak", status:"ready", body:CH43() },
+    { n:48, title:"Common galtiyan (sabse zyada nuksaan)", status:"ready", body:CH44() },
+    { n:49, title:"Apna trading plan kaise banayein", status:"ready", body:CH45() },
+    { n:50, title:"Tax Planning for Traders (India)", status:"ready", body:CH_TAX() },
+  ]},
+];
+
+// ─── SAMPLE FILLED CHAPTER (so you can see how content looks) ───
+function CH1(){ return `
+  <div class="ch-eyebrow">MODULE 1 · CHAPTER 1</div>
+  <h1>Stock / Share kya hota hai?</h1>
+  <p>Chalo sabse zero se shuru karte hain. Maan lo aapke mohalle mein ek chai ki dukaan hai — "Sharma Tea Stall". Sharma ji ko dukaan badi karni hai, par paisa kam hai.</p>
+  <p>Toh woh kehte hain: "Meri dukaan ke <b>100 tukde</b> banata hoon. Har tukda ₹100 ka. Jo chahe khareed le — usse dukaan ka utna hissa mil jaayega."</p>
+
+  <div class="callout">
+    💡 <b>Yahi ek "share" hai.</b> Share = kisi company ka ek chhota sa <b>tukda (hissa)</b>. Aapne share khareeda = aap us company ke chhote se maalik ban gaye.
+  </div>
+
+  <h2>Toh "stock" aur "share" mein farak?</h2>
+  <p>Aam bhasha mein dono ek hi hain. Halki si baat:</p>
+  <ul>
+    <li><b>Share</b> = ek single tukda (1 share of Reliance)</li>
+    <li><b>Stock</b> = generally tukdon ki baat (mere paas Reliance ka stock hai)</li>
+  </ul>
+  <p>Beginner ke liye: dono ko same samjho. Tension mat lo.</p>
+
+  <h2>Aap maalik ban-ne se milta kya hai?</h2>
+  <ul>
+    <li>📈 <b>Keemat badhe toh faayda</b> — Sharma ji ki dukaan chal padi, log ₹100 ka tukda ₹150 mein khareedne ko taiyaar. Aapka ₹100 ab ₹150 ka.</li>
+    <li>💰 <b>Profit ka hissa (Dividend)</b> — dukaan kamaaye toh kabhi-kabhi maalikon ko thoda profit baant deti hai.</li>
+    <li>🗳 <b>Thodi si aawaaz</b> — bade faislon mein vote (chhote investor ke liye yeh zyada matter nahi karta).</li>
+  </ul>
+
+  <div class="example">
+    <div class="ex-label">REAL EXAMPLE</div>
+    <p style="margin-bottom:0">Reliance, TCS, HDFC — yeh sab badi companies hain. Inke laakhon-crore "tukde" (shares) hain. Aap ₹1500 mein Reliance ka <b>1 share</b> khareed sakte ho — aur technically, aap Reliance ke (bahut chhote!) maalik ban jaate ho. 😄</p>
+  </div>
+
+  <h2>Toh share kharidte kyun hain?</h2>
+  <p>Ek hi simple reason: <b>aap maante ho ki woh company aage badhegi</b>, aur jab badhegi to uske tukde ki keemat badhegi — aur aapka paisa badhega.</p>
+
+  <div class="callout warn">
+    ⚠️ <b>Par yaad rakho:</b> agar company kharab chali, toh keemat girti bhi hai. Share khareedna = company ke achhe aur bure, dono mein hissedaar ban-na. Isiliye <b>kya khareedna hai, soch-samajh ke</b> — yahi yeh poora course sikhayega.
+  </div>
+
+  <p>Bas! Yeh tha pehla, sabse zaroori concept. Share = company ka tukda. Aap maalik. Keemat upar-niche hoti hai. Aage ke chapters mein dheere-dheere sab khulega. 🚀</p>
+`; }
+
+// ─── CHAPTER 2 ───
+function CH2(){ return `
+  <div class="ch-eyebrow">MODULE 1 · CHAPTER 2</div>
+  <h1>Stock market kya hai? (NSE, BSE)</h1>
+  <p>Pichhle chapter mein humne seekha ki share = company ka tukda. Par sawaal yeh hai — yeh tukde <b>khareedte-bechte kahan hain?</b></p>
+  <p>Socho ek sabzi mandi. Wahan sabziwale (bechne wale) aur grahak (khareedne wale) aate hain. Sab ek jagah mil ke len-den karte hain. <b>Stock market bhi bilkul aisi hi ek "mandi" hai</b> — par sabzi ki jagah yahan company ke shares khareede-beche jaate hain.</p>
+
+  <div class="callout">
+    💡 <b>Stock Market = shares ki mandi.</b> Jahan khareedne wale (buyers) aur bechne wale (sellers) milte hain, aur shares ka len-den hota hai — ek safe, regulated jagah par.
+  </div>
+
+  <h2>India ki do badi "mandiyan" — NSE aur BSE</h2>
+  <p>India mein do main stock exchanges (mandiyan) hain:</p>
+  <ul>
+    <li>🏛 <b>BSE (Bombay Stock Exchange)</b> — Asia ka sabse purana exchange, 1875 mein bana. Iska index "Sensex" hai.</li>
+    <li>🏛 <b>NSE (National Stock Exchange)</b> — 1992 mein bana, fully electronic. Iska index "Nifty" hai. Aaj sabse zyada trading yahin hoti hai.</li>
+  </ul>
+  <p>Dono mein lagbhag same companies listed hain. Aam investor ke liye farak bahut kam padta hai.</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <rect x="20" y="90" width="140" height="80" rx="12" fill="#0b1118" stroke="#00d4aa" stroke-width="1.5"/>
+      <text x="90" y="125" fill="#e8edf5" font-size="15" font-weight="700" text-anchor="middle" font-family="Inter">BUYER</text>
+      <text x="90" y="148" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">khareedne wala</text>
+
+      <rect x="230" y="70" width="140" height="120" rx="12" fill="#101820" stroke="#0095ff" stroke-width="2"/>
+      <text x="300" y="115" fill="#0095ff" font-size="15" font-weight="700" text-anchor="middle" font-family="Inter">EXCHANGE</text>
+      <text x="300" y="137" fill="#e8edf5" font-size="12" text-anchor="middle" font-family="Inter">NSE / BSE</text>
+      <text x="300" y="156" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">(safe mandi)</text>
+
+      <rect x="440" y="90" width="140" height="80" rx="12" fill="#0b1118" stroke="#ef4444" stroke-width="1.5"/>
+      <text x="510" y="125" fill="#e8edf5" font-size="15" font-weight="700" text-anchor="middle" font-family="Inter">SELLER</text>
+      <text x="510" y="148" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">bechne wala</text>
+
+      <line x1="160" y1="130" x2="228" y2="130" stroke="#00d4aa" stroke-width="2" marker-end="url(#ar)"/>
+      <line x1="372" y1="130" x2="438" y2="130" stroke="#ef4444" stroke-width="2" marker-end="url(#ar2)"/>
+      <text x="300" y="225" fill="#f5c842" font-size="12" text-anchor="middle" font-family="DM Mono">Exchange dono ko milata hai — safe &amp; fair</text>
+      <defs>
+        <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#00d4aa"/></marker>
+        <marker id="ar2" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#ef4444"/></marker>
+      </defs>
+    </svg>
+  </div>
+
+  <h2>SEBI — mandi ka "police"</h2>
+  <p>Ab mandi mein dhokha-dhadi na ho, isliye ek watchman chahiye. India mein woh hai <b>SEBI</b> (Securities and Exchange Board of India).</p>
+  <ul>
+    <li>👮 SEBI rules banata hai aur sabko follow karwata hai</li>
+    <li>🛡 Aam investor (aap-hum) ko fraud se bachata hai</li>
+    <li>⚖️ Galat karne wali companies/brokers pe action leta hai</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ <b>Yaad rakho:</b> SEBI market ko safe banata hai, par aapko profit ki guarantee koi nahi de sakta — na SEBI, na koi advisor. Risk hamesha aapka hai. Isiliye samajh-boojh ke nivesh karo.
+  </div>
+
+  <p>Toh ab tasveer saaf hai: Company shares banati hai → Exchange (NSE/BSE) pe woh khareede-beche jaate hain → SEBI sab kuch safe rakhta hai. Agle chapter mein dekhenge ki <b>in shares ki keemat upar-niche kyun hoti hai.</b></p>
+`; }
+
+// ─── CHAPTER 3 ───
+function CH3(){ return `
+  <div class="ch-eyebrow">MODULE 1 · CHAPTER 3</div>
+  <h1>Stock upar-niche kyun jaata hai?</h1>
+  <p>Yeh sabse zaroori sawaal hai. Reliance ₹1500 se ₹1520 ho gaya — aisa kyun? Iska jawab ek do-shabd ke formula mein hai: <b>Demand aur Supply</b> (maang aur aapoorti).</p>
+
+  <div class="callout">
+    💡 <b>Simple rule:</b><br>
+    Zyada log khareedna chahein (demand ↑) → keemat <b>UPAR</b> 📈<br>
+    Zyada log bechna chahein (supply ↑) → keemat <b>NICHE</b> 📉
+  </div>
+
+  <h2>Ek example se samjho — cricket ticket</h2>
+  <p>India-Pakistan match ka ticket. Stadium mein sirf 50,000 seats (limited supply). Par khareedne wale 5 lakh log (bahut demand)!</p>
+  <p>Kya hoga? Ticket ka daam aasman chhuega. Kyunki maang zyada, cheez kam.</p>
+  <p>Ab socho ek boring match — koi dekhna nahi chahta. Ticket aadhe daam mein bhi nahi bikega. Kyunki demand kam.</p>
+  <p><b>Shares bhi bilkul aise hi hain.</b> Jab logon ko lagta hai company achha karegi → sab khareedna chahte hain → daam upar. Jab dar lagta hai → sab bechna chahte hain → daam niche.</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <!-- up scenario -->
+      <text x="150" y="30" fill="#00d4aa" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">Zyada Buyers → Keemat UP</text>
+      <text x="150" y="60" fill="#8a96a8" font-size="22" text-anchor="middle">🧑‍🤝‍🧑🧑‍🤝‍🧑🧑</text>
+      <path d="M70,170 L130,120 L190,80 L230,55" stroke="#00d4aa" stroke-width="3" fill="none"/>
+      <path d="M230,55 l-10,2 l5,8 z" fill="#00d4aa"/>
+      <text x="150" y="200" fill="#00d4aa" font-size="13" font-weight="700" text-anchor="middle" font-family="DM Mono">📈 UPAR</text>
+
+      <line x1="300" y1="40" x2="300" y2="200" stroke="#30363d" stroke-width="1" stroke-dasharray="4"/>
+
+      <!-- down scenario -->
+      <text x="450" y="30" fill="#ef4444" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">Zyada Sellers → Keemat DOWN</text>
+      <text x="450" y="60" fill="#8a96a8" font-size="22" text-anchor="middle">🏃🏃‍♂️🏃‍♀️</text>
+      <path d="M370,55 L410,90 L470,140 L530,180" stroke="#ef4444" stroke-width="3" fill="none"/>
+      <path d="M530,180 l-8,-5 l-1,9 z" fill="#ef4444"/>
+      <text x="450" y="200" fill="#ef4444" font-size="13" font-weight="700" text-anchor="middle" font-family="DM Mono">📉 NICHE</text>
+    </svg>
+  </div>
+
+  <h2>Toh demand-supply ko kaun badalta hai?</h2>
+  <p>Bahut si cheezein logon ka mood badalti hain:</p>
+  <ul>
+    <li>📊 <b>Company ke results</b> — achha profit = log khush = khareedte hain</li>
+    <li>📰 <b>News</b> — naya order, naya product, ya koi scandal</li>
+    <li>🌍 <b>Economy</b> — interest rate, budget, global market</li>
+    <li>😨😍 <b>Emotion</b> — dar aur lalach (yaad hai Module 7 mein detail aayega)</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ <b>Important sach:</b> Short term mein keemat aksar <b>emotion</b> se hilti hai (dar/lalach). Long term mein keemat company ki asli <b>kamai</b> follow karti hai. Isiliye roz ke upar-niche se ghabrao mat — bade picture pe focus karo.
+  </div>
+
+  <p>Yeh seekh aapko ek bada advantage deti hai: jab doosre log emotion mein bechte hain, samajhdaar log shaant rehte hain. Aage ka chapter: <b>share khareedne ke liye account kaise khulta hai.</b></p>
+`; }
+
+// ─── CHAPTER 4 ───
+function CH4(){ return `
+  <div class="ch-eyebrow">MODULE 1 · CHAPTER 4</div>
+  <h1>Demat & Trading account kya hai?</h1>
+  <p>Share khareedne ka mann ban gaya? Ruko — pehle do account chahiye. Ghabrao mat, dono ek saath khul jaate hain, 10 minute mein, phone se.</p>
+
+  <h2>Dono account — ek aasan example</h2>
+  <p>Socho aapko paani chahiye:</p>
+  <ul>
+    <li>🚰 <b>Nal (tap)</b> = jahan se paani aata-jaata hai → yeh hai <b>Trading Account</b></li>
+    <li>🪣 <b>Balti (bucket)</b> = jahan paani jama rehta hai → yeh hai <b>Demat Account</b></li>
+  </ul>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <rect x="30" y="70" width="150" height="70" rx="10" fill="#0b1118" stroke="#0095ff" stroke-width="1.5"/>
+      <text x="105" y="100" fill="#0095ff" font-size="14" font-weight="700" text-anchor="middle" font-family="Inter">TRADING A/C</text>
+      <text x="105" y="122" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">khareedna/bechna</text>
+
+      <rect x="230" y="70" width="150" height="70" rx="10" fill="#0b1118" stroke="#00d4aa" stroke-width="1.5"/>
+      <text x="305" y="100" fill="#00d4aa" font-size="14" font-weight="700" text-anchor="middle" font-family="Inter">DEMAT A/C</text>
+      <text x="305" y="122" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">shares rakhna</text>
+
+      <rect x="430" y="70" width="150" height="70" rx="10" fill="#0b1118" stroke="#f5c842" stroke-width="1.5"/>
+      <text x="505" y="100" fill="#f5c842" font-size="14" font-weight="700" text-anchor="middle" font-family="Inter">BANK A/C</text>
+      <text x="505" y="122" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">aapka paisa</text>
+
+      <line x1="180" y1="105" x2="228" y2="105" stroke="#8a96a8" stroke-width="1.5" marker-end="url(#a3)"/>
+      <line x1="380" y1="105" x2="428" y2="105" stroke="#8a96a8" stroke-width="1.5" marker-end="url(#a3)"/>
+      <text x="300" y="175" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="DM Mono">Teeno aapas mein jude rehte hain</text>
+      <defs><marker id="a3" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#8a96a8"/></marker></defs>
+    </svg>
+  </div>
+
+  <h2>Yeh teeno kaise kaam karte hain (ek trade)</h2>
+  <ul>
+    <li>1️⃣ Aapne Reliance khareedne ka order diya → <b>Trading account</b> se</li>
+    <li>2️⃣ Paisa kata → aapke <b>Bank account</b> se</li>
+    <li>3️⃣ Share aaya aur jama hua → aapke <b>Demat account</b> mein</li>
+  </ul>
+  <p>Bechte waqt ulta hota hai: Demat se share gaya, Bank mein paisa aaya.</p>
+
+  <h2>Account kahan kholein? (Broker)</h2>
+  <p>Yeh account ek <b>"broker"</b> ke through khulta hai — yeh SEBI-registered company hoti hai jo aapko market se jodti hai. India ke popular brokers: Zerodha, Groww, Upstox, Angel One, etc.</p>
+
+  <div class="callout">
+    💡 <b>Account kholne ke liye chahiye:</b> PAN card, Aadhaar, ek bank account, aur ek photo. Bas. Aaj kal pura process online + paperless hai.
+  </div>
+
+  <div class="callout warn">
+    ⚠️ <b>Dhyan do:</b> Broker chunte waqt sirf "sabse sasta" mat dekho. Dekho — SEBI-registered hai? App achha hai? Support milta hai? Aapka paisa aur shares safe hone chahiye. Yeh educational info hai — kisi ek broker ki sifarish nahi.
+  </div>
+
+  <p>Account ready? Agle chapter mein seekhenge ki actual mein <b>order kaise lagate hain</b> — aur "Market order" vs "Limit order" ka zaroori farak.</p>
+`; }
+
+// ─── CHAPTER 5 ───
+function CH5(){ return `
+  <div class="ch-eyebrow">MODULE 1 · CHAPTER 5</div>
+  <h1>Order kaise lagta hai? (Market vs Limit)</h1>
+  <p>Account khul gaya, paisa daal diya. Ab Reliance ka share khareedna hai. App mein "Buy" dabate hi woh poochta hai — <b>Market order ya Limit order?</b> Yeh farak samajhna bahut zaroori hai.</p>
+
+  <h2>1. Market Order — "abhi ke abhi, jo bhi daam ho"</h2>
+  <p>Aap kehte ho: "Mujhe Reliance abhi chahiye, jo current daam hai usi pe le lo." Order turant pura ho jaata hai.</p>
+  <ul>
+    <li>✅ <b>Faayda:</b> Turant mil jaata hai (guaranteed execution)</li>
+    <li>⚠️ <b>Nuksaan:</b> Exact daam pe control nahi — fast-moving market mein thoda upar-niche mil sakta hai</li>
+  </ul>
+
+  <h2>2. Limit Order — "mujhe is daam pe hi chahiye"</h2>
+  <p>Aap kehte ho: "Reliance abhi ₹1500 hai, par mujhe ₹1480 pe chahiye. Jab itna gire, tab khareed lena." Order tabhi pura hoga jab daam aapke set kiye level pe aaye.</p>
+  <ul>
+    <li>✅ <b>Faayda:</b> Aapko apni keemat pe control milta hai</li>
+    <li>⚠️ <b>Nuksaan:</b> Ho sakta hai daam wahan aaye hi na — toh order pura na ho</li>
+  </ul>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <text x="150" y="28" fill="#0095ff" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">MARKET ORDER</text>
+      <text x="150" y="50" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">"Abhi, current daam pe"</text>
+      <circle cx="150" cy="110" r="34" fill="#0b1118" stroke="#0095ff" stroke-width="2"/>
+      <text x="150" y="108" fill="#e8edf5" font-size="12" text-anchor="middle" font-family="Inter">₹1500</text>
+      <text x="150" y="125" fill="#00d4aa" font-size="10" text-anchor="middle" font-family="Inter">✓ turant</text>
+      <text x="150" y="180" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="DM Mono">Speed &gt; price</text>
+
+      <line x1="300" y1="30" x2="300" y2="190" stroke="#30363d" stroke-width="1" stroke-dasharray="4"/>
+
+      <text x="450" y="28" fill="#00d4aa" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">LIMIT ORDER</text>
+      <text x="450" y="50" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">"₹1480 pe hi chahiye"</text>
+      <line x1="380" y1="90" x2="520" y2="90" stroke="#00d4aa" stroke-width="1.5" stroke-dasharray="5"/>
+      <text x="450" y="84" fill="#00d4aa" font-size="11" text-anchor="middle" font-family="Inter">target ₹1480</text>
+      <path d="M390,70 L420,82 L450,78 L480,95 L510,92" stroke="#8a96a8" stroke-width="2" fill="none"/>
+      <text x="450" y="180" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="DM Mono">Price &gt; speed</text>
+    </svg>
+  </div>
+
+  <h2>Toh kab kaunsa use karein?</h2>
+  <ul>
+    <li>🏃 <b>Market order:</b> Jab cheez turant chahiye aur stock liquid hai (jaise Reliance, TCS — bade stocks)</li>
+    <li>🎯 <b>Limit order:</b> Jab aap apni keemat decide karke chalna chahte ho — beginner ke liye aksar yeh safer hai</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ <b>Chhote/penny stocks mein:</b> hamesha Limit order use karo. Inme daam tezi se hilta hai, aur market order mein aap bahut galat daam pe phas sakte ho.
+  </div>
+
+  <p>Bas! Ab aap order lagana jaante ho. Module 1 ka aakhri chapter: <b>Sensex aur Nifty</b> — woh number jo har news mein sunte ho.</p>
+`; }
+
+// ─── CHAPTER 6 ───
+function CH6(){ return `
+  <div class="ch-eyebrow">MODULE 1 · CHAPTER 6</div>
+  <h1>Sensex / Nifty kya hai?</h1>
+  <p>News mein roz sunte ho: "Aaj Sensex 500 points upar" ya "Nifty gir gaya". Yeh kya hai? Chalo bilkul simple mein.</p>
+
+  <div class="callout">
+    💡 <b>Sensex aur Nifty = poore market ka "report card".</b> Yeh ek number hai jo batata hai ki aaj bade stocks ek saath upar gaye ya niche.
+  </div>
+
+  <h2>Class ke average marks wala example</h2>
+  <p>Socho ek class mein 50 bachche hain. Roz sabke marks dekhna mushkil hai. Toh aap kya karte ho? <b>Top 30 bachchon ka average</b> nikaal lete ho — usse pata chal jaata hai class kaisa kar rahi hai.</p>
+  <p>Index bilkul yahi hai:</p>
+  <ul>
+    <li>📊 <b>Sensex</b> = BSE ke <b>top 30</b> badi companies ka "average"</li>
+    <li>📊 <b>Nifty 50</b> = NSE ki <b>top 50</b> badi companies ka "average"</li>
+  </ul>
+  <p>Jab yeh badi companies (Reliance, HDFC, TCS, Infosys...) upar jaati hain, index upar. Jab girti hain, index niche.</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <text x="300" y="26" fill="#e8edf5" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">Index = top companies ka average</text>
+      <!-- mini bars -->
+      <rect x="60"  y="120" width="26" height="50" rx="3" fill="#00d4aa" opacity="0.8"/>
+      <rect x="100" y="100" width="26" height="70" rx="3" fill="#00d4aa" opacity="0.8"/>
+      <rect x="140" y="135" width="26" height="35" rx="3" fill="#00d4aa" opacity="0.8"/>
+      <rect x="180" y="90"  width="26" height="80" rx="3" fill="#00d4aa" opacity="0.8"/>
+      <rect x="220" y="115" width="26" height="55" rx="3" fill="#00d4aa" opacity="0.8"/>
+      <text x="153" y="195" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">Top companies</text>
+      <text x="300" y="135" fill="#8a96a8" font-size="26" text-anchor="middle">→</text>
+      <circle cx="450" cy="120" r="50" fill="#0b1118" stroke="#f5c842" stroke-width="2"/>
+      <text x="450" y="112" fill="#f5c842" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">NIFTY</text>
+      <text x="450" y="132" fill="#e8edf5" font-size="14" text-anchor="middle" font-family="DM Mono">24,800</text>
+      <text x="450" y="195" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">ek number</text>
+    </svg>
+  </div>
+
+  <h2>Index kis kaam aata hai?</h2>
+  <ul>
+    <li>🌡 <b>Market ka mood</b> — Nifty upar = aaj market khush, niche = market mein dar</li>
+    <li>📏 <b>Benchmark</b> — aap apne stock ko index se compare kar sakte ho ("mera stock Nifty se behtar ya bekar?")</li>
+    <li>💰 <b>Invest bhi kar sakte ho</b> — Index funds/ETF ke through poore Nifty 50 mein ek saath paisa laga sakte ho</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ <b>Yaad rakho:</b> Index sirf <b>bade</b> stocks dikhata hai. Ho sakta hai Nifty upar ho par aapka chhota stock niche — kyunki woh index mein hai hi nahi. Index = overall mood, aapke har stock ki kahani nahi.
+  </div>
+
+  <div class="callout">
+    🎉 <b>Module 1 complete!</b> Aapne seekha: share kya hai, market kya hai (NSE/BSE), keemat kyun hilti hai, demat/trading account, order types, aur ab index. Aap ab "bilkul zero" nahi rahe — foundation tayyar hai!
+  </div>
+
+  <p>Aage <b>Module 2</b> mein hum zaroori shabd (Market Cap, IPO, Dividend...) seekhenge jo aapko har jagah sunne ko milenge. Ek-ek karke, dheere-dheere. 🚀</p>
+`; }
+
+// ─── CHAPTER 8 ───
+function CH7(){ return `
+  <div class="ch-eyebrow">MODULE 2 · CHAPTER 8</div>
+  <h1>Market Cap (Large / Mid / Small)</h1>
+  <p>Market Cap ek shabd hai jo aap har jagah sunoge. Iska matlab simple hai — <b>company kitni badi hai.</b></p>
+
+  <div class="callout">
+    💡 <b>Market Cap = Share ki keemat × Total shares</b><br>
+    Matlab: agar poori company ko aaj khareedna ho, toh kitne ka padega. Yahi company ki "market value" hai.
+  </div>
+
+  <h2>Ek example se</h2>
+  <p>Maan lo ek company ke <b>10 lakh shares</b> hain, aur har share ₹500 ka hai.</p>
+  <p>Market Cap = 10,00,000 × ₹500 = <b>₹50 crore</b>. Bas, yahi company ka size hai.</p>
+  <p>Isi size ke hisaab se companies teen tarah ki hoti hain:</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <!-- pyramid -->
+      <polygon points="300,30 230,110 370,110" fill="#0b1118" stroke="#00d4aa" stroke-width="2"/>
+      <text x="300" y="80" fill="#00d4aa" font-size="14" font-weight="700" text-anchor="middle" font-family="Inter">LARGECAP</text>
+      <text x="300" y="98" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">Top 100</text>
+
+      <polygon points="230,115 370,115 410,185 190,185" fill="#0b1118" stroke="#0095ff" stroke-width="2"/>
+      <text x="300" y="150" fill="#0095ff" font-size="14" font-weight="700" text-anchor="middle" font-family="Inter">MIDCAP</text>
+      <text x="300" y="168" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">101–250</text>
+
+      <polygon points="190,190 410,190 450,255 150,255" fill="#0b1118" stroke="#f5c842" stroke-width="2"/>
+      <text x="300" y="222" fill="#f5c842" font-size="14" font-weight="700" text-anchor="middle" font-family="Inter">SMALLCAP</text>
+      <text x="300" y="240" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">250+</text>
+
+      <text x="490" y="75" fill="#00d4aa" font-size="11" font-family="DM Mono">🛡 Stable</text>
+      <text x="490" y="150" fill="#0095ff" font-size="11" font-family="DM Mono">⚖️ Balance</text>
+      <text x="490" y="225" fill="#f5c842" font-size="11" font-family="DM Mono">🎢 Risky</text>
+      <text x="105" y="75" fill="#8a96a8" font-size="10" font-family="DM Mono" text-anchor="end">kam</text>
+      <text x="105" y="225" fill="#8a96a8" font-size="10" font-family="DM Mono" text-anchor="end">zyada</text>
+      <text x="60" y="150" fill="#8a96a8" font-size="10" font-family="DM Mono" text-anchor="middle" transform="rotate(-90 60 150)">RISK + GROWTH</text>
+    </svg>
+  </div>
+
+  <h2>Teeno ka farak</h2>
+  <ul>
+    <li>🏔 <b>Largecap (Top 100):</b> Bade, mazboot, stable. Achanak 30% nahi girte. Jaise Reliance, TCS, HDFC Bank. <i>Kam risk, dheemi growth.</i></li>
+    <li>⛰ <b>Midcap (101-250):</b> Beech ke. Growing companies. <i>Medium risk, achhi growth potential.</i></li>
+    <li>🪨 <b>Smallcap (250+):</b> Chhote. Bahut upar ja sakte hain, ya bahut niche. <i>High risk, high reward.</i></li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ <b>Beginner ke liye:</b> Largecap se shuru karna aksar samajhdaari hai — kam volatile, samajhne mein aasan, achanak ka jhatka kam. Smallcap ka "jaldi double" wala lalach naye logon ko sabse zyada nuksaan deta hai.
+  </div>
+
+  <p>Yaad rakho: "bada size = bilkul safe" hamesha sach nahi — par largecap mein achanak bada crash kam aata hai. Agla shabd: <b>Bull vs Bear</b>.</p>
+`; }
+
+// ─── CHAPTER 9 ───
+function CH8(){ return `
+  <div class="ch-eyebrow">MODULE 2 · CHAPTER 9</div>
+  <h1>Bull vs Bear</h1>
+  <p>Yeh do jaanwar stock market ke sabse famous shabd hain. Inhe samajhna bahut aasan hai — aur ek pyaara trick bhi hai yaad rakhne ka.</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <!-- bull -->
+      <text x="150" y="35" font-size="40" text-anchor="middle">🐂</text>
+      <text x="150" y="70" fill="#00d4aa" font-size="16" font-weight="700" text-anchor="middle" font-family="Inter">BULL</text>
+      <path d="M80,170 L120,140 L160,110 L210,75" stroke="#00d4aa" stroke-width="3" fill="none"/>
+      <path d="M210,75 l-11,1 l5,9 z" fill="#00d4aa"/>
+      <text x="150" y="200" fill="#00d4aa" font-size="12" text-anchor="middle" font-family="DM Mono">Seengh se UPAR ↑</text>
+
+      <line x1="300" y1="30" x2="300" y2="195" stroke="#30363d" stroke-width="1" stroke-dasharray="4"/>
+
+      <!-- bear -->
+      <text x="450" y="35" font-size="40" text-anchor="middle">🐻</text>
+      <text x="450" y="70" fill="#ef4444" font-size="16" font-weight="700" text-anchor="middle" font-family="Inter">BEAR</text>
+      <path d="M390,75 L430,110 L470,140 L520,170" stroke="#ef4444" stroke-width="3" fill="none"/>
+      <path d="M520,170 l-9,-5 l-1,10 z" fill="#ef4444"/>
+      <text x="450" y="200" fill="#ef4444" font-size="12" text-anchor="middle" font-family="DM Mono">Panje se NICHE ↓</text>
+    </svg>
+  </div>
+
+  <h2>Yaad rakhne ka trick</h2>
+  <ul>
+    <li>🐂 <b>Bull (Bail):</b> Bail attack karte waqt seengh se UPAR uthata hai. Toh <b>Bullish = market UPAR jaane ki ummeed</b> 📈</li>
+    <li>🐻 <b>Bear (Bhalu):</b> Bhalu attack karte waqt panje se NICHE maarta hai. Toh <b>Bearish = market NICHE jaane ki ummeed</b> 📉</li>
+  </ul>
+
+  <h2>Inka istemaal</h2>
+  <p>Jab koi kahe:</p>
+  <ul>
+    <li>"Main is stock pe <b>bullish</b> hoon" → woh maanta hai keemat badhegi</li>
+    <li>"Market <b>bearish</b> lag raha hai" → woh sochta hai keemat giregi</li>
+    <li>"<b>Bull market</b> chal raha hai" → overall market upar ja raha hai (sab khush)</li>
+    <li>"<b>Bear market</b> aa gaya" → overall market lambe time se gir raha hai (dar)</li>
+  </ul>
+
+  <div class="callout">
+    💡 <b>StockPattern AI mein:</b><br>
+    🟢 Bullish pattern = historically is time stock UPAR gaya<br>
+    🔴 Bearish pattern = historically is time stock NICHE gaya
+  </div>
+
+  <p>Bas itna! Bull = up, Bear = down. Agla shabd jo har news mein aata hai: <b>IPO</b>.</p>
+`; }
+
+// ─── CHAPTER 10 ───
+function CH9(){ return `
+  <div class="ch-eyebrow">MODULE 2 · CHAPTER 10</div>
+  <h1>IPO kya hai?</h1>
+  <p>IPO = <b>Initial Public Offering</b>. Naam mushkil, baat aasan. Yeh woh din hai jab koi company pehli baar aam public ko apne shares bechti hai.</p>
+
+  <div class="callout">
+    💡 <b>IPO = company ka "stock market mein pehla kadam".</b> Is din se pehle company private thi (sirf kuch maalik). IPO ke baad aap-hum bhi uske shares khareed sakte hain.
+  </div>
+
+  <h2>Company IPO laati kyun hai?</h2>
+  <p>Ek simple example: "Sharma Tea Stall" ab poore sheher mein 50 dukaan kholna chahti hai. Itna paisa Sharma ji ke paas nahi. Toh woh kehte hain:</p>
+  <p>"Main apni company ke kuch hisse public ko bechta hoon. Jo paisa milega, usse business badhaunga."</p>
+  <p>Yeh paisa lene ka tareeka hi IPO hai. Company ko growth ke liye paisa milta hai, aur public ko company ka hissa.</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <rect x="30" y="55" width="130" height="60" rx="10" fill="#0b1118" stroke="#8a96a8" stroke-width="1.5"/>
+      <text x="95" y="80" fill="#e8edf5" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">PRIVATE</text>
+      <text x="95" y="100" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">kuch maalik</text>
+
+      <rect x="235" y="50" width="130" height="70" rx="10" fill="#101820" stroke="#f5c842" stroke-width="2"/>
+      <text x="300" y="80" fill="#f5c842" font-size="14" font-weight="700" text-anchor="middle" font-family="Inter">IPO</text>
+      <text x="300" y="100" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">pehli baar public ko</text>
+
+      <rect x="440" y="55" width="130" height="60" rx="10" fill="#0b1118" stroke="#00d4aa" stroke-width="1.5"/>
+      <text x="505" y="80" fill="#00d4aa" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">PUBLIC</text>
+      <text x="505" y="100" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">ab market mein</text>
+
+      <line x1="160" y1="85" x2="233" y2="85" stroke="#8a96a8" stroke-width="2" marker-end="url(#a9)"/>
+      <line x1="365" y1="85" x2="438" y2="85" stroke="#8a96a8" stroke-width="2" marker-end="url(#a9)"/>
+      <text x="300" y="150" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="DM Mono">Private → IPO → ab NSE/BSE pe trade hota hai</text>
+      <defs><marker id="a9" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#8a96a8"/></marker></defs>
+    </svg>
+  </div>
+
+  <h2>IPO mein paisa lagana — soch-samajh ke</h2>
+  <p>IPO ka mahaul aksar bahut "hype" wala hota hai — "is IPO mein paisa double ho jaayega!" Yahan sambhal ke:</p>
+  <ul>
+    <li>📈 Kuch IPO listing pe hi achha profit dete hain</li>
+    <li>📉 Bahut saare IPO listing ke baad GIR bhi jaate hain</li>
+    <li>🔍 IPO ka matlab "guaranteed profit" bilkul nahi hai</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ <b>Sach:</b> IPO mein hype bahut hota hai, par har IPO achha nahi hota. Company ka business, valuation, aur profit dekhe bina sirf "naya hai" soch ke paisa lagana risky hai. Yeh poora course aapko yahi dekhna sikhayega.
+  </div>
+
+  <p>Agla shabd ek khushi wala hai — jab company aapko paisa deti hai: <b>Dividend</b>.</p>
+`; }
+
+// ─── CHAPTER 11 ───
+function CH10(){ return `
+  <div class="ch-eyebrow">MODULE 2 · CHAPTER 11</div>
+  <h1>Dividend kya hai?</h1>
+  <p>Yeh ek pyaara concept hai. Dividend = jab company apne profit ka ek hissa apne shareholders (aap) ko <b>baant deti hai.</b></p>
+
+  <div class="callout">
+    💡 <b>Dividend = profit ka tohfa.</b> Aap company ke maalik ho na? Toh jab company kamati hai, woh kabhi-kabhi maalikon ko thoda profit cash mein de deti hai. Yeh aapke account mein seedha aata hai.
+  </div>
+
+  <h2>Ek example</h2>
+  <p>Maan lo aapke paas TCS ke 10 shares hain. TCS announce karti hai: "Har share pe ₹20 dividend denge."</p>
+  <p>Toh aapke account mein aayega: 10 × ₹20 = <b>₹200</b>. Bina kuch beche! Sirf share rakhne ke liye.</p>
+
+  <h2>Do tareeke se paisa banta hai</h2>
+  <ul>
+    <li>📈 <b>Capital appreciation</b> — share ki keemat badhe (₹500 → ₹600)</li>
+    <li>💰 <b>Dividend</b> — company se milne wala profit ka hissa</li>
+  </ul>
+  <p>Achhi, mazboot companies aksar regular dividend deti hain. Isse "passive income" jaisa feel aata hai — share rakho, kamai aati rahe.</p>
+
+  <div class="callout warn">
+    ⚠️ <b>Dhyan do:</b> Sirf "zyada dividend" dekh ke stock mat khareedo. Kabhi-kabhi koi company growth ruk-ne ki wajah se zyada dividend deti hai (kyunki uske paas business badhane ka mauka kam hai). Dividend ek plus point hai, akela faisla nahi.
+  </div>
+
+  <p>Aur yeh bhi: har company dividend nahi deti. Tezi se badhne wali companies aksar profit ko wapas business mein lagati hain (dividend ki jagah) — taaki aur tezi se badhein. Dono approach theek hain.</p>
+
+  <p>Agla shabd market ko samajhne ke liye zaroori hai: <b>Sectors</b>.</p>
+`; }
+
+// ─── CHAPTER 12 ───
+function CH11(){ return `
+  <div class="ch-eyebrow">MODULE 2 · CHAPTER 12</div>
+  <h1>Sectors & Industries</h1>
+  <p>Market mein 5000+ companies hain. Inhe samajhna aasan ho jaata hai jab hum inhe <b>group</b> mein baant dete hain. Yahi group hain "sectors".</p>
+
+  <div class="callout">
+    💡 <b>Sector = ek hi tarah ka kaam karne wali companies ka group.</b> Jaise school mein "Science section", "Commerce section" — waise hi market mein IT sector, Banking sector, Pharma sector, etc.
+  </div>
+
+  <h2>India ke kuch bade sectors</h2>
+  <ul>
+    <li>💻 <b>IT</b> — TCS, Infosys, Wipro (software, services)</li>
+    <li>🏦 <b>Banking & Finance</b> — HDFC Bank, ICICI, SBI</li>
+    <li>💊 <b>Pharma</b> — Sun Pharma, Cipla (dawaiyan)</li>
+    <li>🚗 <b>Auto</b> — Maruti, Tata Motors, M&M</li>
+    <li>🛒 <b>FMCG</b> — HUL, ITC, Nestle (roz ki cheezein)</li>
+    <li>⚡ <b>Energy</b> — Reliance, NTPC, ONGC</li>
+  </ul>
+
+  <h2>Sectors kyun matter karte hain?</h2>
+  <p>Kyunki ek sector ki saari companies aksar <b>ek saath</b> upar-niche hoti hain — common reasons ki wajah se:</p>
+  <ul>
+    <li>📜 Government policy badle → poora sector hil sakta hai (jaise EV policy → auto sector)</li>
+    <li>🌍 Global demand → IT sector pe asar (kyunki client videshi hote hain)</li>
+    <li>💧 Monsoon achha → FMCG/agri sector ko faayda</li>
+  </ul>
+
+  <div class="callout">
+    💡 <b>Smart move — diversification:</b> Apna sara paisa ek hi sector mein mat lagao. Agar woh poora sector gir gaya, toh sab phasega. Alag-alag sectors mein baant-na safety deta hai. "Saare ande ek tokri mein mat rakho."
+  </div>
+
+  <div class="callout warn">
+    ⚠️ Ek sector ka "hot" hona permanent nahi hota. Aaj IT chamak raha, kal pharma. Isiliye bade investor "sector rotation" dekhte hain (yeh Module 6 mein aayega).
+  </div>
+
+  <p>Aakhri shabd is module ka — ek aisa signal jo bahut kuch batata hai: <b>Volume</b>.</p>
+`; }
+
+// ─── CHAPTER 13 ───
+function CH12(){ return `
+  <div class="ch-eyebrow">MODULE 2 · CHAPTER 13</div>
+  <h1>Volume kya batata hai?</h1>
+  <p>Volume = ek din (ya kisi time mein) us stock ke kitne shares khareede-beche gaye. Simple shabd, par bahut powerful signal.</p>
+
+  <div class="callout">
+    💡 <b>Volume = kitni "bheed" hai us stock mein.</b> Zyada volume = bahut log trade kar rahe hain (zyada interest). Kam volume = kam log (kam interest).
+  </div>
+
+  <h2>Volume kyun important hai?</h2>
+  <p>Sirf keemat dekhna aadha sach hai. Volume batata hai ki us move ke peeche kitni "taakat" hai.</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <!-- price line -->
+      <text x="300" y="24" fill="#e8edf5" font-size="12" font-weight="700" text-anchor="middle" font-family="Inter">Keemat upar gayi — par volume kya kehta hai?</text>
+      <path d="M60,120 L160,95 L260,75 L360,55" stroke="#00d4aa" stroke-width="2.5" fill="none"/>
+      <path d="M360,55 l-9,2 l4,8 z" fill="#00d4aa"/>
+      <text x="200" y="50" fill="#00d4aa" font-size="11" font-family="DM Mono">price ↑</text>
+
+      <!-- volume bars strong -->
+      <text x="150" y="155" fill="#00d4aa" font-size="11" font-weight="700" text-anchor="middle" font-family="Inter">High Volume = STRONG</text>
+      <rect x="80"  y="175" width="20" height="45" fill="#00d4aa" opacity="0.8"/>
+      <rect x="110" y="170" width="20" height="50" fill="#00d4aa" opacity="0.8"/>
+      <rect x="140" y="165" width="20" height="55" fill="#00d4aa" opacity="0.8"/>
+      <rect x="170" y="160" width="20" height="60" fill="#00d4aa" opacity="0.8"/>
+      <text x="150" y="235" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">bheed bahut → bharosa</text>
+
+      <line x1="300" y1="140" x2="300" y2="235" stroke="#30363d" stroke-width="1" stroke-dasharray="4"/>
+
+      <!-- volume bars weak -->
+      <text x="450" y="155" fill="#f5c842" font-size="11" font-weight="700" text-anchor="middle" font-family="Inter">Low Volume = WEAK</text>
+      <rect x="400" y="205" width="20" height="15" fill="#f5c842" opacity="0.6"/>
+      <rect x="430" y="208" width="20" height="12" fill="#f5c842" opacity="0.6"/>
+      <rect x="460" y="203" width="20" height="17" fill="#f5c842" opacity="0.6"/>
+      <rect x="490" y="210" width="20" height="10" fill="#f5c842" opacity="0.6"/>
+      <text x="450" y="235" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">bheed kam → shak</text>
+    </svg>
+  </div>
+
+  <h2>Do situations ka farak</h2>
+  <ul>
+    <li>✅ <b>Keemat upar + High volume:</b> Move mein dum hai. Bahut log maante hain. Zyada bharosemand.</li>
+    <li>⚠️ <b>Keemat upar + Low volume:</b> Thodе hi log trade kar rahe — move kamzor ho sakta hai, jaldi palat sakta hai.</li>
+  </ul>
+
+  <div class="callout">
+    💡 <b>Ek line mein:</b> Volume keemat ki move ko "confirm" karta hai. Bina volume ke badi move pe shak karo. Volume = move ka "lie detector".
+  </div>
+
+  <div class="callout warn">
+    ⚠️ Volume akela signal nahi hai — ise keemat, trend, aur baaki cheezon ke saath dekho. Akela koi bhi tool 100% sahi nahi hota.
+  </div>
+
+  <div class="callout">
+    🎉 <b>Module 2 complete!</b> Ab aapke paas market ke zaroori shabd hain: Market Cap, Bull/Bear, IPO, Dividend, Sectors, Volume. Aap news ab thodi-thodi samajhne lage honge! Aage <b>Module 3</b> mein hum seekhenge — kisi company ko khareedne se pehle uski "sehat" kaise check karein (Fundamental Analysis). 🚀
+  </div>
+`; }
+
+// ─── CHAPTER 14 ───
+function CH13(){ return `
+  <div class="ch-eyebrow">MODULE 3 · CHAPTER 14</div>
+  <h1>Fundamental analysis kya hai?</h1>
+  <p>Ab tak humne seekha ki market kaise chalta hai. Ab asli sawaal: <b>"Kaunsa stock khareedun?"</b> Iska jawab dene ke do bade tareeke hain — Fundamental aur Technical. Yeh module pehle wale ke baare mein hai.</p>
+
+  <div class="callout">
+    💡 <b>Fundamental Analysis = company ki "sehat" ki jaanch.</b> Jaise shaadi se pehle ladke/ladki ke baare mein sab pata karte ho — kaam kya hai, kamai kitni, udhaar toh nahi, ghar-parivaar kaisa. Waise hi stock khareedne se pehle company ko theek se jaanchna.
+  </div>
+
+  <h2>Doctor wala example</h2>
+  <p>Socho aap ek doctor ho, aur company ek "patient". Aap uski sehat check karte ho:</p>
+  <ul>
+    <li>💓 <b>Kamai (Profit)</b> — company paisa banati hai ya nahi? (dil dhadak raha hai?)</li>
+    <li>🩸 <b>Debt (Udhaar)</b> — kitna karza hai? (blood pressure toh theek hai?)</li>
+    <li>💪 <b>Efficiency (ROE)</b> — paisa achhe se use karti hai? (body strong hai?)</li>
+    <li>👨‍👩‍👧 <b>Management/Promoter</b> — chalane wale bharose ke hain? (mind theek hai?)</li>
+  </ul>
+  <p>Agar saari "reports" achhi hain, toh company healthy hai — lambe time ke liye bharosemand.</p>
+
+  <h2>Fundamental vs Technical — ek line ka farak</h2>
+  <ul>
+    <li>📊 <b>Fundamental:</b> "Company achhi hai ya nahi?" — lambe nivesh ke liye (investing)</li>
+    <li>📈 <b>Technical:</b> "Abhi khareedne ka sahi time hai ya nahi?" — chart se (trading) — yeh Module 4 mein</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ <b>Sach:</b> Ek achhi company bhi galat (mehengе) daam pe khareedo toh nuksaan ho sakta hai. Isiliye smart log dono dekhte hain — company achhi HO, aur daam bhi sahi HO. Yeh module pehli cheez sikhayega.
+  </div>
+
+  <p>Chalo ab ek-ek "report" detail mein samajhte hain. Sabse pehle sabse famous number: <b>P/E Ratio</b>.</p>
+`; }
+
+// ─── CHAPTER 15 ───
+function CH14(){ return `
+  <div class="ch-eyebrow">MODULE 3 · CHAPTER 15</div>
+  <h1>P/E Ratio</h1>
+  <p>P/E Ratio sabse zyada use hone wala number hai. Yeh batata hai ki stock <b>sasta hai ya mehenga</b> — uski kamai ke hisaab se.</p>
+
+  <div class="callout">
+    💡 <b>P/E = Price ÷ Earnings (per share)</b><br>
+    Simple bhasha: "Company ki ₹1 ki kamai ke liye market aaj kitne rupaye de raha hai?"
+  </div>
+
+  <h2>Ek example</h2>
+  <p>Maan lo ek company ka share ₹100 ka hai, aur woh ek saal mein per share ₹10 kamati hai.</p>
+  <p>P/E = 100 ÷ 10 = <b>10</b>. Matlab: ₹1 kamai ke liye log ₹10 de rahe hain.</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <text x="150" y="30" fill="#00d4aa" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">LOW P/E</text>
+      <text x="150" y="52" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">"sasta" dikhta hai</text>
+      <circle cx="150" cy="110" r="38" fill="#0b1118" stroke="#00d4aa" stroke-width="2"/>
+      <text x="150" y="105" fill="#e8edf5" font-size="20" font-weight="700" text-anchor="middle" font-family="DM Mono">10</text>
+      <text x="150" y="125" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">P/E</text>
+      <text x="150" y="178" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">kam expectation</text>
+
+      <line x1="300" y1="30" x2="300" y2="180" stroke="#30363d" stroke-width="1" stroke-dasharray="4"/>
+
+      <text x="450" y="30" fill="#f5c842" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">HIGH P/E</text>
+      <text x="450" y="52" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">"mehenga" dikhta hai</text>
+      <circle cx="450" cy="110" r="38" fill="#0b1118" stroke="#f5c842" stroke-width="2"/>
+      <text x="450" y="105" fill="#e8edf5" font-size="20" font-weight="700" text-anchor="middle" font-family="DM Mono">50</text>
+      <text x="450" y="125" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">P/E</text>
+      <text x="450" y="178" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">badi growth ki ummeed</text>
+    </svg>
+  </div>
+
+  <h2>High P/E achha ya bura?</h2>
+  <p>Yahi sabse bada confusion hai. Sach yeh hai — <b>dono ho sakta hai:</b></p>
+  <ul>
+    <li>📈 <b>High P/E</b> — log future mein tezi se growth ki ummeed mein zyada de rahe hain. Mehenga, par shayad fast-growing achhi company.</li>
+    <li>📉 <b>Low P/E</b> — sasta dikhta hai. Par kabhi-kabhi sasta isliye hai kyunki company mein koi dikkat hai. (Har sasti cheez achhi nahi hoti.)</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ <b>Sabse zaroori rule:</b> P/E ko <b>akela kabhi mat dekho</b>. Aur use <b>same sector</b> ki companies se compare karo. Ek IT company (P/E 30) ko ek bank (P/E 15) se compare karna galat hai — dono ke business alag hain. Aam (apples) ko aam se compare karo, santare se nahi.
+  </div>
+
+  <p>P/E ek shuruaati filter hai — "yeh stock sasta hai ya mehenga?" ka pehla andaaza. Par company ki asli sehat dekhne ke liye humein uske "financial statements" padhne aate hain. Agla: <b>Balance Sheet</b>.</p>
+`; }
+
+// ─── CHAPTER 16 ───
+function CH15(){ return `
+  <div class="ch-eyebrow">MODULE 3 · CHAPTER 16</div>
+  <h1>Balance Sheet basics</h1>
+  <p>Balance Sheet ek company ka "photo" hai — ek khaas din pe company ke paas <b>kya hai</b> (assets) aur <b>kya dena hai</b> (liabilities).</p>
+
+  <div class="callout">
+    💡 <b>Ghar wala example:</b> Aapke paas ghar, car, bank balance hai (yeh aapke <b>assets</b>). Aur home loan, car loan baaki hai (yeh aapki <b>liabilities</b>). Dono ka farak = aapki asli net worth. Company ka bhi yahi hisaab hai.
+  </div>
+
+  <h2>Teen hisse</h2>
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <rect x="40" y="50" width="160" height="110" rx="10" fill="#0b1118" stroke="#00d4aa" stroke-width="1.5"/>
+      <text x="120" y="78" fill="#00d4aa" font-size="14" font-weight="700" text-anchor="middle" font-family="Inter">ASSETS</text>
+      <text x="120" y="100" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">kya hai (own)</text>
+      <text x="120" y="120" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">cash, factory,</text>
+      <text x="120" y="135" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">machine, stock</text>
+
+      <text x="300" y="110" fill="#e8edf5" font-size="24" text-anchor="middle" font-family="DM Mono">=</text>
+
+      <rect x="400" y="50" width="160" height="50" rx="10" fill="#0b1118" stroke="#ef4444" stroke-width="1.5"/>
+      <text x="480" y="72" fill="#ef4444" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">LIABILITIES</text>
+      <text x="480" y="90" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">kya dena hai (debt)</text>
+
+      <rect x="400" y="110" width="160" height="50" rx="10" fill="#0b1118" stroke="#f5c842" stroke-width="1.5"/>
+      <text x="480" y="132" fill="#f5c842" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">EQUITY</text>
+      <text x="480" y="150" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">maalikon ka hissa</text>
+
+      <text x="300" y="195" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="DM Mono">Assets = Liabilities + Equity (hamesha balance)</text>
+    </svg>
+  </div>
+
+  <ul>
+    <li>🏭 <b>Assets</b> — jo company ke paas hai: cash, factory, machine, stock, paise jo doosron ne dene hain</li>
+    <li>📋 <b>Liabilities</b> — jo company ko dena hai: loan, supplier ke paise, etc.</li>
+    <li>👑 <b>Equity</b> — assets mein se liabilities nikaal do, jo bacha = maalikon (shareholders) ka asli hissa</li>
+  </ul>
+
+  <h2>Beginner ko kya dekhna chahiye?</h2>
+  <ul>
+    <li>✅ Assets time ke saath badh rahe hain? (company badh rahi hai)</li>
+    <li>✅ Liabilities (especially loan) control mein hain? (zyada karza khatarnaak)</li>
+    <li>✅ Equity badh rahi hai? (shareholders ki value badh rahi)</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ Pura balance sheet beginner ke liye complex lag sakta hai — ghabrao mat. Screener.in, Tickertape jaisi free websites yeh sab simple form mein dikha deti hain. Aapko sirf <b>samajhna</b> hai kya dekhna hai, accountant ban-ne ki zaroorat nahi.
+  </div>
+
+  <p>Balance sheet "ek din ka photo" tha. Ab dekhte hain "saal bhar ki kahani" — company ne kitna kamaya: <b>Profit & Loss statement</b>.</p>
+`; }
+
+// ─── CHAPTER 17 ───
+function CH16(){ return `
+  <div class="ch-eyebrow">MODULE 3 · CHAPTER 17</div>
+  <h1>Profit & Loss statement (P&L)</h1>
+  <p>Agar balance sheet ek "photo" tha, toh P&L statement ek "video" hai — yeh batata hai ki saal bhar mein company ne kitna <b>kamaya aur kitna kharch kiya</b>.</p>
+
+  <div class="callout">
+    💡 <b>Ghar ka budget wala example:</b> Aapki saalana salary ₹10 lakh (income). Kharcha ₹7 lakh (expenses). Bacha ₹3 lakh (profit). Company ka P&L bilkul aisa hi hai — bas bade scale pe.
+  </div>
+
+  <h2>P&L ka simple flow</h2>
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <rect x="180" y="20" width="240" height="40" rx="8" fill="#0b1118" stroke="#0095ff" stroke-width="1.5"/>
+      <text x="300" y="38" fill="#0095ff" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">REVENUE (Sales)</text>
+      <text x="300" y="53" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">total kamai — ₹100</text>
+
+      <text x="300" y="80" fill="#ef4444" font-size="11" text-anchor="middle" font-family="DM Mono">− kharche (raw material, salary, rent...)</text>
+
+      <rect x="180" y="92" width="240" height="40" rx="8" fill="#0b1118" stroke="#f5c842" stroke-width="1.5"/>
+      <text x="300" y="110" fill="#f5c842" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">OPERATING PROFIT</text>
+      <text x="300" y="125" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">business se kamai — ₹25</text>
+
+      <text x="300" y="152" fill="#ef4444" font-size="11" text-anchor="middle" font-family="DM Mono">− interest (loan ka), − tax</text>
+
+      <rect x="180" y="164" width="240" height="42" rx="8" fill="#101820" stroke="#00d4aa" stroke-width="2"/>
+      <text x="300" y="183" fill="#00d4aa" font-size="14" font-weight="700" text-anchor="middle" font-family="Inter">NET PROFIT</text>
+      <text x="300" y="199" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">asli bachat — ₹15 (yeh sabse important)</text>
+    </svg>
+  </div>
+
+  <h2>Kya dekhna chahiye?</h2>
+  <ul>
+    <li>📈 <b>Revenue badh raha hai?</b> — company ka business grow kar raha hai (achha sign)</li>
+    <li>💰 <b>Net Profit badh raha hai?</b> — sirf sales nahi, asli bachat bhi badh rahi (aur achha)</li>
+    <li>📊 <b>Profit Margin</b> — ₹100 sales pe kitna profit bacha? Zyada margin = strong business</li>
+    <li>⏳ <b>Consistency</b> — har saal grow ho raha hai ya upar-niche? Steady growth behtar hai</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ <b>Trap se bacho:</b> Kabhi-kabhi company sirf ek baar (one-time) kuch bech ke profit dikha deti hai — jaise zameen bech di. Yeh asli business profit nahi. Dekho ki profit <b>business se</b> aa raha hai ya kisi one-time cheez se.
+  </div>
+
+  <p>Ab tak humne paise wali baatein dekhi. Ab ek aur zaroori cheez — company chalane wale log: <b>Promoter holding</b>.</p>
+`; }
+
+// ─── CHAPTER 18 ───
+function CH17(){ return `
+  <div class="ch-eyebrow">MODULE 3 · CHAPTER 18</div>
+  <h1>Promoter holding & pledging</h1>
+  <p>Promoter = company ke asli maalik / founder (jaise Ambani Reliance ke, Tata group ke Tatas). <b>Promoter holding</b> = company ka kitna hissa khud maalikon ke paas hai.</p>
+
+  <div class="callout">
+    💡 <b>Soch ka tareeka:</b> Agar dukaan ka maalik khud apni dukaan mein paisa lagaye rakhe, toh aapko bharosa hota hai — "isko apni dukaan pe vishwas hai." Ulta, agar maalik apna hissa bechta ja raha hai, toh shak hota hai.
+  </div>
+
+  <h2>Promoter holding — kya dekhein?</h2>
+  <ul>
+    <li>✅ <b>High & stable holding</b> (jaise 50%+) — maalik ko apni company pe bharosa hai. Achha sign.</li>
+    <li>⚠️ <b>Girta hua holding</b> — maalik apna hissa bech raha? Kyun? Yeh sawaal poochne layak hai.</li>
+  </ul>
+
+  <h2>Pledging — yeh laal-jhandi (red flag) hai</h2>
+  <p><b>Pledge</b> ka matlab: promoter ne apne shares <b>girvi rakh diye</b> (loan lene ke liye) — jaise aap sona gehna girvi rakhte ho.</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <text x="150" y="30" fill="#00d4aa" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">Low / No Pledge</text>
+      <circle cx="150" cy="85" r="36" fill="none" stroke="#30363d" stroke-width="8"/>
+      <circle cx="150" cy="85" r="36" fill="none" stroke="#00d4aa" stroke-width="8" stroke-dasharray="14 226" transform="rotate(-90 150 85)"/>
+      <text x="150" y="90" fill="#00d4aa" font-size="14" font-weight="700" text-anchor="middle" font-family="DM Mono">5%</text>
+      <text x="150" y="140" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">✓ Safe</text>
+
+      <text x="450" y="30" fill="#ef4444" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">High Pledge</text>
+      <circle cx="450" cy="85" r="36" fill="none" stroke="#30363d" stroke-width="8"/>
+      <circle cx="450" cy="85" r="36" fill="none" stroke="#ef4444" stroke-width="8" stroke-dasharray="170 70" transform="rotate(-90 450 85)"/>
+      <text x="450" y="90" fill="#ef4444" font-size="14" font-weight="700" text-anchor="middle" font-family="DM Mono">75%</text>
+      <text x="450" y="140" fill="#ef4444" font-size="10" text-anchor="middle" font-family="Inter">⚠️ Khatra</text>
+    </svg>
+  </div>
+
+  <div class="callout warn">
+    ⚠️ <b>High pledging khatarnaak kyun?</b> Agar share ki keemat giri, toh jisne loan diya woh promoter ke girvi shares bech sakta hai — isse keemat aur girti hai, ek domino effect. High promoter pledging ko bahut investors red flag maante hain. Soch-samajh ke.
+  </div>
+
+  <p>Yeh "management quality" ka ek important signal hai. Ab ek aur health-check — company pe kitna karza (loan) hai: <b>Debt</b>.</p>
+`; }
+
+// ─── CHAPTER 19 ───
+function CH18(){ return `
+  <div class="ch-eyebrow">MODULE 3 · CHAPTER 19</div>
+  <h1>Debt — kitna khatarnaak?</h1>
+  <p>Debt = company ne kitna udhaar (loan) le rakha hai. Thoda debt theek hai — par zyada debt ek company ko dubo bhi sakta hai.</p>
+
+  <div class="callout">
+    💡 <b>Personal example:</b> Ek banda ₹50,000 kamata hai, ₹5,000 EMI deta hai — sambhal sakta hai. Doosra ₹50,000 kamata hai par ₹45,000 EMI deta hai — ek mahina salary ruki, toh fas gaya. Company ka debt bhi aise hi — kamai ke hisaab se dekho.
+  </div>
+
+  <h2>Debt ko kaise jaanchein? (D/E Ratio)</h2>
+  <p>Sabse common tool: <b>Debt-to-Equity (D/E) ratio.</b></p>
+  <ul>
+    <li>D/E = Total Debt ÷ Equity (maalikon ka paisa)</li>
+    <li>📗 <b>D/E &lt; 1</b> — generally healthy (debt, equity se kam)</li>
+    <li>📙 <b>D/E 1-2</b> — dhyaan se dekho, sector pe depend karta hai</li>
+    <li>📕 <b>D/E &gt; 2</b> — zyada debt, risky (par kuch sectors mein normal — jaise banks)</li>
+  </ul>
+
+  <h2>Debt hamesha bura nahi hota</h2>
+  <p>Achhi company thoda debt lekar tezi se badh sakti hai (jaise loan lekar nayi factory) — agar woh us paise se zyada kama rahi hai. <b>Problem tab hai jab company apna loan ka interest bhi mushkil se de paa rahi ho.</b></p>
+
+  <div class="callout warn">
+    ⚠️ <b>Sabse khatarnaak combo:</b> High debt + girta profit + high promoter pledging. Yeh teeno ek saath = bahut bada red flag. Aise stocks "sasta" lagein tab bhi bahut soch-samajh ke.
+  </div>
+
+  <div class="callout">
+    💡 <b>Beginner tip:</b> Shuruaat mein kam-debt (ya debt-free) companies dhoondo. Yeh aksar zyada stable aur kam tension wali hoti hain. Screener.in pe "Debt to equity" filter laga ke dekh sakte ho.
+  </div>
+
+  <p>Ab tak humne kamai, karza, maalik sab dekha. Ab ek aakhri smart number — company apne paise ka kitna achha istemal karti hai: <b>ROE aur ROCE</b>.</p>
+`; }
+
+// ─── CHAPTER 20 ───
+function CH19(){ return `
+  <div class="ch-eyebrow">MODULE 3 · CHAPTER 20</div>
+  <h1>ROE, ROCE (efficiency)</h1>
+  <p>Yeh do numbers batate hain ki company apne paise ka kitna <b>achha istemal</b> kar rahi hai. Do company same profit kamaa sakti hain — par jo kam paise se woh profit kamaye, woh behtar hai.</p>
+
+  <div class="callout">
+    💡 <b>Do dukaan wala example:</b> Dono dukaan ₹1 lakh saal kamati hain. Par pehle ne ₹5 lakh laga ke, doosre ne ₹20 lakh laga ke. Pehli dukaan <b>zyada efficient</b> hai — kam paise se utni hi kamai. ROE/ROCE yahi efficiency maapta hai.
+  </div>
+
+  <h2>ROE — Return on Equity</h2>
+  <p>"Maalikon ke lagaye paise pe company kitna return de rahi hai?"</p>
+  <ul>
+    <li>ROE = Net Profit ÷ Shareholders' Equity (× 100)</li>
+    <li>📗 <b>ROE 15%+</b> — generally achha mana jaata hai</li>
+    <li>📈 Consistent high ROE = strong, well-run company</li>
+  </ul>
+
+  <h2>ROCE — Return on Capital Employed</h2>
+  <p>Yeh ROE jaisa hi hai, par poore capital (equity + debt) pe dekhता hai — isliye thoda zyada complete picture deta hai.</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <text x="300" y="26" fill="#e8edf5" font-size="12" font-weight="700" text-anchor="middle" font-family="Inter">Same profit, alag efficiency</text>
+      <rect x="60" y="55" width="180" height="44" rx="8" fill="#0b1118" stroke="#00d4aa" stroke-width="1.5"/>
+      <text x="150" y="75" fill="#00d4aa" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">ROE 22%</text>
+      <text x="150" y="92" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">✓ efficient — kam paise, achhi kamai</text>
+      <rect x="360" y="55" width="180" height="44" rx="8" fill="#0b1118" stroke="#f5c842" stroke-width="1.5"/>
+      <text x="450" y="75" fill="#f5c842" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">ROE 6%</text>
+      <text x="450" y="92" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">⚠️ kam efficient — zyada paisa, kam kamai</text>
+      <text x="300" y="135" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="DM Mono">High ROE/ROCE = paise ka achha istemaal</text>
+    </svg>
+  </div>
+
+  <div class="callout warn">
+    ⚠️ Ek high ROE kabhi-kabhi bahut zyada debt ki wajah se bhi dikh sakta hai (jo risky hai). Isiliye ROE aur ROCE dono saath dekho — agar dono high hain aur debt kam hai, toh woh sach mein achhi company hai.
+  </div>
+
+  <p>Ab aapke paas saare zaroori tools hain. Chalo inhe ek <b>checklist</b> mein jod dete hain — jo aap har stock pe laga sako. Module ka aakhri chapter!</p>
+`; }
+
+// ─── CHAPTER 23 ───
+function CH20(){ return `
+  <div class="ch-eyebrow">MODULE 3 · CHAPTER 23</div>
+  <h1>Stock kharidne ki full checklist</h1>
+  <p>Yeh chapter Module 3 ka "nichod" hai. Jab bhi koi stock khareedne ka socho, yeh checklist ek-ek karke dekho. Saare "haan" aayein toh company fundamentally strong hai.</p>
+
+  <div class="callout">
+    💡 <b>Yeh checklist save kar lo / screenshot le lo.</b> Har stock pe lagao. Yeh aapko emotion (FOMO) se bachaayega — kyunki ab aap data dekhoge, hype nahi.
+  </div>
+
+  <h2>✅ Fundamental Checklist</h2>
+  <ul>
+    <li>💰 <b>Profit:</b> Net profit pichhle saalon mein badh raha hai? (Ch 17)</li>
+    <li>📈 <b>Revenue:</b> Sales consistent grow ho rahi hai? (Ch 17)</li>
+    <li>🩸 <b>Debt:</b> D/E ratio kam hai (ya manageable)? (Ch 19)</li>
+    <li>💪 <b>Efficiency:</b> ROE / ROCE 15%+ aur consistent? (Ch 20)</li>
+    <li>👑 <b>Promoter:</b> Holding high &amp; stable, pledging kam/zero? (Ch 18)</li>
+    <li>🔢 <b>Valuation:</b> P/E sector ke comparison mein theek hai (bahut mehenga nahi)? (Ch 15)</li>
+    <li>🏭 <b>Business:</b> Aap samajhte ho company karti kya hai? (agar nahi → skip)</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ <b>Golden rule:</b> Jo business aap samajh nahi sakte, usme paisa mat lagao. Warren Buffett ka famous rule — "apne circle of competence mein raho." Agar company kya karti hai woh hi clear nahi, toh baaki sab bekaar.
+  </div>
+
+  <h2>Kahan check karein? (Free tools)</h2>
+  <p>Yeh saari cheezein aapko free websites pe ready-made mil jaati hain — calculation khud nahi karni:</p>
+  <ul>
+    <li>🔍 <b>Screener.in</b> — sabse popular, saare numbers ek jagah</li>
+    <li>📊 <b>Tickertape, Trendlyne</b> — visual, beginner-friendly</li>
+    <li>🏛 <b>Company ki annual report</b> — sabse authentic source</li>
+  </ul>
+
+  <div class="callout">
+    🎉 <b>Module 3 complete!</b> Ab aap kisi bhi company ki "sehat" jaanch sakte ho — profit, debt, efficiency, management, valuation. Yeh INVESTING ka core hai. <br><br>Aage <b>Module 4</b> mein aata hai sabse exciting hissa — <b>Technical Analysis</b>: chart kaise padhein, candlestick, support-resistance, trends, chart patterns. Yahi StockPattern AI ka dil hai! 🚀
+  </div>
+`; }
+
+// ─── CHAPTER 24 ───
+function CH21(){ return `
+  <div class="ch-eyebrow">MODULE 4 · CHAPTER 24</div>
+  <h1>Technical analysis kya hai?</h1>
+  <p>Module 3 mein humne dekha company achhi hai ya nahi (fundamental). Ab Technical Analysis batata hai — <b>khareedne/bechne ka sahi TIME kab hai</b>, sirf chart dekh ke.</p>
+
+  <div class="callout">
+    💡 <b>Fundamental vs Technical — ek line:</b><br>
+    📊 <b>Fundamental</b> = "KYA khareedun?" (achhi company)<br>
+    📈 <b>Technical</b> = "KAB khareedun?" (sahi time, chart se)
+  </div>
+
+  <h2>Technical analysis ki neenv</h2>
+  <p>Technical analysis ek soch pe khadi hai: <b>"History khud ko dohraati hai."</b></p>
+  <p>Log market mein ek jaise tareeke se react karte hain — dar aur lalach se. Isiliye charts pe kuch patterns baar-baar ban-te hain. Agar woh pattern pehle kaam kar chuka hai, toh aage bhi kaam karne ki <b>sambhavna</b> hoti hai.</p>
+
+  <div class="callout">
+    💡 <b>Yahi StockPattern AI ka aadhaar hai!</b> Hum 20 saal ka data dekh ke batate hain — "yeh stock historically is time pe upar/niche gaya." Yeh technical analysis ka hi ek powerful roop hai — <b>seasonality</b>.
+  </div>
+
+  <h2>Doctor ki report vs ECG machine</h2>
+  <p>Sochiye:</p>
+  <ul>
+    <li>📋 <b>Fundamental</b> = blood test report (body andar se kaisi hai)</li>
+    <li>📈 <b>Technical</b> = ECG machine ki line (abhi heartbeat ka pattern kya hai)</li>
+  </ul>
+  <p>Best doctor dono dekhta hai. Best investor bhi — achhi company (fundamental) ko sahi time pe (technical) khareedta hai.</p>
+
+  <div class="callout warn">
+    ⚠️ <b>Important sach:</b> Technical analysis <b>probability</b> ka khel hai, guarantee nahi. Koi pattern 100% kaam nahi karta. Isiliye hamesha stop loss (Module 7) ke saath use karo. Pattern = edge, certainty nahi.
+  </div>
+
+  <p>Chalo ab chart ki sabse buniyaadi cheez seekhte hain — woh chhoti laal-hari "battiyaan" jo aap charts pe dekhte ho: <b>Candlestick</b>.</p>
+`; }
+
+// ─── CHAPTER 25 ───
+function CH22(){ return `
+  <div class="ch-eyebrow">MODULE 4 · CHAPTER 25</div>
+  <h1>Candlestick kya hai? Kaise padhein</h1>
+  <p>Candlestick (mombatti) technical analysis ki sabse zaroori cheez hai. Ek candle aapko 4 cheezein ek saath batati hai — bas usse padhna aana chahiye.</p>
+
+  <div class="callout">
+    💡 <b>Ek candle = ek time period ki poori kahani.</b> Ek din ki candle batati hai us din: keemat kahan <b>khuli</b>, kahan <b>band</b> hui, sabse <b>upar</b> kahan gayi, sabse <b>niche</b> kahan gayi.
+  </div>
+
+  <h2>Candle ka anatomy (banawat)</h2>
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <!-- Green candle -->
+      <text x="160" y="28" fill="#00d4aa" font-size="14" font-weight="700" text-anchor="middle" font-family="Inter">GREEN (Bullish)</text>
+      <text x="160" y="46" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">band &gt; khula (keemat badhi)</text>
+      <line x1="160" y1="60" x2="160" y2="90" stroke="#00d4aa" stroke-width="2"/>
+      <rect x="135" y="90" width="50" height="90" fill="#00d4aa" opacity="0.85" rx="2"/>
+      <line x1="160" y1="180" x2="160" y2="215" stroke="#00d4aa" stroke-width="2"/>
+      <text x="225" y="70" fill="#8a96a8" font-size="10" font-family="Inter">High ↑</text>
+      <text x="225" y="100" fill="#e8edf5" font-size="10" font-family="Inter">Close (band)</text>
+      <text x="225" y="175" fill="#e8edf5" font-size="10" font-family="Inter">Open (khula)</text>
+      <text x="225" y="212" fill="#8a96a8" font-size="10" font-family="Inter">Low ↓</text>
+      <text x="160" y="245" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="DM Mono">patli line = "wick/saaya"</text>
+      <text x="160" y="260" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="DM Mono">mota hissa = "body"</text>
+
+      <!-- Red candle -->
+      <text x="440" y="28" fill="#ef4444" font-size="14" font-weight="700" text-anchor="middle" font-family="Inter">RED (Bearish)</text>
+      <text x="440" y="46" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">band &lt; khula (keemat giri)</text>
+      <line x1="440" y1="60" x2="440" y2="90" stroke="#ef4444" stroke-width="2"/>
+      <rect x="415" y="90" width="50" height="90" fill="#ef4444" opacity="0.85" rx="2"/>
+      <line x1="440" y1="180" x2="440" y2="215" stroke="#ef4444" stroke-width="2"/>
+      <text x="505" y="70" fill="#8a96a8" font-size="10" font-family="Inter">High ↑</text>
+      <text x="505" y="100" fill="#e8edf5" font-size="10" font-family="Inter">Open (khula)</text>
+      <text x="505" y="175" fill="#e8edf5" font-size="10" font-family="Inter">Close (band)</text>
+      <text x="505" y="212" fill="#8a96a8" font-size="10" font-family="Inter">Low ↓</text>
+    </svg>
+  </div>
+
+  <h2>Padhne ka tareeka — bas 2 rule</h2>
+  <ul>
+    <li>🟢 <b>Green candle:</b> band (close) khulne (open) se UPAR. Matlab us period mein keemat <b>badhi</b> — buyers jeete.</li>
+    <li>🔴 <b>Red candle:</b> band (close) khulne (open) se NICHE. Matlab keemat <b>giri</b> — sellers jeete.</li>
+  </ul>
+  <p>Body (mota hissa) = open aur close ke beech. Wick/saaya (patli line) = us period ka sabse upar (high) aur sabse niche (low) jahan keemat gayi par tik nahi paayi.</p>
+
+  <div class="callout">
+    💡 <b>Body se taakat samajho:</b> Lambi body = strong move (ek taraf bahut dum). Chhoti body = confusion / bas barabari (buyer-seller dono barabar).
+  </div>
+
+  <div class="callout warn">
+    ⚠️ Ek akeli candle se bada faisla mat lo. Candles ka asli jaadu tab hai jab aap unhe <b>group</b> mein, trend ke saath padho. Agla chapter wahi sikhata hai.
+  </div>
+
+  <p>Ab jab candle padhna aa gaya, toh kuch famous candle <b>patterns</b> dekhte hain jo signal dete hain.</p>
+`; }
+
+// ─── CHAPTER 26 ───
+function CH23(){ return `
+  <div class="ch-eyebrow">MODULE 4 · CHAPTER 26</div>
+  <h1>Important candlestick patterns</h1>
+  <p>Kuch candle ki shapes baar-baar dikhti hain aur ek "ishaara" deti hain. Yahan 3 sabse zaroori, jo har beginner ko aane chahiye.</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <!-- Doji -->
+      <text x="100" y="30" fill="#f5c842" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">DOJI</text>
+      <line x1="100" y1="55" x2="100" y2="160" stroke="#8a96a8" stroke-width="2"/>
+      <rect x="78" y="103" width="44" height="8" fill="#8a96a8" rx="1"/>
+      <text x="100" y="185" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">open ≈ close</text>
+      <text x="100" y="205" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">→ confusion /</text>
+      <text x="100" y="218" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">trend palat sakta</text>
+
+      <!-- Hammer -->
+      <text x="300" y="30" fill="#00d4aa" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">HAMMER 🔨</text>
+      <rect x="278" y="55" width="44" height="35" fill="#00d4aa" opacity="0.85" rx="2"/>
+      <line x1="300" y1="90" x2="300" y2="160" stroke="#00d4aa" stroke-width="2"/>
+      <text x="300" y="185" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">lambi niche wick</text>
+      <text x="300" y="205" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">→ niche se buyers</text>
+      <text x="300" y="218" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">aaye (bullish ishaara)</text>
+
+      <!-- Engulfing -->
+      <text x="500" y="30" fill="#00d4aa" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">ENGULFING</text>
+      <line x1="478" y1="75" x2="478" y2="135" stroke="#ef4444" stroke-width="1.5"/>
+      <rect x="466" y="90" width="24" height="30" fill="#ef4444" opacity="0.8" rx="2"/>
+      <line x1="515" y1="60" x2="515" y2="155" stroke="#00d4aa" stroke-width="2"/>
+      <rect x="498" y="78" width="34" height="62" fill="#00d4aa" opacity="0.85" rx="2"/>
+      <text x="500" y="185" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">badi green ne choti</text>
+      <text x="500" y="205" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">red ko "nigal liya"</text>
+      <text x="500" y="218" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">→ strong bullish</text>
+    </svg>
+  </div>
+
+  <h2>Teeno ka matlab</h2>
+  <ul>
+    <li>⚖️ <b>Doji</b> — open aur close lagbhag same. Buyer-seller barabar. Ek "soch-vichaar" ka pal — aksar trend palat-ne ka ishaara (xreversal).</li>
+    <li>🔨 <b>Hammer</b> — niche lambi wick. Matlab keemat niche gayi par buyers ne wapas upar khींch liya. Down-trend ke baad yeh bullish ishaara.</li>
+    <li>🟢 <b>Bullish Engulfing</b> — ek badi green candle pichhli choti red candle ko poora "nigal" leti hai. Strong buyer takat — bullish.</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ <b>Sabse zaroori baat:</b> Pattern ka matlab <b>kahan</b> woh ban-ta hai uspe depend karta hai. Hammer down-trend ke <b>baad</b> matlab rakhta hai (reversal). Beech mein kahin bhi ban jaaye toh kam matlab. Hamesha context dekho, akeli candle nahi.
+  </div>
+
+  <p>Candle aa gayi. Ab sabse important concept jo har trader use karta hai — keemat kahan rukti hai: <b>Support &amp; Resistance</b>.</p>
+`; }
+
+// ─── CHAPTER 27 ───
+function CH24(){ return `
+  <div class="ch-eyebrow">MODULE 4 · CHAPTER 27</div>
+  <h1>Support &amp; Resistance</h1>
+  <p>Yeh technical analysis ka sabse useful concept hai. Support aur Resistance woh "deewaarein" hain jahan keemat aksar rukti hai.</p>
+
+  <div class="callout">
+    💡 <b>Gend aur chhat-farsh wala example:</b><br>
+    🏀 <b>Support</b> = farsh. Keemat girte-girte yahan "bounce" hoti hai (neeche se sahara).<br>
+    🏀 <b>Resistance</b> = chhat. Keemat badhte-badhte yahan ruk jaati hai (upar se rukawat).
+  </div>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <!-- resistance line -->
+      <line x1="40" y1="55" x2="560" y2="55" stroke="#ef4444" stroke-width="2" stroke-dasharray="6"/>
+      <text x="50" y="46" fill="#ef4444" font-size="12" font-weight="700" font-family="Inter">RESISTANCE (chhat) — yahan rukti hai</text>
+      <!-- support line -->
+      <line x1="40" y1="190" x2="560" y2="190" stroke="#00d4aa" stroke-width="2" stroke-dasharray="6"/>
+      <text x="50" y="210" fill="#00d4aa" font-size="12" font-weight="700" font-family="Inter">SUPPORT (farsh) — yahan bounce hoti hai</text>
+      <!-- bouncing price -->
+      <path d="M60,185 L130,70 L200,180 L270,62 L340,185 L410,68 L480,182 L545,75"
+            stroke="#0095ff" stroke-width="2.5" fill="none"/>
+      <circle cx="130" cy="70" r="4" fill="#ef4444"/>
+      <circle cx="270" cy="62" r="4" fill="#ef4444"/>
+      <circle cx="410" cy="68" r="4" fill="#ef4444"/>
+      <circle cx="200" cy="180" r="4" fill="#00d4aa"/>
+      <circle cx="340" cy="185" r="4" fill="#00d4aa"/>
+      <circle cx="480" cy="182" r="4" fill="#00d4aa"/>
+    </svg>
+  </div>
+
+  <h2>Yeh deewaarein ban-ti kaise hain?</h2>
+  <p>Yeh psychology se ban-ti hain:</p>
+  <ul>
+    <li>🟢 <b>Support pe:</b> Logon ko lagta hai "yeh sasta hai" → khareedna shuru → keemat ruk ke bounce</li>
+    <li>🔴 <b>Resistance pe:</b> Logon ko lagta hai "yeh mehenga hai, profit book karo" → bechna shuru → keemat ruk ke gir-ti</li>
+  </ul>
+
+  <h2>Trader ise kaise use karte hain?</h2>
+  <ul>
+    <li>🎯 Support ke paas khareedne ke baare mein sochte hain (sasta zone)</li>
+    <li>🎯 Resistance ke paas bechne / profit book karne ka socha jaata hai</li>
+    <li>💥 <b>Breakout:</b> Jab keemat resistance ko TOD ke upar nikal jaaye (volume ke saath) — yeh strong bullish signal hai</li>
+  </ul>
+
+  <div class="callout">
+    💡 <b>Ek pyaara rule:</b> Jab resistance toot jaata hai, woh aksar naya <b>support</b> ban jaata hai (chhat ab farsh ban gayi). Aur ulta bhi. Yeh "role reversal" kehlaata hai.
+  </div>
+
+  <div class="callout warn">
+    ⚠️ Support/Resistance exact line nahi, ek <b>zone</b> (area) samjho. Keemat thodा upar-niche ho sakti hai. Aur kabhi-kabhi yeh tootte bhi hain — isiliye stop loss zaroori.
+  </div>
+
+  <p>Ab dekhte hain keemat ka overall "rasta" — woh upar ja rahi, niche, ya seedhi: <b>Trends</b>.</p>
+`; }
+
+// ─── CHAPTER 28 ───
+function CH25(){ return `
+  <div class="ch-eyebrow">MODULE 4 · CHAPTER 28</div>
+  <h1>Trends (up, down, sideways)</h1>
+  <p>"Trend is your friend" — yeh trading ki sabse famous kahawat hai. Trend = keemat ki overall <b>disha</b>. Trend ke saath chalna, uske khilaaf nahi.</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <!-- uptrend -->
+      <text x="100" y="25" fill="#00d4aa" font-size="12" font-weight="700" text-anchor="middle" font-family="Inter">UPTREND 📈</text>
+      <path d="M40,160 L70,130 L60,140 L100,95 L90,108 L140,60" stroke="#00d4aa" stroke-width="2.5" fill="none"/>
+      <text x="100" y="185" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">higher highs + higher lows</text>
+
+      <text x="300" y="25" fill="#ef4444" font-size="12" font-weight="700" text-anchor="middle" font-family="Inter">DOWNTREND 📉</text>
+      <path d="M240,60 L270,95 L260,82 L300,130 L290,118 L340,160" stroke="#ef4444" stroke-width="2.5" fill="none"/>
+      <text x="300" y="185" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">lower highs + lower lows</text>
+
+      <text x="500" y="25" fill="#f5c842" font-size="12" font-weight="700" text-anchor="middle" font-family="Inter">SIDEWAYS ↔️</text>
+      <path d="M440,110 L470,85 L490,115 L510,85 L530,115 L555,90" stroke="#f5c842" stroke-width="2.5" fill="none"/>
+      <text x="500" y="185" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">range mein, koi disha nahi</text>
+    </svg>
+  </div>
+
+  <h2>Teen tarah ke trend</h2>
+  <ul>
+    <li>📈 <b>Uptrend:</b> Keemat zigzag karte hue UPAR. Har nayi choti "higher" hoti hai (higher highs, higher lows). Yahan generally khareedne ka socha jaata hai.</li>
+    <li>📉 <b>Downtrend:</b> Keemat zigzag karte hue NICHE (lower highs, lower lows). Yahan khareedna "girte chaaku ko pakadne" jaisa risky.</li>
+    <li>↔️ <b>Sideways:</b> Keemat ek range mein ghoom rahi, koi clear disha nahi. Yahan aksar intezaar behtar hai.</li>
+  </ul>
+
+  <div class="callout">
+    💡 <b>"Trend is your friend":</b> Uptrend mein khareedne ke mauke dhoondo, downtrend mein bechne ke. Trend ke khilaaf jaana (jaise girte stock ko "sasta" soch ke khareedna) sabse common galti hai.
+  </div>
+
+  <div class="callout warn">
+    ⚠️ Trend timeframe pe depend karta hai. Ek stock din ke chart pe downtrend mein ho sakta hai, par mahine ke chart pe uptrend mein. Hamesha apne nivesh ke time-frame ka trend dekho.
+  </div>
+
+  <p>Trend dekhna aa gaya — ab use chart pe <b>line se mark</b> karna seekho, taaki saaf dikhe: <b>Trendlines</b>.</p>
+`; }
+
+// ─── CHAPTER 29 ───
+function CH26(){ return `
+  <div class="ch-eyebrow">MODULE 4 · CHAPTER 29</div>
+  <h1>Trendlines kaise banayein</h1>
+  <p>Trendline ek seedhi line hai jo trend ko chart pe "mark" karti hai — taaki disha aur ahem levels saaf dikhein. Banana bahut aasan hai.</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <text x="160" y="25" fill="#00d4aa" font-size="12" font-weight="700" text-anchor="middle" font-family="Inter">UPTREND LINE</text>
+      <text x="160" y="42" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">lows ko jodo (neeche se sahara)</text>
+      <path d="M40,170 L80,140 L70,150 L120,110 L110,122 L170,75 L160,88 L210,50" stroke="#0095ff" stroke-width="2" fill="none"/>
+      <line x1="35" y1="178" x2="215" y2="58" stroke="#00d4aa" stroke-width="2" stroke-dasharray="5"/>
+      <circle cx="40" cy="170" r="3.5" fill="#00d4aa"/>
+      <circle cx="120" cy="110" r="3.5" fill="#00d4aa"/>
+      <circle cx="170" cy="75" r="3.5" fill="#00d4aa"/>
+
+      <text x="440" y="25" fill="#ef4444" font-size="12" font-weight="700" text-anchor="middle" font-family="Inter">DOWNTREND LINE</text>
+      <text x="440" y="42" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">highs ko jodo (upar se rukawat)</text>
+      <path d="M390,60 L430,90 L420,78 L470,118 L460,105 L520,150 L510,138 L560,180" stroke="#0095ff" stroke-width="2" fill="none"/>
+      <line x1="385" y1="52" x2="565" y2="172" stroke="#ef4444" stroke-width="2" stroke-dasharray="5"/>
+      <circle cx="390" cy="60" r="3.5" fill="#ef4444"/>
+      <circle cx="470" cy="118" r="3.5" fill="#ef4444"/>
+      <circle cx="520" cy="150" r="3.5" fill="#ef4444"/>
+    </svg>
+  </div>
+
+  <h2>Kaise banaye? (2 simple rule)</h2>
+  <ul>
+    <li>📈 <b>Uptrend line:</b> Keemat ke 2-3 <b>lows (niche wale points)</b> ko ek seedhi line se jodo. Yeh line "support" ki tarah kaam karti hai.</li>
+    <li>📉 <b>Downtrend line:</b> Keemat ke 2-3 <b>highs (upar wale points)</b> ko jodo. Yeh "resistance" ki tarah kaam karti hai.</li>
+  </ul>
+
+  <h2>Trendline kaam kaise aati hai?</h2>
+  <ul>
+    <li>👀 Trend ki disha saaf dikhti hai</li>
+    <li>🎯 Jab keemat trendline tak aati hai, woh aksar wahan se react karti hai (bounce ya ruk)</li>
+    <li>💥 Jab keemat trendline ko TOD deti hai — yeh signal hota hai ki trend badal sakta hai (trendline break)</li>
+  </ul>
+
+  <div class="callout">
+    💡 <b>Pro tip:</b> Jitni baar keemat ne trendline ko "touch" kiya aur respect kiya, utni woh line zyada mazboot. 2 touch = theek, 3+ touch = strong line.
+  </div>
+
+  <div class="callout warn">
+    ⚠️ Trendline thodi "art" hai, exact science nahi. Do log thodी alag line bana sakte hain. Isiliye ise akela nahi, baaki signals (candle, volume, S/R) ke saath use karo.
+  </div>
+
+  <p>Ab aate hain bade, famous <b>chart patterns</b> — jo poori tasveer mein ban-te hain aur strong signal dete hain.</p>
+`; }
+
+// ─── CHAPTER 30 ───
+function CH27(){ return `
+  <div class="ch-eyebrow">MODULE 4 · CHAPTER 30</div>
+  <h1>Chart patterns (H&amp;S, Triangle, Flag)</h1>
+  <p>Chart patterns badi shapes hain jo kai candles/dino mein ban-ti hain. Yeh aksar batati hain ki keemat aage kis taraf ja sakti hai. 3 famous yahan.</p>
+
+  <h2>1. Head &amp; Shoulders (sar aur kandhe)</h2>
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <path d="M30,140 L80,100 L110,120 L160,55 L210,120 L240,100 L290,140"
+            stroke="#0095ff" stroke-width="2.5" fill="none"/>
+      <text x="95" y="92" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">kandha</text>
+      <text x="160" y="45" fill="#e8edf5" font-size="10" text-anchor="middle" font-family="Inter">SAR (head)</text>
+      <text x="225" y="92" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">kandha</text>
+      <line x1="80" y1="128" x2="240" y2="128" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4"/>
+      <text x="160" y="150" fill="#ef4444" font-size="9" text-anchor="middle" font-family="Inter">neckline (toота → bearish)</text>
+      <text x="430" y="60" fill="#e8edf5" font-size="12" font-weight="700" font-family="Inter">→ Reversal pattern</text>
+      <text x="430" y="82" fill="#8a96a8" font-size="10" font-family="Inter">Uptrend ke baad bane toh</text>
+      <text x="430" y="98" fill="#8a96a8" font-size="10" font-family="Inter">aksar trend palat-ne ka</text>
+      <text x="430" y="114" fill="#8a96a8" font-size="10" font-family="Inter">ishaara (bearish).</text>
+    </svg>
+  </div>
+
+  <h2>2. Triangle (tikon)</h2>
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <path d="M40,40 L90,110 L130,55 L170,100 L205,68 L235,90 L260,78"
+            stroke="#0095ff" stroke-width="2" fill="none"/>
+      <line x1="40" y1="40" x2="270" y2="78" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4"/>
+      <line x1="90" y1="110" x2="270" y2="78" stroke="#00d4aa" stroke-width="1.5" stroke-dasharray="4"/>
+      <text x="155" y="150" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">range chhoti hoti jaati — "spring" dab rahi</text>
+      <text x="430" y="55" fill="#e8edf5" font-size="12" font-weight="700" font-family="Inter">→ Continuation</text>
+      <text x="430" y="77" fill="#8a96a8" font-size="10" font-family="Inter">Keemat ek point pe</text>
+      <text x="430" y="93" fill="#8a96a8" font-size="10" font-family="Inter">simat-ti hai, phir ek</text>
+      <text x="430" y="109" fill="#8a96a8" font-size="10" font-family="Inter">taraf strong breakout.</text>
+    </svg>
+  </div>
+
+  <h2>3. Flag (jhanda)</h2>
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <path d="M40,140 L70,60" stroke="#00d4aa" stroke-width="3" fill="none"/>
+      <text x="45" y="105" fill="#00d4aa" font-size="9" font-family="Inter" transform="rotate(-65 50 105)">pole</text>
+      <path d="M70,60 L110,80 L95,72 L135,92 L120,84 L160,104" stroke="#0095ff" stroke-width="2" fill="none"/>
+      <line x1="70" y1="60" x2="160" y2="92" stroke="#8a96a8" stroke-width="1.2" stroke-dasharray="3"/>
+      <line x1="85" y1="78" x2="172" y2="110" stroke="#8a96a8" stroke-width="1.2" stroke-dasharray="3"/>
+      <path d="M160,98 L200,40" stroke="#00d4aa" stroke-width="3" fill="none"/>
+      <path d="M200,40 l-2,11 l9,-4 z" fill="#00d4aa"/>
+      <text x="430" y="55" fill="#e8edf5" font-size="12" font-weight="700" font-family="Inter">→ Continuation</text>
+      <text x="430" y="77" fill="#8a96a8" font-size="10" font-family="Inter">Strong move (pole) ke</text>
+      <text x="430" y="93" fill="#8a96a8" font-size="10" font-family="Inter">baad thodा aaram (flag),</text>
+      <text x="430" y="109" fill="#8a96a8" font-size="10" font-family="Inter">phir wahi disha jaari.</text>
+    </svg>
+  </div>
+
+  <h2>Do tarah ke patterns</h2>
+  <ul>
+    <li>🔄 <b>Reversal patterns</b> (jaise H&amp;S) — trend palat-ne ka ishaara</li>
+    <li>➡️ <b>Continuation patterns</b> (jaise Triangle, Flag) — trend jaari rehne ka ishaara (bas thodा "saans le raha")</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ <b>Bahut zaroori:</b> Patterns "guarantee" nahi, "sambhavna" dete hain. Aur har pattern ko volume ke saath confirm karo (next chapter). Pattern fail bhi ho sakta hai — isiliye stop loss hamesha. Pattern dekhna ek skill hai jo practice se aati hai.
+  </div>
+
+  <p>Aakhri tukda — woh cheez jo har pattern aur signal ko "confirm" karti hai: <b>Volume + price action</b>.</p>
+`; }
+
+// ─── CHAPTER 32 ───
+function CH28(){ return `
+  <div class="ch-eyebrow">MODULE 4 · CHAPTER 32</div>
+  <h1>Volume + price action</h1>
+  <p>Module 2 mein humne volume seekha tha. Ab dekhte hain ki volume aur keemat ki move ko <b>ek saath</b> kaise padhein — yahi "price action" ka asli skill hai.</p>
+
+  <div class="callout">
+    💡 <b>Volume = move ka "saboot".</b> Keemat ki koi bhi badi move tabhi bharosemand hai jab uske peeche volume (bheed) ho. Bina volume ke move = "khokhli" move, jaldi palat sakti hai.
+  </div>
+
+  <h2>4 zaroori combinations</h2>
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 230" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <!-- box 1 -->
+      <rect x="20" y="30" width="270" height="80" rx="8" fill="#0b1118" stroke="#00d4aa" stroke-width="1.2"/>
+      <text x="35" y="55" fill="#00d4aa" font-size="12" font-weight="700" font-family="Inter">📈 Price ↑ + Volume ↑</text>
+      <text x="35" y="78" fill="#8a96a8" font-size="11" font-family="Inter">STRONG bullish — move mein dum,</text>
+      <text x="35" y="95" fill="#8a96a8" font-size="11" font-family="Inter">bharosa kiya ja sakta hai ✅</text>
+      <!-- box 2 -->
+      <rect x="310" y="30" width="270" height="80" rx="8" fill="#0b1118" stroke="#f5c842" stroke-width="1.2"/>
+      <text x="325" y="55" fill="#f5c842" font-size="12" font-weight="700" font-family="Inter">📈 Price ↑ + Volume ↓</text>
+      <text x="325" y="78" fill="#8a96a8" font-size="11" font-family="Inter">WEAK — kam log, move kamzor,</text>
+      <text x="325" y="95" fill="#8a96a8" font-size="11" font-family="Inter">jaldi palat sakti hai ⚠️</text>
+      <!-- box 3 -->
+      <rect x="20" y="125" width="270" height="80" rx="8" fill="#0b1118" stroke="#ef4444" stroke-width="1.2"/>
+      <text x="35" y="150" fill="#ef4444" font-size="12" font-weight="700" font-family="Inter">📉 Price ↓ + Volume ↑</text>
+      <text x="35" y="173" fill="#8a96a8" font-size="11" font-family="Inter">STRONG bearish — sellers haavi,</text>
+      <text x="35" y="190" fill="#8a96a8" font-size="11" font-family="Inter">girawat mein dum 🔴</text>
+      <!-- box 4 -->
+      <rect x="310" y="125" width="270" height="80" rx="8" fill="#0b1118" stroke="#8a96a8" stroke-width="1.2"/>
+      <text x="325" y="150" fill="#8a96a8" font-size="12" font-weight="700" font-family="Inter">📉 Price ↓ + Volume ↓</text>
+      <text x="325" y="173" fill="#8a96a8" font-size="11" font-family="Inter">WEAK girawat — shayad sirf</text>
+      <text x="325" y="190" fill="#8a96a8" font-size="11" font-family="Inter">thoda profit-booking 🟡</text>
+    </svg>
+  </div>
+
+  <h2>"Price action" kya hai?</h2>
+  <p>Price action = sirf keemat aur volume ki move padhna, bina kisi extra indicator ke. Yeh sabse "saaf" tareeka hai market samajhne ka — kyunki yeh seedha asli khareed-bikri dikhata hai.</p>
+  <ul>
+    <li>📊 Breakout volume ke saath = asli (trust)</li>
+    <li>📊 Breakout bina volume = "fakeout" ho sakta hai (dhoka)</li>
+    <li>📊 Bade volume pe trend palat-na = strong reversal signal</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ Koi ek signal akela 100% nahi hota. Asli taakat tab hai jab kai cheezein ek saath agree karein — jaise: support pe + bullish candle + badhta volume. Jitne zyada signals milein, utna strong setup.
+  </div>
+
+  <div class="callout">
+    🎉 <b>Module 4 complete — yeh sabse bada milestone hai!</b> Ab aap chart padh sakte ho: candles, support/resistance, trends, trendlines, chart patterns, aur volume. Yahi StockPattern AI ka dil hai. <br><br>Aage <b>Module 5</b> mein hum kuch "tools" (indicators) seekhenge jo in sab mein madad karte hain — RSI, Moving Average, MACD, aur hamara USP: Seasonality. 🚀
+  </div>
+`; }
+
+// ─── CHAPTER 33 ───
+function CH29(){ return `
+  <div class="ch-eyebrow">MODULE 5 · CHAPTER 33</div>
+  <h1>Indicators kya hote hain (aur unki limit)</h1>
+  <p>Indicators woh "tools" hain jo keemat aur volume ke data se calculate hote hain aur chart pe lines/numbers ke roop mein dikhte hain. Yeh aapko trend, momentum, ya levels samajhne mein madad karte hain.</p>
+
+  <div class="callout">
+    💡 <b>Car ke dashboard wala example:</b> Aapki gaadi mein speedometer, fuel gauge, temperature meter hote hain. Yeh khud gaadi nahi chalaate — bas aapko <b>information</b> dete hain taaki aap behtar faisla lo. Indicators bhi yahi hain — chart ka "dashboard".
+  </div>
+
+  <h2>Do tarah ke indicators</h2>
+  <ul>
+    <li>📈 <b>Trend indicators</b> — disha batate hain (jaise Moving Average). "Trend upar hai ya niche?"</li>
+    <li>⚡ <b>Momentum indicators</b> — taakat/speed batate hain (jaise RSI, MACD). "Move mein dum kitna hai? Zyada khींch toh nahi gaya?"</li>
+  </ul>
+
+  <h2>Sabse zaroori sach — indicators ki LIMIT</h2>
+  <p>Yeh chapter ka sabse important hissa hai. Naye log indicators ko "jaadu" samajh lete hain. Sach yeh hai:</p>
+  <ul>
+    <li>⏳ <b>Indicators "lagging" hote hain</b> — yeh PURANI keemat se bante hain. Yeh future nahi batate, sirf jo ho chuka usse samajhne mein madad karte hain.</li>
+    <li>🔁 <b>Koi indicator akela 100% sahi nahi</b> — sab kabhi-kabhi galat signal (fakeout) dete hain.</li>
+    <li>🚫 <b>Zyada indicators = zyada confusion</b> — 10 indicators lagana ulta nuksaan karta hai ("analysis paralysis").</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ <b>Golden rule:</b> Indicators price action ko <b>confirm</b> karne ke liye hain, replace karne ke liye nahi. Pehle keemat/trend/support-resistance dekho (Module 4), phir 1-2 indicator se confirm karo. Bas. Zyada mat lagao.
+  </div>
+
+  <p>Chalo sabse popular aur sabse useful indicator se shuru karte hain — jo trend saaf karta hai: <b>Moving Average</b>.</p>
+`; }
+
+// ─── CHAPTER 34 ───
+function CH30(){ return `
+  <div class="ch-eyebrow">MODULE 5 · CHAPTER 34</div>
+  <h1>Moving Average (EMA, SMA)</h1>
+  <p>Moving Average (MA) sabse popular indicator hai. Yeh keemat ke utar-chadhav ko "smooth" karke ek saaf line bana deta hai — taaki asli trend dikhe, shor (noise) nahi.</p>
+
+  <div class="callout">
+    💡 <b>Class ke average marks wala example:</b> Ek bachche ke roz ke marks upar-niche hote hain. Par pichhle 20 din ka average ek saaf tasveer deta hai ki woh overall kaisा kar raha hai. Moving Average keemat ke saath yahi karta hai.
+  </div>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <text x="300" y="24" fill="#e8edf5" font-size="12" font-weight="700" text-anchor="middle" font-family="Inter">MA = jhatkedaar keemat ko smooth line banana</text>
+      <!-- jagged price -->
+      <path d="M40,150 L80,110 L110,140 L150,90 L185,125 L225,75 L265,105 L310,60 L355,95 L400,55 L450,80 L500,45 L555,65"
+            stroke="#8a96a8" stroke-width="1.5" fill="none" opacity="0.6"/>
+      <text x="75" y="175" fill="#8a96a8" font-size="10" font-family="Inter">— actual price (jhatkedaar)</text>
+      <!-- smooth MA -->
+      <path d="M40,140 Q150,115 265,95 T500,60 L555,58" stroke="#00d4aa" stroke-width="3" fill="none"/>
+      <text x="350" y="195" fill="#00d4aa" font-size="11" font-family="Inter">— Moving Average (saaf trend line)</text>
+    </svg>
+  </div>
+
+  <h2>SMA vs EMA — do tarah ke</h2>
+  <ul>
+    <li>📊 <b>SMA (Simple Moving Average)</b> — sab dino ko barabar weight deta hai. Simple, smooth, par thoda slow react karta hai.</li>
+    <li>⚡ <b>EMA (Exponential Moving Average)</b> — recent dino ko zyada weight deta hai. Isliye keemat ke changes pe tez react karta hai. Traders aksar EMA pasand karte hain.</li>
+  </ul>
+
+  <h2>MA ko use kaise karein?</h2>
+  <ul>
+    <li>🧭 <b>Trend dekhna:</b> Keemat MA ke UPAR = uptrend. Keemat MA ke NICHE = downtrend.</li>
+    <li>🛡 <b>Support/Resistance:</b> Popular MAs (jaise 50-day, 200-day) aksar support/resistance ki tarah kaam karte hain.</li>
+    <li>✂️ <b>Crossover:</b> Jab choti MA (jaise 50-day) badi MA (200-day) ko upar se cross kare = bullish signal ("Golden Cross"). Ulta = bearish ("Death Cross").</li>
+  </ul>
+
+  <div class="callout">
+    💡 <b>Sabse famous 2 MA:</b> <b>50-day</b> (medium trend) aur <b>200-day</b> (long-term trend). Bade investors 200-day MA ko bahut respect dete hain — agar keemat uske upar hai, toh long-term trend bullish maana jaata hai.
+  </div>
+
+  <div class="callout warn">
+    ⚠️ MA "lagging" hai — purani keemat se banta hai. Yeh trend confirm karne mein achha hai, par turning point (exact top/bottom) pakad-ne mein late hota hai. Akela mat use karo.
+  </div>
+
+  <p>MA ne trend dikhaya. Ab ek momentum tool jo batata hai stock "zyada khींch" toh nahi gaya: <b>RSI</b>.</p>
+`; }
+
+// ─── CHAPTER 35 ───
+function CH31(){ return `
+  <div class="ch-eyebrow">MODULE 5 · CHAPTER 35</div>
+  <h1>RSI (overbought / oversold)</h1>
+  <p>RSI (Relative Strength Index) ek momentum indicator hai jo 0 se 100 ke beech ghoomta hai. Yeh batata hai ki stock bahut zyada khareed liya gaya (overbought) ya bahut zyada bech diya gaya (oversold).</p>
+
+  <div class="callout">
+    💡 <b>Rubber band wala example:</b> Rubber band ko bahut khींcho toh woh wapas aane ki koshish karta hai. RSI batata hai ki keemat ek taraf "bahut khींch" toh nahi gayi — agar haan, toh palatne ki sambhavna badhti hai.
+  </div>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <!-- zones -->
+      <rect x="50" y="35" width="510" height="40" fill="#ef4444" opacity="0.12"/>
+      <rect x="50" y="145" width="510" height="40" fill="#00d4aa" opacity="0.12"/>
+      <line x1="50" y1="75" x2="560" y2="75" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="5"/>
+      <line x1="50" y1="145" x2="560" y2="145" stroke="#00d4aa" stroke-width="1.5" stroke-dasharray="5"/>
+      <text x="55" y="28" fill="#ef4444" font-size="11" font-weight="700" font-family="Inter">70+ OVERBOUGHT (bahut khareeda — palat sakta)</text>
+      <text x="55" y="205" fill="#00d4aa" font-size="11" font-weight="700" font-family="Inter">30− OVERSOLD (bahut becha — palat sakta)</text>
+      <text x="565" y="79" fill="#ef4444" font-size="11" font-family="DM Mono" text-anchor="end">70</text>
+      <text x="565" y="149" fill="#00d4aa" font-size="11" font-family="DM Mono" text-anchor="end">30</text>
+      <!-- RSI line -->
+      <path d="M50,130 L110,90 L160,60 L210,95 L270,125 L330,155 L390,165 L450,120 L510,80 L555,100"
+            stroke="#0095ff" stroke-width="2.5" fill="none"/>
+      <text x="300" y="115" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">RSI line (0–100 ke beech)</text>
+    </svg>
+  </div>
+
+  <h2>RSI ko padhne ka tareeka</h2>
+  <ul>
+    <li>🔴 <b>RSI 70 se upar = Overbought:</b> stock bahut tezi se khareeda gaya. Thoda thak sakta hai / gir sakta hai. Khareedne mein savdhani.</li>
+    <li>🟢 <b>RSI 30 se niche = Oversold:</b> stock bahut bech diya gaya. Bounce kar sakta hai. Yahan opportunity dhoondhi jaati hai.</li>
+    <li>⚖️ <b>RSI 30-70 = Normal zone:</b> koi extreme nahi.</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ <b>Sabse badi galti:</b> "RSI 70 hai, toh turant bech do" — yeh galat hai! Strong uptrend mein RSI lambe time tak 70+ reh sakta hai aur stock aur upar jaa sakta hai. Overbought ka matlab "ruk-na" nahi, "savdhaan rehna" hai. RSI ko trend ke saath padho.
+  </div>
+
+  <div class="callout">
+    💡 <b>Advanced (bonus):</b> "Divergence" — jab keemat naya high banaye par RSI naya high na banaye, toh yeh trend kamzor hone ka ishaara hota hai. Yeh ek powerful signal hai jo experienced traders dekhte hain.
+  </div>
+
+  <p>RSI ne momentum dikhaya. Ab ek aur popular momentum tool jo do MA ko milata hai: <b>MACD</b>.</p>
+`; }
+
+// ─── CHAPTER 36 ───
+function CH32(){ return `
+  <div class="ch-eyebrow">MODULE 5 · CHAPTER 36</div>
+  <h1>MACD</h1>
+  <p>MACD (Moving Average Convergence Divergence) — naam darawana hai, par idea simple: yeh do moving averages ka farak dekh ke momentum aur trend-change ka signal deta hai.</p>
+
+  <div class="callout">
+    💡 <b>Do gaadiyon wala example:</b> Socho do car — ek tez (fast MA), ek dheemi (slow MA). MACD batata hai ki dono ke beech faasla badh raha hai ya ghat raha hai. Isse pata chalta hai momentum tez ho raha ya dheema.
+  </div>
+
+  <h2>MACD ke 3 hisse</h2>
+  <ul>
+    <li>📈 <b>MACD line</b> — do EMA (12-day aur 26-day) ka farak</li>
+    <li>📉 <b>Signal line</b> — MACD line ka hi ek smooth version (9-day)</li>
+    <li>📊 <b>Histogram</b> — dono lines ke beech ka farak (bars ke roop mein)</li>
+  </ul>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <line x1="40" y1="130" x2="560" y2="130" stroke="#30363d" stroke-width="1"/>
+      <text x="565" y="134" fill="#8a96a8" font-size="10" text-anchor="end" font-family="DM Mono">0</text>
+      <!-- histogram bars -->
+      <rect x="70" y="130" width="18" height="30" fill="#ef4444" opacity="0.6"/>
+      <rect x="95" y="130" width="18" height="18" fill="#ef4444" opacity="0.6"/>
+      <rect x="120" y="130" width="18" height="8" fill="#ef4444" opacity="0.6"/>
+      <rect x="160" y="110" width="18" height="20" fill="#00d4aa" opacity="0.7"/>
+      <rect x="185" y="95" width="18" height="35" fill="#00d4aa" opacity="0.7"/>
+      <rect x="210" y="100" width="18" height="30" fill="#00d4aa" opacity="0.7"/>
+      <rect x="235" y="115" width="18" height="15" fill="#00d4aa" opacity="0.7"/>
+      <!-- lines -->
+      <path d="M70,145 L120,138 L180,95 L240,108 L300,120 L360,100 L420,85 L480,95 L540,80" stroke="#0095ff" stroke-width="2" fill="none"/>
+      <path d="M70,138 L120,140 L180,115 L240,110 L300,115 L360,110 L420,100 L480,98 L540,92" stroke="#f5c842" stroke-width="2" fill="none"/>
+      <circle cx="150" cy="105" r="5" fill="none" stroke="#00d4aa" stroke-width="2"/>
+      <text x="150" y="60" fill="#00d4aa" font-size="10" text-anchor="middle" font-family="Inter">crossover =</text>
+      <text x="150" y="74" fill="#00d4aa" font-size="10" text-anchor="middle" font-family="Inter">bullish signal</text>
+      <text x="470" y="200" fill="#0095ff" font-size="10" font-family="Inter">— MACD line</text>
+      <text x="470" y="180" fill="#f5c842" font-size="10" font-family="Inter">— Signal line</text>
+    </svg>
+  </div>
+
+  <h2>Sabse important signal — Crossover</h2>
+  <ul>
+    <li>🟢 <b>Bullish:</b> Jab MACD line Signal line ko NICHE se UPAR cross kare → momentum upar ja raha</li>
+    <li>🔴 <b>Bearish:</b> Jab MACD line Signal line ko UPAR se NICHE cross kare → momentum niche ja raha</li>
+    <li>📊 <b>Histogram:</b> Zero ke upar = bullish momentum, niche = bearish. Bars badh rahe = momentum tez ho raha.</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ MACD bhi "lagging" hai (MA pe based). Sideways market mein yeh bahut galat signal (whipsaw) deta hai. Trending market mein behtar kaam karta hai. Akela nahi — price action ke saath.
+  </div>
+
+  <p>Ab ek indicator jo "volatility" (kitna utaar-chadhav) dikhata hai: <b>Bollinger Bands</b>.</p>
+`; }
+
+// ─── CHAPTER 37 ───
+function CH33(){ return `
+  <div class="ch-eyebrow">MODULE 5 · CHAPTER 37</div>
+  <h1>Bollinger Bands</h1>
+  <p>Bollinger Bands keemat ke aas-paas teen lines banati hain — ek beech mein aur do upar-niche. Yeh batati hain ki keemat "normal range" mein hai ya extreme pe, aur volatility kitni hai.</p>
+
+  <div class="callout">
+    💡 <b>Sadak ki lane wala example:</b> Socho keemat ek gaadi hai, aur upar-niche ki bands "sadak ke kinare" hain. Gaadi aksar beech mein chalti hai. Jab woh kinare ko chhoo le, toh aksar wapas beech ki taraf aati hai.
+  </div>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <!-- upper band -->
+      <path d="M40,55 Q150,45 300,60 T560,50" stroke="#ef4444" stroke-width="1.8" fill="none" stroke-dasharray="5"/>
+      <text x="45" y="42" fill="#ef4444" font-size="10" font-family="Inter">Upper Band (mehenga zone)</text>
+      <!-- middle (MA) -->
+      <path d="M40,105 Q150,98 300,108 T560,100" stroke="#8a96a8" stroke-width="1.5" fill="none"/>
+      <text x="45" y="122" fill="#8a96a8" font-size="10" font-family="Inter">Middle (20-day MA)</text>
+      <!-- lower band -->
+      <path d="M40,155 Q150,150 300,158 T560,150" stroke="#00d4aa" stroke-width="1.8" fill="none" stroke-dasharray="5"/>
+      <text x="45" y="178" fill="#00d4aa" font-size="10" font-family="Inter">Lower Band (sasta zone)</text>
+      <!-- price -->
+      <path d="M40,110 L90,70 L140,120 L190,150 L240,100 L290,65 L340,115 L390,148 L440,95 L490,60 L540,105"
+            stroke="#0095ff" stroke-width="2.5" fill="none"/>
+    </svg>
+  </div>
+
+  <h2>Bands ko padhna</h2>
+  <ul>
+    <li>🔴 <b>Keemat upper band ke paas:</b> stock "mehenga" zone mein — palat sakta hai (overbought jaisा)</li>
+    <li>🟢 <b>Keemat lower band ke paas:</b> stock "sasta" zone mein — bounce kar sakta hai (oversold jaisा)</li>
+    <li>📏 <b>Bands ke beech ka farak (width):</b>
+      <br>• Bands chaudi (door-door) = zyada volatility (tezi se hil raha)
+      <br>• Bands sankri (paas-paas) = kam volatility — aksar ek badi move se pehle ("squeeze")</li>
+  </ul>
+
+  <div class="callout">
+    💡 <b>"Bollinger Squeeze":</b> Jab bands bahut paas aa jaayein (squeeze), toh aksar ek bada breakout aane wala hota hai. Yeh ek popular signal hai — par direction (upar/niche) yeh nahi batata, sirf "kuch bada hone wala hai".
+  </div>
+
+  <div class="callout warn">
+    ⚠️ Strong trend mein keemat lambe time tak ek band ke saath "chal" sakti hai (jise "band walking" kehte hain). Toh "upper band chhua = bech do" galat ho sakta hai. Hamesha trend ke context mein dekho.
+  </div>
+
+  <p>Ab aata hai sabse special chapter — woh indicator jo <b>StockPattern AI ko unique banata hai</b>: <b>Seasonality</b>.</p>
+`; }
+
+// ─── CHAPTER 38 ───
+function CH34(){ return `
+  <div class="ch-eyebrow">MODULE 5 · CHAPTER 38</div>
+  <h1>Seasonality — StockPattern AI ka USP</h1>
+  <p>Yeh chapter khaas hai. Seasonality woh concept hai jispe poora StockPattern AI bana hai. Aur yeh bahut kam logon ko theek se aata hai — isliye yeh aapka "edge" ban sakta hai.</p>
+
+  <div class="callout">
+    💡 <b>Seasonality = stocks ka bhi "season" hota hai.</b> Jaise garmi mein AC bikta hai, sardi mein heater — waise hi kuch stocks har saal ek khaas time pe historically achha (ya bura) perform karte hain.
+  </div>
+
+  <h2>Kyun hota hai yeh pattern?</h2>
+  <ul>
+    <li>🌾 <b>Demand cycle</b> — AC/cooler companies garmi se pehle (Feb-Apr) aksar chalti hain</li>
+    <li>🎉 <b>Festival season</b> — consumer aur auto stocks Diwali/Dhanteras ke aas-paas</li>
+    <li>📊 <b>Result season</b> — quarterly earnings ke time pe movement</li>
+    <li>💰 <b>Budget/policy</b> — saal ke khaas mahino mein sectors pe asar</li>
+  </ul>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <text x="300" y="22" fill="#e8edf5" font-size="12" font-weight="700" text-anchor="middle" font-family="Inter">Ek stock — har saal same time pe similar pattern</text>
+      <line x1="50" y1="160" x2="560" y2="160" stroke="#30363d" stroke-width="1"/>
+      <!-- year 1 -->
+      <path d="M60,150 L100,120 L140,90 L180,110" stroke="#00d4aa" stroke-width="2" fill="none" opacity="0.5"/>
+      <text x="120" y="178" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">2023</text>
+      <!-- year 2 -->
+      <path d="M230,150 L270,118 L310,88 L350,108" stroke="#00d4aa" stroke-width="2" fill="none" opacity="0.7"/>
+      <text x="290" y="178" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">2024</text>
+      <!-- year 3 -->
+      <path d="M400,150 L440,122 L480,92 L520,112" stroke="#00d4aa" stroke-width="2.5" fill="none"/>
+      <text x="460" y="178" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">2025</text>
+      <text x="300" y="60" fill="#00d4aa" font-size="11" text-anchor="middle" font-family="DM Mono">Same mahina → same tendency (har saal) 📈</text>
+    </svg>
+  </div>
+
+  <h2>StockPattern AI yeh kaise use karta hai?</h2>
+  <p>Hum 20 saal (2005-2026) ka data lete hain, 2,355 stocks ka, aur dekhte hain:</p>
+  <ul>
+    <li>📅 "Yeh stock is mahine historically kitni baar upar/niche gaya?"</li>
+    <li>📊 "Win-rate kya hai?" (10 saal mein 8 baar chala = 80%)</li>
+    <li>🎯 "Average kitna return/gir-awat aayi?"</li>
+    <li>🔥 "Pattern abhi bhi fresh hai (recent saalon mein kaam kar raha)?"</li>
+  </ul>
+
+  <div class="callout">
+    💡 <b>Yahi "Data jhooth nahi bolta" ka matlab hai.</b> Hum tip nahi dete — hum aapko 20 saal ka asli data dikhate hain, win aur loss dono, taaki aap khud probability samajh ke faisla lo.
+  </div>
+
+  <div class="callout warn">
+    ⚠️ <b>Sabse zaroori — seasonality ki limit:</b> Yeh ek <b>tendency</b> hai, guarantee nahi. "20 saal mein 8 baar chala" ka matlab 2 baar nahi bhi chala. History future ki guarantee nahi deti. Isiliye:
+    <br>• Seasonality ko fundamental (Module 3) + technical (Module 4) ke saath use karo
+    <br>• Hamesha stop loss lagao
+    <br>• Yeh edge deta hai, certainty nahi
+  </div>
+
+  <div class="callout">
+    🎉 <b>Module 5 complete!</b> Ab aapke paas indicators ka gyan hai — Moving Average, RSI, MACD, Bollinger Bands, aur sabse khaas Seasonality. Yaad rakho: indicators madad karte hain, faisla aap karte ho. <br><br>Aage <b>Module 6</b> mein hum dekhenge ki market ko bade level pe kaun chalata hai — FII/DII, news, market cycles. 🚀
+  </div>
+`; }
+
+// ─── CHAPTER 39 ───
+function CH35(){ return `
+  <div class="ch-eyebrow">MODULE 6 · CHAPTER 39</div>
+  <h1>FII / DII kya hain, kaise kaam karte hain</h1>
+  <p>Roz news mein sunte ho: "FII ne becha, DII ne khareeda." Yeh do "bade khiladi" market ko sabse zyada hilate hain. Inhe samajhna zaroori hai.</p>
+
+  <div class="callout">
+    💡 <b>Talaab aur whale wala example:</b> Market ek talaab hai. Aap-hum (retail) chhoti machhliyan hain. FII/DII whales (vhel) hain — jab woh hilte hain, poora talaab hilta hai. Isiliye unki chaal samajhna fायदेmand hai.
+  </div>
+
+  <h2>Do bade khiladi</h2>
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <rect x="40" y="45" width="230" height="110" rx="12" fill="#0b1118" stroke="#0095ff" stroke-width="1.5"/>
+      <text x="155" y="75" fill="#0095ff" font-size="15" font-weight="700" text-anchor="middle" font-family="Inter">🌍 FII</text>
+      <text x="155" y="98" fill="#e8edf5" font-size="11" text-anchor="middle" font-family="Inter">Foreign Institutional Investors</text>
+      <text x="155" y="118" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">Videshi bade funds</text>
+      <text x="155" y="135" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">(global mood pe chalte hain)</text>
+
+      <rect x="330" y="45" width="230" height="110" rx="12" fill="#0b1118" stroke="#00d4aa" stroke-width="1.5"/>
+      <text x="445" y="75" fill="#00d4aa" font-size="15" font-weight="700" text-anchor="middle" font-family="Inter">🇮🇳 DII</text>
+      <text x="445" y="98" fill="#e8edf5" font-size="11" text-anchor="middle" font-family="Inter">Domestic Institutional Investors</text>
+      <text x="445" y="118" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">Indian MFs, insurance, banks</text>
+      <text x="445" y="135" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">(aksar FII ke ulta khelte)</text>
+    </svg>
+  </div>
+
+  <ul>
+    <li>🌍 <b>FII:</b> Videshi institutions (foreign funds). Bahut bada paisa. Jab India mein bharosa ho toh paisa daalte hain (market upar), dar ho toh nikaalte hain (market niche). Global events (US interest rate, war, etc.) inhe affect karte hain.</li>
+    <li>🇮🇳 <b>DII:</b> Indian institutions — mutual funds (jismein aap-hum SIP karte hain), insurance companies, banks. Yeh aksar FII ke ULTA khelte hain — jab FII bechte hain toh DII khareed ke market ko sambhaalte hain.</li>
+  </ul>
+
+  <h2>Yeh kyun matter karta hai?</h2>
+  <ul>
+    <li>📊 Inka paisa itna bada hai ki yeh trend bana/bigaad sakte hain</li>
+    <li>🔄 FII-DII ka "tug of war" market ki direction decide karta hai</li>
+    <li>📰 Roz inka data aata hai — kisne kitna khareeda/becha (NSE pe free milta hai)</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ FII/DII data ek "extra information" hai, akela trading signal nahi. Sirf "FII ne becha" dekh ke ghabra ke bech mat do — yeh ek bada picture samajhne ka tool hai, turant action ka button nahi.
+  </div>
+
+  <p>In khiladiyon ke alaava, ek aur cheez market ko turant hilati hai — <b>News</b>.</p>
+`; }
+
+// ─── CHAPTER 40 ───
+function CH36(){ return `
+  <div class="ch-eyebrow">MODULE 6 · CHAPTER 40</div>
+  <h1>News ka asar (results, budget, global)</h1>
+  <p>News market ko turant hila sakti hai — kabhi upar, kabhi niche. Par ek interesting baat hai: market aksar news pe "expected vs actual" ke hisaab se react karta hai, sirf news pe nahi.</p>
+
+  <div class="callout">
+    💡 <b>Exam result wala example:</b> Topper ke 95% aaye — sab "expected" tha, koi surprise nahi. Par ek average student ke 90% aaye — bada surprise, sab khush! Market bhi aise hi — "expectation se behtar/bदtar" pe react karta hai, sirf number pe nahi.
+  </div>
+
+  <h2>Bade news triggers</h2>
+  <ul>
+    <li>📊 <b>Company results (earnings):</b> Har quarter. Profit expected se zyada = stock upar. Kam = niche.</li>
+    <li>🏛 <b>Budget:</b> Saal mein ek baar (Feb). Kis sector ko faayda/nuksaan — uspe stocks hilte hain.</li>
+    <li>💰 <b>RBI policy:</b> Interest rate badle toh banking, auto, real estate pe asar.</li>
+    <li>🌍 <b>Global news:</b> US Fed, crude oil, war, global recession — sab India pe asar daalte hain.</li>
+    <li>📰 <b>Company-specific:</b> Naya order, merger, scandal, management change.</li>
+  </ul>
+
+  <div class="callout">
+    💡 <b>"Buy the rumour, sell the news":</b> Ek famous kahawat. Aksar stock news se PEHLE (rumour pe) chad jaata hai, aur jab actual news aati hai tab GIR jaata hai (kyunki sab expected tha). Isiliye news pe blindly bhaagna khatarnaak hai.
+  </div>
+
+  <div class="callout warn">
+    ⚠️ <b>Sabse zaroori:</b> News pe turant react karna (jaise koi headline dekh ke turant khareedna/bechna) retail traders ki sabse badi galti hai. Jab tak aapko news mili, bade players already react kar chuke. Shaant raho, soch ke chalo.
+  </div>
+
+  <p>News aur khiladi alag-alag din chalte hain. Par ek bada pattern hai jo saalon mein chalta hai — <b>Market cycles</b>.</p>
+`; }
+
+// ─── CHAPTER 41 ───
+function CH37(){ return `
+  <div class="ch-eyebrow">MODULE 6 · CHAPTER 41</div>
+  <h1>Market cycles (bull, bear, correction)</h1>
+  <p>Market kabhi seedhi line mein nahi chalta. Woh cycles mein chalta hai — upar, niche, phir upar. Yeh samajhna aapko panic se bachata hai.</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <line x1="30" y1="180" x2="570" y2="180" stroke="#30363d" stroke-width="1"/>
+      <path d="M40,160 Q120,60 200,80 Q240,90 280,150 Q320,185 360,170 Q420,150 480,60 L540,50"
+            stroke="#0095ff" stroke-width="2.5" fill="none"/>
+      <text x="130" y="55" fill="#00d4aa" font-size="11" font-weight="700" text-anchor="middle" font-family="Inter">BULL 📈</text>
+      <text x="130" y="195" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">sab khush, upar</text>
+      <text x="270" y="115" fill="#f5c842" font-size="11" font-weight="700" text-anchor="middle" font-family="Inter">CORRECTION</text>
+      <text x="270" y="200" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">10-20% gir-awat</text>
+      <text x="350" y="200" fill="#ef4444" font-size="11" font-weight="700" text-anchor="middle" font-family="Inter">BEAR 📉</text>
+      <text x="490" y="40" fill="#00d4aa" font-size="11" font-weight="700" text-anchor="middle" font-family="Inter">RECOVERY 🔄</text>
+    </svg>
+  </div>
+
+  <h2>Cycle ke phases</h2>
+  <ul>
+    <li>📈 <b>Bull market:</b> Lambe time tak upar. Sab khush, "market toh sirf upar jaata hai" wali feeling. (Yahin sabse zyada log lalach mein phaste hain.)</li>
+    <li>📉 <b>Bear market:</b> Lambe time tak niche (20%+ gir-awat). Dar, panic. (Yahin sabse zyada log ghaate mein bech dete hain.)</li>
+    <li>⚡ <b>Correction:</b> Bull market ke beech ek chhoti gir-awat (10-20%). Normal aur healthy — bilkul ghabrane ki baat nahi.</li>
+    <li>🔄 <b>Recovery:</b> Bear ke baad market wapas upar uthhna shuru.</li>
+  </ul>
+
+  <div class="callout">
+    💡 <b>Mausam wala example:</b> Garmi-barsaat-sardi cycle ki tarah, market ke bhi cycle hain. Sardi (bear) ke baad garmi (bull) zaroor aati hai. Jo log cycle samajhte hain, woh sardi mein ghabrate nahi — taiyari karte hain.
+  </div>
+
+  <div class="callout warn">
+    ⚠️ <b>Sabse badi seekh:</b> Bull market ke "peak" pe sab lalach mein khareedte hain (mehenga), aur bear ke "bottom" pe dar se bechte hain (sasta) — yani ulta. Samajhdaar log iska ulta sochte hain. "Jab sab dare, tab sambhal ke dekho; jab sab lalach mein hon, tab savdhaan."
+  </div>
+
+  <p>Cycle ke andar, alag-alag time pe alag sectors chalte hain. Yeh hai <b>Sector rotation</b>.</p>
+`; }
+
+// ─── CHAPTER 42 ───
+function CH38(){ return `
+  <div class="ch-eyebrow">MODULE 6 · CHAPTER 42</div>
+  <h1>Sector rotation</h1>
+  <p>Market mein paisa kabhi ek jagah nahi rukta — woh ek sector se doosre mein "ghoomta" rehta hai. Isi ghoomne ko sector rotation kehte hain.</p>
+
+  <div class="callout">
+    💡 <b>Cricket team wala example:</b> Har player ka apna "purple patch" hota hai — kabhi ek batsman form mein, kabhi doosra. Market mein bhi kabhi IT chalta hai, kabhi banking, kabhi pharma. Paisa form wale sector ki taraf jaata hai.
+  </div>
+
+  <h2>Paisa kyun ghoomta hai?</h2>
+  <ul>
+    <li>📊 Economy ke alag-alag phase mein alag sectors achha karte hain</li>
+    <li>📜 Government policy ek sector ko faayda de toh paisa wahan jaata hai</li>
+    <li>💹 Jab ek sector "mehenga" ho jaata hai, bade players profit book karke saste sector mein shift karte hain</li>
+  </ul>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 190" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <text x="300" y="24" fill="#e8edf5" font-size="12" font-weight="700" text-anchor="middle" font-family="Inter">Paisa ek sector se doosre mein ghoomta hai</text>
+      <circle cx="150" cy="100" r="42" fill="#0b1118" stroke="#0095ff" stroke-width="1.5"/>
+      <text x="150" y="98" fill="#0095ff" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">IT</text>
+      <text x="150" y="115" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">(hot)</text>
+      <circle cx="300" cy="100" r="42" fill="#0b1118" stroke="#00d4aa" stroke-width="1.5"/>
+      <text x="300" y="98" fill="#00d4aa" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">Banking</text>
+      <circle cx="450" cy="100" r="42" fill="#0b1118" stroke="#f5c842" stroke-width="1.5"/>
+      <text x="450" y="98" fill="#f5c842" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">Pharma</text>
+      <path d="M192,90 Q246,65 258,88" stroke="#8a96a8" stroke-width="2" fill="none" marker-end="url(#sr)"/>
+      <path d="M342,90 Q396,65 408,88" stroke="#8a96a8" stroke-width="2" fill="none" marker-end="url(#sr)"/>
+      <text x="300" y="165" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="DM Mono">paisa ghoomta rehta hai →</text>
+      <defs><marker id="sr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#8a96a8"/></marker></defs>
+    </svg>
+  </div>
+
+  <h2>Iska faayda kaise uthayein?</h2>
+  <ul>
+    <li>👀 Dekho kaunsa sector abhi strength dikha raha hai (uski zyada companies upar ja rahi)</li>
+    <li>🔄 Jo sector lambe time se "thanda" tha aur ab uthhne laga — wahan opportunity</li>
+    <li>📊 Ek hi sector mein sara paisa mat lagao — rotation samajh ke diversify karo</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ Sector rotation samajhna advanced skill hai — galat time pe "agla hot sector" guess karna risky. Beginner ke liye: bas yeh samjho ki koi sector hamesha "hot" nahi rehta. Diversification isiliye zaroori hai.
+  </div>
+
+  <p>Yeh saari forces milke ek cheez banati hain — overall <b>market sentiment</b>. Module ka aakhri chapter.</p>
+`; }
+
+// ─── CHAPTER 43 ───
+function CH39(){ return `
+  <div class="ch-eyebrow">MODULE 6 · CHAPTER 43</div>
+  <h1>Market sentiment kaise samjhein</h1>
+  <p>Sentiment = market ka overall "mood" — log darr rahe hain ya lalach mein hain. Yeh price se nahi, logon ki psychology se banta hai. Aur yeh bahut powerful hai.</p>
+
+  <div class="callout">
+    💡 <b>Warren Buffett ka famous rule:</b> "Be fearful when others are greedy, and greedy when others are fearful." (Jab sab lalach mein hon tab daro; jab sab daren tab himmat rakho.) Yeh sentiment ka asli istemaal hai.
+  </div>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <!-- gauge -->
+      <path d="M100,150 A150,150 0 0,1 500,150" fill="none" stroke="#30363d" stroke-width="14"/>
+      <path d="M100,150 A150,150 0 0,1 230,55" fill="none" stroke="#ef4444" stroke-width="14"/>
+      <path d="M230,55 A150,150 0 0,1 370,55" fill="none" stroke="#f5c842" stroke-width="14"/>
+      <path d="M370,55 A150,150 0 0,1 500,150" fill="none" stroke="#00d4aa" stroke-width="14"/>
+      <text x="120" y="175" fill="#ef4444" font-size="12" font-weight="700" text-anchor="middle" font-family="Inter">EXTREME FEAR</text>
+      <text x="300" y="40" fill="#f5c842" font-size="12" font-weight="700" text-anchor="middle" font-family="Inter">NEUTRAL</text>
+      <text x="490" y="175" fill="#00d4aa" font-size="12" font-weight="700" text-anchor="middle" font-family="Inter">EXTREME GREED</text>
+      <line x1="300" y1="150" x2="360" y2="80" stroke="#e8edf5" stroke-width="3"/>
+      <circle cx="300" cy="150" r="7" fill="#e8edf5"/>
+    </svg>
+  </div>
+
+  <h2>Sentiment ke ishaare</h2>
+  <ul>
+    <li>😍 <b>Extreme greed:</b> Sab khareed rahe, "market toh upar hi jaayega", har koi tips de raha, naye log aa rahe. <i>Yahan savdhaan — top kareeb ho sakta hai.</i></li>
+    <li>😨 <b>Extreme fear:</b> Sab bech rahe, "sab doob jaayega", news mein sirf bura. <i>Yahan aksar bottom ban-ta hai — opportunity.</i></li>
+    <li>😐 <b>Neutral:</b> Normal, koi extreme nahi.</li>
+  </ul>
+
+  <h2>Sentiment kahan dekhein?</h2>
+  <ul>
+    <li>📊 India VIX ("fear index") — high = darr zyada</li>
+    <li>📰 News ka tone — sab achha ya sab bura?</li>
+    <li>💬 Social media buzz — har koi stock ki baat kar raha (greed signal)</li>
+    <li>📈 FII/DII flows (Ch 39)</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ Sentiment ek "contrarian" tool hai — bhीड़ ke ulta sochna. Par iska matlab har baar bheed ke khilaaf jaana nahi. Yeh bas batata hai ki kab extra savdhaan rehna hai. Akela signal nahi — baaki sab ke saath dekho.
+  </div>
+
+  <div class="callout">
+    🎉 <b>Module 6 complete!</b> Ab aap samajhte ho market ko kaun chalata hai — FII/DII, news, cycles, sector rotation, aur sentiment. Aap ab "bade picture" ko dekh sakte ho. <br><br>Aage <b>Module 7</b> — sabse zaroori module — <b>Psychology aur Risk Management</b>. Yahi woh cheez hai jo trader ko zinda rakhti hai. 🚀
+  </div>
+`; }
+
+// ─── CHAPTER 44 ───
+function CH40(){ return `
+  <div class="ch-eyebrow">MODULE 7 · CHAPTER 44</div>
+  <h1>Trading psychology (dar, lalach, FOMO)</h1>
+  <p>Yeh module sabse zaroori hai. Kyunki 90% log market mein knowledge ki kami se nahi, balki <b>apne emotions</b> ki wajah se haarte hain. Best strategy bhi bekaar hai agar mann control mein na ho.</p>
+
+  <div class="callout">
+    💡 <b>Sach:</b> Market aapka dushman nahi — aapka apna mann hai. Do emotion sabse khatarnaak hain: <b>dar</b> (fear) aur <b>lalach</b> (greed). Inhe samajh lo, aadhi jung jeet li.
+  </div>
+
+  <h2>Teen sabse bade dushman</h2>
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <circle cx="120" cy="75" r="48" fill="#0b1118" stroke="#ef4444" stroke-width="1.5"/>
+      <text x="120" y="68" font-size="26" text-anchor="middle">😨</text>
+      <text x="120" y="92" fill="#ef4444" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">DAR</text>
+      <text x="120" y="145" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">panic mein bech dena</text>
+
+      <circle cx="300" cy="75" r="48" fill="#0b1118" stroke="#f5c842" stroke-width="1.5"/>
+      <text x="300" y="68" font-size="26" text-anchor="middle">🤑</text>
+      <text x="300" y="92" fill="#f5c842" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">LALACH</text>
+      <text x="300" y="145" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">aur-aur khareedna</text>
+
+      <circle cx="480" cy="75" r="48" fill="#0b1118" stroke="#a855f7" stroke-width="1.5"/>
+      <text x="480" y="68" font-size="26" text-anchor="middle">🏃</text>
+      <text x="480" y="92" fill="#a855f7" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">FOMO</text>
+      <text x="480" y="145" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">chhoot jaane ka darr</text>
+    </svg>
+  </div>
+
+  <ul>
+    <li>😨 <b>Dar (Fear):</b> Stock thoda gira, panic mein bech diya — aur agle din woh upar chala gaya. Dar aksar galat time pe bechwaata hai.</li>
+    <li>🤑 <b>Lalach (Greed):</b> Profit ho raha tha, par "aur badhega" soch ke nahi becha — phir woh gir gaya. Lalach profit ko loss mein badal deti hai.</li>
+    <li>🏃 <b>FOMO (Fear of Missing Out):</b> Stock 20% upar chala gaya, ab "main bhi le lun" — aur aap top pe phas gaye. FOMO sabse mehenga emotion hai.</li>
+  </ul>
+
+  <h2>Inhe control kaise karein?</h2>
+  <ul>
+    <li>📝 <b>Pehle se plan banao</b> — entry, target, stop loss decide karke chalo (Ch 49). Plan emotion ko hata deta hai.</li>
+    <li>📓 <b>Journal rakho</b> — har trade ka reason likho. Baad mein dekho — kahan emotion mein faisla liya.</li>
+    <li>🧘 <b>Break lo</b> — bada loss ya bada profit ke baad ek-do din ruk jao. Emotion thanda hone do.</li>
+    <li>💰 <b>Utna hi lagao jitna kho sako</b> — kam paisa = kam emotion = behtar faisla.</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ <b>Sabse badi seekh:</b> Achha trader woh nahi jo sabse zyada jaanta hai — woh hai jo apne emotions control kar sakta hai. Discipline > intelligence, har baar.
+  </div>
+
+  <p>Emotion control ke liye ek thos tool chahiye — woh hai <b>Risk Management</b>.</p>
+`; }
+
+// ─── CHAPTER 45 ───
+function CH41(){ return `
+  <div class="ch-eyebrow">MODULE 7 · CHAPTER 45</div>
+  <h1>Risk management (stop loss, position sizing)</h1>
+  <p>Yeh chapter aapko market mein "zinda" rakhega. Top traders profit pe nahi, <b>risk pe</b> sabse zyada dhyan dete hain. Kyunki jo survive karta hai, wahi lambe samay mein jeet-ta hai.</p>
+
+  <div class="callout">
+    💡 <b>Pehla rule:</b> "Kitna kamaunga" mat socho. Pehle socho "kitna kho sakta hoon agar galat hua." Risk pehle, reward baad mein.
+  </div>
+
+  <h2>1. Stop Loss — aapki seat belt</h2>
+  <p>Stop loss = ek pre-decided keemat jahan aap nuksaan kaat ke nikal jaate ho. Jaise car mein seat belt — umeed hai zaroorat na pade, par lagana zaroori.</p>
+  <ul>
+    <li>❌ "Thoda aur ruk jata hoon, wapas aa jayega" — yeh soch chhote loss ko bade mein badal deti hai</li>
+    <li>✅ Entry se PEHLE decide karo: "Yahan tak gira toh nikal jaunga." Aur us pe tiko.</li>
+  </ul>
+
+  <h2>2. Position Sizing — kitna lagana hai</h2>
+  <p>Yeh "kaunsa stock" se bhi zyada zaroori hai. Rule: kisi ek trade mein apni total capital ka <b>1-2% se zyada risk mat lo.</b></p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <text x="300" y="24" fill="#e8edf5" font-size="12" font-weight="700" text-anchor="middle" font-family="Inter">₹1,00,000 capital — ek trade mein kitna RISK?</text>
+      <rect x="60" y="50" width="220" height="90" rx="10" fill="#0b1118" stroke="#00d4aa" stroke-width="1.5"/>
+      <text x="170" y="78" fill="#00d4aa" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">✅ Smart: 2% risk</text>
+      <text x="170" y="100" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">max ₹2,000 risk/trade</text>
+      <text x="170" y="120" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">50 galat trades bhi survive</text>
+
+      <rect x="320" y="50" width="220" height="90" rx="10" fill="#0b1118" stroke="#ef4444" stroke-width="1.5"/>
+      <text x="430" y="78" fill="#ef4444" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">❌ Galat: sab ek mein</text>
+      <text x="430" y="100" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">poora ₹1,00,000 risk</text>
+      <text x="430" y="120" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">1 galti = game over</text>
+    </svg>
+  </div>
+
+  <p><b>Simple formula:</b> Agar ek trade mein 2% (₹2,000) risk kar sakte ho, aur stop loss entry se 10% door hai, toh us stock mein max ₹20,000 lagao. Bas.</p>
+
+  <div class="callout">
+    💡 <b>Risk-Reward Ratio (RR):</b> Trade lene se pehle dekho — "kitna risk vs kitna reward?" Agar ₹1 risk pe ₹2+ kamane ka mauka hai (RR 1:2), toh trade achha hai. RR 1:1 se kam wale trades aksar avoid karo.
+  </div>
+
+  <div class="callout warn">
+    ⚠️ Stop loss ko kabhi "hatao" mat — log loss badhne pe stop loss neeche khisкаte rehte hain, "shायad wapas aa jaye." Yeh sabse bada account-killer hai. Stop loss set kiya = us pe tiko.
+  </div>
+
+  <p>Risk management ka sabse bada maksad — <b>capital bachana</b>. Agla chapter.</p>
+`; }
+
+// ─── CHAPTER 46 ───
+function CH42(){ return `
+  <div class="ch-eyebrow">MODULE 7 · CHAPTER 46</div>
+  <h1>Capital protection — survive karna</h1>
+  <p>Market ka pehla rule: <b>paisa mat khona.</b> Doosra rule: pehla rule yaad rakhna. Sun-ne mein simple, par yahi sabse bada sach hai.</p>
+
+  <div class="callout">
+    💡 <b>Iska matlab yeh nahi ki kabhi loss nahi hoga.</b> Iska matlab: bade, account-tabah karne wale loss se bacho. Chhote loss theek hain — bade loss ghatak hain.
+  </div>
+
+  <h2>Loss ka khatarnaak math</h2>
+  <p>Yeh table har trader ko yaad hona chahiye — loss recover karna kitna mushkil hota hai:</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <text x="300" y="24" fill="#e8edf5" font-size="12" font-weight="700" text-anchor="middle" font-family="Inter">Loss ke baad recover karne ke liye kitna chahiye?</text>
+      <text x="150" y="60" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="DM Mono">LOSS</text>
+      <text x="450" y="60" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="DM Mono">RECOVERY chahiye</text>
+      <text x="150" y="90" fill="#00d4aa" font-size="13" text-anchor="middle" font-family="DM Mono">-10%</text>
+      <text x="450" y="90" fill="#00d4aa" font-size="13" text-anchor="middle" font-family="DM Mono">+11%  (aasan)</text>
+      <text x="150" y="120" fill="#f5c842" font-size="13" text-anchor="middle" font-family="DM Mono">-25%</text>
+      <text x="450" y="120" fill="#f5c842" font-size="13" text-anchor="middle" font-family="DM Mono">+33%  (mushkil)</text>
+      <text x="150" y="150" fill="#ef4444" font-size="13" text-anchor="middle" font-family="DM Mono">-50%</text>
+      <text x="450" y="150" fill="#ef4444" font-size="13" text-anchor="middle" font-family="DM Mono">+100% (bahut mushkil!)</text>
+      <text x="150" y="180" fill="#ef4444" font-size="13" text-anchor="middle" font-family="DM Mono">-75%</text>
+      <text x="450" y="180" fill="#ef4444" font-size="13" text-anchor="middle" font-family="DM Mono">+300% (lagbhag namumkin)</text>
+    </svg>
+  </div>
+
+  <p>Dekha? 50% loss ke baad sirf wapas aane ke liye 100% profit chahiye! Isiliye bade loss se bachna itna zaroori hai.</p>
+
+  <h2>Capital bachane ke rules</h2>
+  <ul>
+    <li>🛡 Har trade mein stop loss (Ch 45) — bina exception</li>
+    <li>⚖️ Position sizing — ek trade poora account na le jaye</li>
+    <li>🚫 Leverage se door (especially beginner) — yeh loss multiply karta hai</li>
+    <li>💰 Hamesha thoda cash rakho — sab kuch market mein mat lagao</li>
+    <li>🧊 Bada loss hua? Ruk jao, revenge trading mat karo (gussе mein aur trades)</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ <b>Revenge trading</b> — loss ke baad "abhi wapas kamaunga" wali soch mein jaldi-jaldi trades lena. Yeh sabse khatarnaak hai — ek loss do-teen aur losses bana deta hai. Loss hua? Computer band karo. Kal aao.
+  </div>
+
+  <div class="callout">
+    💡 Jo capital bach gaya, woh kal phir mauka deta hai. Jo udd gaya, woh wapas nahi aata. Survive karo — phir thrive karo.
+  </div>
+
+  <p>Ab ek zaroori farak samajhte hain jo log aksar gadbad karte hain — <b>Trading vs Investing</b>.</p>
+`; }
+
+// ─── CHAPTER 47 ───
+function CH43(){ return `
+  <div class="ch-eyebrow">MODULE 7 · CHAPTER 47</div>
+  <h1>Trading vs Investing — farak</h1>
+  <p>Yeh do alag cheezein hain, par log inhe mila dete hain — aur yahi confusion nuksaan karta hai. Pehle decide karo aap kya kar rahe ho.</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <rect x="40" y="40" width="240" height="130" rx="12" fill="#0b1118" stroke="#0095ff" stroke-width="1.5"/>
+      <text x="160" y="68" fill="#0095ff" font-size="15" font-weight="700" text-anchor="middle" font-family="Inter">📈 TRADING</text>
+      <text x="160" y="92" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">Short term (din/hafte)</text>
+      <text x="160" y="112" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">Technical analysis</text>
+      <text x="160" y="132" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">Keemat ki move se kamai</text>
+      <text x="160" y="152" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">Zyada time + active</text>
+
+      <rect x="320" y="40" width="240" height="130" rx="12" fill="#0b1118" stroke="#00d4aa" stroke-width="1.5"/>
+      <text x="440" y="68" fill="#00d4aa" font-size="15" font-weight="700" text-anchor="middle" font-family="Inter">🌱 INVESTING</text>
+      <text x="440" y="92" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">Long term (saal/dशक)</text>
+      <text x="440" y="112" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">Fundamental analysis</text>
+      <text x="440" y="132" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">Company growth se kamai</text>
+      <text x="440" y="152" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">Kam time + patient</text>
+    </svg>
+  </div>
+
+  <h2>Dono mein farak</h2>
+  <ul>
+    <li>⏱ <b>Time:</b> Trading = din/hafte (short). Investing = saal/dशक (long).</li>
+    <li>🔍 <b>Tareeka:</b> Trading = technical (chart). Investing = fundamental (company sehat).</li>
+    <li>🎯 <b>Kamai:</b> Trading = keemat ki move se. Investing = company badhne + dividend se.</li>
+    <li>🧘 <b>Mizaaj:</b> Trading = active, tez. Investing = patient, shaant.</li>
+  </ul>
+
+  <div class="callout">
+    💡 <b>Sabse badi galti:</b> Trade ko "investment" bana dena. Stock khareeda trading ke liye, gir gaya, ab "long-term investment hai" keh ke pakad ke baith gaye — yeh aksar bada loss banta hai. Pehle decide karo — yeh trade hai ya investment? Aur us hisaab se chalo.
+  </div>
+
+  <div class="callout warn">
+    ⚠️ <b>Dono sahi hain</b> — koi behtar/bekaar nahi. Bas ek hi trade mein dono mat milao. Trading ke rules alag (stop loss, quick exit), investing ke alag (patience, fundamental). Apna style chuno aur uske rules follow karo.
+  </div>
+
+  <p>Ab dekhte hain woh galtiyan jo sabse zyada nuksaan karti hain — taaki aap inse bach sako.</p>
+`; }
+
+// ─── CHAPTER 48 ───
+function CH44(){ return `
+  <div class="ch-eyebrow">MODULE 7 · CHAPTER 48</div>
+  <h1>Common galtiyan (sabse zyada nuksaan)</h1>
+  <p>Yeh chapter aapke bahut paise bacha sakta hai. Yeh woh galtiyan hain jo lagbhag har naya trader karta hai — agar aap inse bach gaye, toh aap 90% logon se aage ho.</p>
+
+  <h2>Top galtiyan — aur unka ilaaj</h2>
+  <ul>
+    <li>🚫 <b>Stop loss na lagana</b> — "thoda aur ruk jaun" → chhota loss bada ban jaata hai. <i>Ilaaj: hamesha stop loss.</i></li>
+    <li>🤑 <b>Tips pe chalna</b> — kisi ki tip pe blindly paisa lagana. <i>Ilaaj: khud research karo, data dekho.</i></li>
+    <li>🏃 <b>FOMO mein khareedna</b> — jo upar bhaaga usme top pe ghusna. <i>Ilaaj: agla setup aayega, intezaar karo.</i></li>
+    <li>💥 <b>Over-trading</b> — har din kuch na kuch trade karna. <i>Ilaaj: sirf high-quality setups, kam trades.</i></li>
+    <li>⚡ <b>Leverage ka zyada use</b> — chhoti galti = bada loss. <i>Ilaaj: beginner leverage se door rahe.</i></li>
+    <li>😤 <b>Revenge trading</b> — loss ke gusse mein aur trades. <i>Ilaaj: loss ke baad break lo.</i></li>
+    <li>🥚 <b>Saare ande ek tokri mein</b> — sab paisa ek stock/sector mein. <i>Ilaaj: diversify karo.</i></li>
+    <li>📉 <b>Girte stock ko "average" karna</b> — loss badhte hue aur khareedna. <i>Ilaaj: girte chaaku ko mat pakdo.</i></li>
+    <li>🧠 <b>Plan na hona</b> — bina entry/exit/SL decide kiye trade. <i>Ilaaj: trading plan banao (next chapter).</i></li>
+  </ul>
+
+  <div class="callout">
+    💡 <b>Ek pattern dikha?</b> Lagbhag har galti ka ilaaj hai — <b>discipline aur plan</b>. Knowledge nahi, discipline. Isiliye yeh module sabse zaroori hai.
+  </div>
+
+  <div class="callout warn">
+    ⚠️ <b>Sabse important:</b> Aap yeh saari galtiyan padh ke bhi karoge — kyunki emotion strong hota hai. Isiliye in galtiyon ko ek list banakar saamne rakho, aur har trade se pehle check karo. Awareness hi pehla bachaav hai.
+  </div>
+
+  <p>Ab aata hai sab kuch ek jagah laane wala chapter — aapka apna <b>Trading Plan</b>. Yahi aapko in saari galtiyon se bachaayega.</p>
+`; }
+
+// ─── CHAPTER 49 ───
+function CH45(){ return `
+  <div class="ch-eyebrow">MODULE 7 · CHAPTER 49 · FINAL</div>
+  <h1>Apna trading plan kaise banayein</h1>
+  <p>Yeh aakhri aur sabse zaroori chapter hai. Trading plan = aapka apna "rulebook". Yeh emotion ko hata deta hai, kyunki sab pehle se decided hota hai. Bina plan ke trading = bina map ke safar.</p>
+
+  <div class="callout">
+    💡 <b>Ghar ke naksha (blueprint) wala example:</b> Koi ghar bina naksha ke nahi banta. Trading bhi ek ghar hai — plan uska naksha hai. Naksha jitna clear, ghar utna mazboot.
+  </div>
+
+  <h2>Aapke trading plan ke 7 hisse</h2>
+  <ul>
+    <li>🎯 <b>1. Goal &amp; style:</b> Aap trader ho ya investor? Kitna time de sakte ho? Kya kamana chahte ho (realistic)?</li>
+    <li>💰 <b>2. Capital:</b> Kitna paisa lagaoge — sirf utna jo kho sakte ho. Emergency fund alag rakho.</li>
+    <li>🔍 <b>3. Entry rules:</b> Kab khareedoge? (jaise: "A+ seasonal pattern + support pe + volume ke saath")</li>
+    <li>🛡 <b>4. Stop loss rule:</b> Kahan nikal jaoge? (jaise: "entry se 5-8% niche, ya support tootne pe")</li>
+    <li>🎯 <b>5. Target rule:</b> Kab profit book karoge? (jaise: "T1 pe aadha, T2 pe baaki")</li>
+    <li>⚖️ <b>6. Position size:</b> Ek trade mein kitna risk? (1-2% rule)</li>
+    <li>📓 <b>7. Journal:</b> Har trade likhoge — reason, result, seekh.</li>
+  </ul>
+
+  <div class="callout">
+    💡 <b>StockPattern AI aapke plan mein kaise fit hota hai:</b> Yeh aapko entry rules (seasonal pattern + win-rate + freshness) aur target/stop loss ke levels deta hai — data ke saath. Par <b>plan aapka</b> hai, faisla aapka. Hum tool dete hain, discipline aap laate ho.
+  </div>
+
+  <h2>Ek chhota example plan</h2>
+  <div class="example">
+    <div class="ex-label">SAMPLE TRADING PLAN</div>
+    <p style="margin-bottom:8px"><b>Style:</b> Swing trading (kuch hafte). <b>Capital:</b> ₹1,00,000 (jo kho sakta hoon).</p>
+    <p style="margin-bottom:8px"><b>Entry:</b> A+ seasonal pattern (80%+ win-rate) + stock support ke paas + volume badh raha.</p>
+    <p style="margin-bottom:8px"><b>Stop loss:</b> Entry se 7% niche (ya support tootne pe). Hamesha.</p>
+    <p style="margin-bottom:8px"><b>Target:</b> T1 pe aadhа bech, baaki T2 ke liye. Trailing stop loss.</p>
+    <p style="margin-bottom:0"><b>Risk:</b> Ek trade mein max 2% (₹2,000). Ek time pe max 4-5 positions.</p>
+  </div>
+
+  <div class="callout warn">
+    ⚠️ <b>Plan banana aasan, follow karna mushkil.</b> Asli test hai — jab market darwaye ya lalach de, tab bhi plan pe tikna. Yahi ek trader ko successful banata hai. Plan likho, saamne rakho, har trade pe follow karo.
+  </div>
+
+  <div class="callout">
+    🎉🎓 <b>BADHAAI HO! Aapne poora StockPattern AI Academy complete kar liya!</b><br><br>
+    Aap "bilkul zero" se shuru hue the — share kya hai. Aur ab aap jaante ho: market kaise chalta hai, company kaise jaanchein, chart kaise padhein, indicators, market forces, aur sabse zaroori — psychology aur risk management.<br><br>
+    Yaad rakho: <b>"Data jhooth nahi bolta."</b> Hum tip nahi dete — hum aapko data, knowledge aur tools dete hain, taaki aap KHUD samajhdaar faisle lo. Yahi asli financial azaadi hai.<br><br>
+    Ab woh sab seekha hua practice karo: <b>@StockSeasonBot</b> pe 20 saal ka real data dekho, aur apne plan ke saath aage badho. 🚀
+  </div>
+`; }
+
+
+
+
+
+
+
+// ═══════════════ EXTRA CHAPTERS (expansion round) ═══════════════
+
+// ─── INTRADAY vs SWING vs LONG-TERM (Module 1) ───
+function CH_STYLE(){ return `
+  <div class="ch-eyebrow">MODULE 1 · TRADING STYLES</div>
+  <h1>Intraday vs Swing vs Long-term</h1>
+  <p>Market mein paisa lagane ke alag-alag "tareeke" (styles) hote hain — based on aap kitne time tak stock rakhte ho. Shuruaat mein hi yeh farak samajhna zaroori hai, taaki aap apne liye sahi raasta chuno.</p>
+
+  <div class="callout">
+    💡 <b>Safar wala example:</b> Ek hi sheher jaane ke kai tareeke — flight (tez, mehenga, risky timing), train (medium), ya paidal (dheema, sabse safe). Trading styles bhi aise hi — alag speed, alag risk, alag mehnat.
+  </div>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <rect x="20" y="40" width="175" height="130" rx="12" fill="#0b1118" stroke="#ef4444" stroke-width="1.5"/>
+      <text x="107" y="68" fill="#ef4444" font-size="14" font-weight="700" text-anchor="middle" font-family="Inter">⚡ INTRADAY</text>
+      <text x="107" y="92" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">Same din khareed-bech</text>
+      <text x="107" y="110" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">Bahut tez, full-time</text>
+      <text x="107" y="128" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">Sabse zyada risk</text>
+      <text x="107" y="150" fill="#ef4444" font-size="10" text-anchor="middle" font-family="Inter">⚠️ Beginner ke liye nahi</text>
+
+      <rect x="212" y="40" width="175" height="130" rx="12" fill="#0b1118" stroke="#f5c842" stroke-width="1.5"/>
+      <text x="300" y="68" fill="#f5c842" font-size="14" font-weight="700" text-anchor="middle" font-family="Inter">📊 SWING</text>
+      <text x="300" y="92" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">Kuch din – kuch hafte</text>
+      <text x="300" y="110" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">Medium speed</text>
+      <text x="300" y="128" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">Roz screen nahi dekhni</text>
+      <text x="300" y="150" fill="#f5c842" font-size="10" text-anchor="middle" font-family="Inter">Job ke saath ho sakta</text>
+
+      <rect x="404" y="40" width="175" height="130" rx="12" fill="#0b1118" stroke="#00d4aa" stroke-width="1.5"/>
+      <text x="491" y="68" fill="#00d4aa" font-size="14" font-weight="700" text-anchor="middle" font-family="Inter">🌱 LONG-TERM</text>
+      <text x="491" y="92" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">Mahine – saal</text>
+      <text x="491" y="110" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">Sabse shaant</text>
+      <text x="491" y="128" fill="#8a96a8" font-size="10" text-anchor="middle" font-family="Inter">Kam time, kam stress</text>
+      <text x="491" y="150" fill="#00d4aa" font-size="10" text-anchor="middle" font-family="Inter">Beginner-friendly</text>
+    </svg>
+  </div>
+
+  <h2>Teeno mein farak</h2>
+  <ul>
+    <li>⚡ <b>Intraday:</b> Stock usi din khareedo aur usi din bech do (market band hone se pehle). Bahut tez, poora din screen ke saamne. Sabse zyada risk aur stress — <b>naye logon ke liye nahi.</b></li>
+    <li>📊 <b>Swing trading:</b> Stock kuch din se kuch hafte tak rakho. Medium speed. Roz-roz screen dekhne ki zaroorat nahi — job/padhai ke saath ho sakta hai. Seasonality + technical iske liye achhe hain.</li>
+    <li>🌱 <b>Long-term investing:</b> Stock mahino-saalon tak rakho, achhi company mein. Sabse shaant, sabse kam stress. Company badhne ke saath paisa badhta hai.</li>
+  </ul>
+
+  <div class="callout">
+    💡 <b>StockPattern AI kahan fit hota hai?</b> Hamara seasonal data sabse zyada <b>swing trading</b> aur <b>positional</b> (kuch hafte–mahine) ke liye useful hai — kyunki seasonal patterns din-bhar ke nahi, hafton-mahino ke hote hain.
+  </div>
+
+  <div class="callout warn">
+    ⚠️ <b>Beginner ke liye saaf salah:</b> Intraday sabse "exciting" lagta hai par sabse khatarnaak hai — zyादातर naye intraday traders paisa khote hain. Shuruaat swing ya long-term se karo, jahan time soch-ne ka milta hai. Tezi mein paisa banane ka lalach sabse mehenga padta hai.
+  </div>
+
+  <p>Apna style chunna pehla kadam hai. Aage badhte hue aap har style ke liye zaroori cheezein (fundamental, technical, risk) seekhenge.</p>
+`; }
+
+// ─── VALUATION METHODS (Module 3) ───
+function CH_VALUATION(){ return `
+  <div class="ch-eyebrow">MODULE 3 · VALUATION</div>
+  <h1>Valuation Methods — stock sasta ya mehenga?</h1>
+  <p>P/E ratio (Ch 15) toh aapne seekha. Par valuation ke aur bhi tareeke hain jo batate hain ki stock apni asli keemat se sasta hai ya mehenga. Yeh "value" dhoondhne ke tools hain.</p>
+
+  <div class="callout">
+    💡 <b>Sabzi-mandi wala example:</b> Ek hi tarah ka tamatar do dukaano pe alag daam pe — kaun sasta hai yeh tab pata chalta hai jab aap "per kilo" rate compare karo. Valuation ratios stocks ke liye yahi "per kilo rate" hain.
+  </div>
+
+  <h2>Kuch zaroori valuation tools</h2>
+  <ul>
+    <li>📊 <b>P/E Ratio (Price ÷ EPS):</b> Sabse popular. "1 rupaye ki kamai ke liye kitna de rahe ho." Kam P/E (sector ke hisaab se) = sasta ho sakta hai. (Detail Ch 15 mein.)</li>
+    <li>📚 <b>P/B Ratio (Price ÷ Book Value):</b> "Company ki asli book-value ke mukable keemat." Banking/finance stocks ke liye useful. P/B < 1 matlab book value se sasta.</li>
+    <li>🏭 <b>EV/EBITDA:</b> Poori company ki value (debt samet) uski core kamai se. Alag-alag companies (jinki debt alag hai) compare karne ke liye P/E se behtar maana jaata hai.</li>
+    <li>💰 <b>Dividend Yield (Dividend ÷ Price):</b> "Keemat ke mukable kitna dividend." Stable, dividend dene wali companies ke liye useful.</li>
+  </ul>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <text x="300" y="26" fill="#e8edf5" font-size="12" font-weight="700" text-anchor="middle" font-family="Inter">Alag ratio, alag kahani — saath mein dekho</text>
+      <rect x="40" y="50" width="120" height="90" rx="10" fill="#0b1118" stroke="#00d4aa" stroke-width="1.3"/>
+      <text x="100" y="80" fill="#00d4aa" font-size="13" font-weight="700" text-anchor="middle" font-family="DM Mono">P/E</text>
+      <text x="100" y="105" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">kamai ke</text>
+      <text x="100" y="118" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">mukable</text>
+      <rect x="180" y="50" width="120" height="90" rx="10" fill="#0b1118" stroke="#0095ff" stroke-width="1.3"/>
+      <text x="240" y="80" fill="#0095ff" font-size="13" font-weight="700" text-anchor="middle" font-family="DM Mono">P/B</text>
+      <text x="240" y="105" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">book value</text>
+      <text x="240" y="118" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">ke mukable</text>
+      <rect x="320" y="50" width="120" height="90" rx="10" fill="#0b1118" stroke="#f5c842" stroke-width="1.3"/>
+      <text x="380" y="80" fill="#f5c842" font-size="11" font-weight="700" text-anchor="middle" font-family="DM Mono">EV/EBITDA</text>
+      <text x="380" y="105" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">poori company</text>
+      <text x="380" y="118" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">+ debt</text>
+      <rect x="460" y="50" width="120" height="90" rx="10" fill="#0b1118" stroke="#a855f7" stroke-width="1.3"/>
+      <text x="520" y="80" fill="#a855f7" font-size="10" font-weight="700" text-anchor="middle" font-family="DM Mono">Div Yield</text>
+      <text x="520" y="105" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">dividend</text>
+      <text x="520" y="118" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">ke mukable</text>
+    </svg>
+  </div>
+
+  <div class="callout">
+    💡 <b>Sabse zaroori rule:</b> Koi ek ratio akela sach nahi batata. Hamesha (1) same <b>sector</b> ki companies se compare karo, aur (2) company ki <b>history</b> se compare karo. Ek IT company ka P/E ek bank se compare karna galat hai.
+  </div>
+
+  <div class="callout warn">
+    ⚠️ <b>"Sasta" hamesha achha nahi:</b> Kabhi-kabhi stock sasta is liye hota hai kyunki company mein sach mein problem hai (value trap). Aur "mehenga" stock achhi growth ki wajah se mehenga ho sakta hai. Valuation ko fundamental (company sehat) ke saath dekho, akela nahi.
+  </div>
+
+  <p>Valuation ka ek advanced tareeka bhi hai jo professionals use karte hain — agla (bonus) chapter usi pe.</p>
+`; }
+
+// ─── DCF MODEL (Module 3, bonus/advanced) ───
+function CH_DCF(){ return `
+  <div class="ch-eyebrow">MODULE 3 · BONUS · ADVANCED</div>
+  <h1>DCF Model (bonus, advanced)</h1>
+  <div class="callout warn">
+    ⚠️ <b>Pehle hi bata dein:</b> Yeh ek <b>advanced</b> topic hai. Shuruaat mein iski zaroorat nahi — agar abhi samajh na aaye toh bilkul tension mat lo. Yeh sirf isliye hai taaki aapko pata ho ki professionals kaise sochte hain. Aaram se, baad mein padho.
+  </div>
+
+  <p>DCF (Discounted Cash Flow) ek tareeka hai jisse analyst kisi company ki "asli" value nikaalne ki koshish karte hain — uske future ke paise (cash) ke based pe.</p>
+
+  <div class="callout">
+    💡 <b>Aam ka ped wala example:</b> Socho ek aam ka ped jo agle 10 saal har saal aam dega. Us ped ki keemat kya honi chahiye? Jitne aam woh future mein dega, unki aaj ki value jod do. DCF company ke saath yahi karta hai — future ki kamai ki "aaj ki value".
+  </div>
+
+  <h2>DCF ke peeche ka idea (simple mein)</h2>
+  <ul>
+    <li>🔮 <b>Step 1:</b> Andaaza lagao company agle kuch saal kitna cash (paisa) kamayegi.</li>
+    <li>⏳ <b>Step 2:</b> "Aaj ke 100 rupaye, kal ke 100 se zyada keemti hain" — isliye future ke paise ko "discount" karke aaj ki value mein laao.</li>
+    <li>➕ <b>Step 3:</b> Yeh saari future cash ki aaj ki value jod do = company ki "fair value".</li>
+    <li>⚖️ <b>Step 4:</b> Is fair value ko current market price se compare karo. Market price kam = sasta, zyada = mehenga.</li>
+  </ul>
+
+  <div class="callout">
+    💡 <b>"Time value of money":</b> DCF ka dil yahi hai — aaj ka paisa future ke paise se zyada keemti hai (kyunki aaj ke paise ko aap invest kar sakte ho). Isiliye future ki kamai ko thoda "kam karke" (discount) aaj ki value nikaali jaati hai.
+  </div>
+
+  <div class="callout warn">
+    ⚠️ <b>DCF ki sabse badi limit:</b> Yeh poori tarah <b>andaazon</b> pe khada hai — "company future mein kitna kamayegi" ek guess hai. Thoda sa andaaza badlो, answer bahut badal jaata hai ("garbage in, garbage out"). Isiliye DCF ek exact jawab nahi, ek soch-ne ka tareeka hai. Bade analyst ise doosre methods ke saath use karte hain, akela nahi.
+  </div>
+
+  <p>Beginner ke liye: bas itna yaad rakho — DCF ka matlab hai "company ki future kamai se uski aaj ki sahi keemat nikaalna." Detail baad mein, jab aap comfortable ho jao.</p>
+`; }
+
+// ─── FIBONACCI (Module 4) ───
+function CH_FIB(){ return `
+  <div class="ch-eyebrow">MODULE 4 · FIBONACCI</div>
+  <h1>Fibonacci Levels</h1>
+  <p>Fibonacci levels ek technical tool hai jo batata hai ki keemat ek badi move ke baad kitna "wapas" (pullback) aa sakti hai, aur kahan ruk sakti hai. Traders ise support/resistance dhoondhne ke liye use karte hain.</p>
+
+  <div class="callout">
+    💡 <b>Rubber band wapas aana wala example:</b> Stock tezi se upar gaya — ab thoda "saans lene" ke liye niche aata hai (pullback). Fibonacci batata hai woh kitna niche aa ke ruk sakta hai, phir se upar jaane se pehle.
+  </div>
+
+  <h2>Important Fibonacci levels</h2>
+  <p>Yeh kuch khaas percentage levels hain jahan keemat aksar react karti hai: <b>23.6%, 38.2%, 50%, 61.8%</b>. Inme se <b>61.8%</b> ("golden ratio") sabse important maana jaata hai.</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <text x="300" y="22" fill="#e8edf5" font-size="12" font-weight="700" text-anchor="middle" font-family="Inter">Badi move ke baad pullback — kahan ruk sakta?</text>
+      <line x1="120" y1="50" x2="560" y2="50" stroke="#30363d" stroke-width="1" stroke-dasharray="4"/>
+      <text x="115" y="54" fill="#8a96a8" font-size="9" text-anchor="end" font-family="DM Mono">0% (top)</text>
+      <line x1="120" y1="85" x2="560" y2="85" stroke="#00d4aa" stroke-width="1" stroke-dasharray="4"/>
+      <text x="115" y="89" fill="#00d4aa" font-size="9" text-anchor="end" font-family="DM Mono">23.6%</text>
+      <line x1="120" y1="115" x2="560" y2="115" stroke="#0095ff" stroke-width="1" stroke-dasharray="4"/>
+      <text x="115" y="119" fill="#0095ff" font-size="9" text-anchor="end" font-family="DM Mono">38.2%</text>
+      <line x1="120" y1="140" x2="560" y2="140" stroke="#f5c842" stroke-width="1.3" stroke-dasharray="4"/>
+      <text x="115" y="144" fill="#f5c842" font-size="9" text-anchor="end" font-family="DM Mono">50%</text>
+      <line x1="120" y1="165" x2="560" y2="165" stroke="#a855f7" stroke-width="1.6" stroke-dasharray="4"/>
+      <text x="115" y="169" fill="#a855f7" font-size="9" text-anchor="end" font-family="DM Mono">61.8% ★</text>
+      <line x1="120" y1="195" x2="560" y2="195" stroke="#30363d" stroke-width="1" stroke-dasharray="4"/>
+      <text x="115" y="199" fill="#8a96a8" font-size="9" text-anchor="end" font-family="DM Mono">100% (base)</text>
+      <path d="M140,195 L280,55 L360,150 L460,60" stroke="#0095ff" stroke-width="2.5" fill="none"/>
+      <circle cx="360" cy="150" r="4" fill="#f5c842"/>
+      <text x="370" y="138" fill="#f5c842" font-size="9" font-family="Inter">yahan bounce</text>
+    </svg>
+  </div>
+
+  <h2>Traders ise kaise use karte hain?</h2>
+  <ul>
+    <li>📉 Ek badi up-move ke baad, woh dekhte hain keemat kis Fib level pe ruk ke wapas upar jaati hai</li>
+    <li>🎯 Yeh levels (khaaskar 38.2%, 50%, 61.8%) aksar support/resistance ki tarah kaam karte hain</li>
+    <li>🛡 Kuch log Fib level ke paas entry sochte hain, aur uske thoda neeche stop loss</li>
+  </ul>
+
+  <div class="callout warn">
+    ⚠️ <b>Honest baat:</b> Fibonacci "jaadu" nahi hai. Yeh levels isliye kaam karte hain kyunki bahut log inhe dekhte hain (self-fulfilling). Yeh hamesha sahi nahi hote. Akela mat use karo — baaki signals (trend, volume, candle) ke saath. Aur hamesha stop loss.
+  </div>
+
+  <p>Fibonacci ek aur useful tool hai aapke technical toolkit mein. Yaad rakho — koi bhi ek tool perfect nahi, sab milke tasveer banate hain.</p>
+`; }
+
+// ─── TAX PLANNING (Module 7) ───
+function CH_TAX(){ return `
+  <div class="ch-eyebrow">MODULE 7 · TAX (INDIA)</div>
+  <h1>Tax Planning for Traders (India)</h1>
+  <p>Profit kamana aadha kaam hai — tax samajhna doosra aadha. India mein stock se kamai pe tax lagta hai, aur alag-alag tarah ki kamai pe alag tax. Yeh basic samajhna har trader/investor ko zaroori hai.</p>
+
+  <div class="callout warn">
+    ⚠️ <b>Zaroori disclaimer:</b> Yeh sirf basic educational jaankari hai (current rules ke hisaab se). Tax rules badalte rehte hain aur har vyakti ki situation alag hoti hai. Apna ITR file karne se pehle ek <b>CA (Chartered Accountant)</b> ya tax expert se zaroor salah lein.
+  </div>
+
+  <h2>Equity (shares) pe capital gains tax</h2>
+  <div class="svg-wrap">
+    <svg viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <rect x="40" y="40" width="240" height="110" rx="12" fill="#0b1118" stroke="#f5c842" stroke-width="1.5"/>
+      <text x="160" y="68" fill="#f5c842" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">STCG (Short Term)</text>
+      <text x="160" y="92" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">12 mahine se KAM rakha</text>
+      <text x="160" y="118" fill="#e8edf5" font-size="18" font-weight="700" text-anchor="middle" font-family="DM Mono">20%</text>
+      <text x="160" y="138" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">profit pe (Sec 111A)</text>
+
+      <rect x="320" y="40" width="240" height="110" rx="12" fill="#0b1118" stroke="#00d4aa" stroke-width="1.5"/>
+      <text x="440" y="68" fill="#00d4aa" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter">LTCG (Long Term)</text>
+      <text x="440" y="92" fill="#8a96a8" font-size="11" text-anchor="middle" font-family="Inter">12 mahine se ZYADA rakha</text>
+      <text x="440" y="118" fill="#e8edf5" font-size="18" font-weight="700" text-anchor="middle" font-family="DM Mono">12.5%</text>
+      <text x="440" y="138" fill="#8a96a8" font-size="9" text-anchor="middle" font-family="Inter">Rs 1.25 lakh/saal se upar (Sec 112A)</text>
+    </svg>
+  </div>
+
+  <ul>
+    <li>📅 <b>STCG (Short-Term Capital Gains):</b> Agar listed shares <b>12 mahine se kam</b> rakhe aur becha — profit pe <b>20%</b> tax (Section 111A).</li>
+    <li>📅 <b>LTCG (Long-Term Capital Gains):</b> Agar <b>12 mahine se zyada</b> rakhe — profit pe <b>12.5%</b> tax, par sirf saal mein <b>Rs 1.25 lakh se upar</b> ke gains pe (Rs 1.25 lakh tak tax-free) (Section 112A).</li>
+  </ul>
+
+  <h2>Trading (intraday / F&O) ki kamai</h2>
+  <ul>
+    <li>⚡ <b>Intraday:</b> "Speculative business income" maani jaati hai — aapke normal income tax <b>slab rate</b> pe tax (capital gains wala rate nahi).</li>
+    <li>📊 <b>F&O (Futures & Options):</b> "Non-speculative business income" — yeh bhi <b>slab rate</b> pe.</li>
+    <li>📁 Inke liye aksar <b>ITR-3</b> form bharna padta hai.</li>
+  </ul>
+
+  <div class="callout">
+    💡 <b>Loss ka faayda (set-off):</b> India mein aap apne losses ko gains ke saath adjust kar sakte ho (rules ke hisaab se), aur kuch losses ko aage ke saalon mein "carry forward" bhi kar sakte ho. Isiliye apne saare trades ka record rakhna (journal!) tax ke time bahut kaam aata hai.
+  </div>
+
+  <div class="callout warn">
+    ⚠️ <b>Sabse zaroori:</b> Tax rules (rates, limits, sections) har Budget mein badal sakte hain. Upar diye rates current samajh ke likhe gaye hain, par <b>final faisla apne CA se confirm karke hi lein.</b> Galat tax filing mehengi pad sakti hai. Profit ka thoda hissa tax aur ek achhe CA pe kharch karna samajhdaari hai.
+  </div>
+
+  <p>Tax samajhna boring lagta hai, par yeh aapki kamai ka asli hissa bachata hai. Record rakho, time pe file karo, aur expert ki salah lo.</p>
+`; }
+
+
+const FLAT = []; // flat chapter list for prev/next nav
+CURRICULUM.forEach((mod, mi) => {
+  mod.chapters.forEach(ch => FLAT.push({...ch, modTitle:mod.title, modEmoji:mod.emoji}));
+});
+
+function renderModules(){
+  const list = document.getElementById('module-list');
+  list.innerHTML = CURRICULUM.map((mod, mi) => {
+    const ready = mod.chapters.filter(c=>c.status==='ready').length;
+    const chaps = mod.chapters.map(ch => `
+      <a class="chapter" ${ch.status==='ready' ? `onclick="openChapter(${ch.n});return false;" href="#"` : 'style="cursor:default;"'}>
+        <span class="ch-num">${ch.n}</span>
+        <span class="ch-title">${ch.title}</span>
+        <span class="ch-status ${ch.status}">${ch.status==='ready'?'Ready':'Soon'}</span>
+      </a>`).join('');
+    return `
+      <div class="module" id="mod-${mi}">
+        <div class="module-head" onclick="toggleMod(${mi})">
+          <span class="module-emoji">${mod.emoji}</span>
+          <div class="module-info">
+            <h3>Module ${mi+1}: ${mod.title}</h3>
+            <div class="sub">${mod.sub}</div>
+          </div>
+          <div class="module-meta">${mod.chapters.length} chapters<br>${ready} ready</div>
+          <span class="module-arrow">▶</span>
+        </div>
+        <div class="chapters">${chaps}</div>
+      </div>`;
+  }).join('');
+}
+function toggleMod(i){ document.getElementById('mod-'+i).classList.toggle('open'); }
+
+function openChapter(n){
+  const ch = FLAT.find(c=>c.n===n);
+  if(!ch || !ch.body) return;
+  document.getElementById('reader-modtag').textContent = ch.modEmoji+' '+ch.modTitle;
+  // prev/next among READY chapters
+  const readyList = FLAT.filter(c=>c.status==='ready');
+  const pos = readyList.findIndex(c=>c.n===n);
+  const prev = pos>0 ? readyList[pos-1] : null;
+  const next = pos<readyList.length-1 ? readyList[pos+1] : null;
+  let navHtml = '<div class="reader-nav">';
+  navHtml += prev ? `<a onclick="openChapter(${prev.n});return false;" href="#"><div class="dir">← Pichla</div><div class="t">${prev.title}</div></a>` : '<a style="visibility:hidden"></a>';
+  navHtml += next ? `<a class="next" onclick="openChapter(${next.n});return false;" href="#"><div class="dir">Agla →</div><div class="t">${next.title}</div></a>` : '<a class="next" style="visibility:hidden"></a>';
+  navHtml += '</div>';
+  document.getElementById('reader-content').innerHTML = ch.body + navHtml;
+  document.getElementById('reader').classList.add('show');
+  document.querySelector('.reader').scrollTop = 0;
+  window.scrollTo(0,0);
+}
+function closeReader(){ document.getElementById('reader').classList.remove('show'); }
+
+renderModules();
+// Open Module 1 by default so the Ready chapter is visible
+document.getElementById('mod-0').classList.add('open');
+
+// ─── Particle background ───
+const canvas=document.getElementById('bg-canvas'),ctx=canvas.getContext('2d');
+let W,H,particles;const isM=window.innerWidth<640;const COUNT=isM?50:110;
+const COLORS=['#00d4aa','#0095ff','#a855f7'];
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+function init(){particles=[];for(let i=0;i<COUNT;i++){particles.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,r:Math.random()*2+0.6,c:COLORS[Math.floor(Math.random()*COLORS.length)],a:Math.random()*0.4+0.08});}}
+function draw(){ctx.clearRect(0,0,W,H);for(let i=0;i<particles.length;i++){const p=particles[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.c;ctx.globalAlpha=p.a;ctx.fill();for(let j=i+1;j<particles.length;j++){const q=particles[j];const dx=p.x-q.x,dy=p.y-q.y,d=Math.sqrt(dx*dx+dy*dy);if(d<140){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle=p.c;ctx.globalAlpha=(1-d/140)*0.06;ctx.lineWidth=1;ctx.stroke();}}}ctx.globalAlpha=1;requestAnimationFrame(draw);}
+resize();init();draw();
+window.addEventListener('resize',()=>{resize();init();});
+</script>
+</body>
+</html>
