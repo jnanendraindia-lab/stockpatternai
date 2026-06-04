@@ -263,6 +263,16 @@ section{position:relative;z-index:1;}
   text-decoration:none;transition:all 0.2s;
 }
 .btn-secondary:hover{color:var(--text);border-color:var(--accent);}
+.hero-actions{margin-bottom:14px;}
+.btn-secondary{position:relative;animation:botGlow 2.8s ease-in-out infinite;}
+@keyframes botGlow{
+  0%,100%{border-color:var(--border2);box-shadow:0 0 0 rgba(0,212,170,0);}
+  50%{border-color:rgba(0,212,170,0.55);box-shadow:0 0 16px rgba(0,212,170,0.18);}
+}
+.tg-help{
+  font-size:12.5px;color:var(--text3);margin-bottom:30px;max-width:520px;line-height:1.6;
+}
+.tg-help a{color:var(--accent);text-decoration:underline;}
 
 .hero-steps{
   display:flex;flex-direction:column;gap:8px;
@@ -967,24 +977,13 @@ section[style*="bg2"]{
 /* ── MOBILE: 640px ── */
 @media (max-width:640px){
 
-  /* NAV */
+  /* NAV — on mobile, hide ALL inline links; hamburger menu takes over (no overlap) */
   nav{
     padding:0 18px;height:56px;
   }
   .logo{font-size:16px;}
   .logo-mark{width:28px;height:28px;font-size:12px;}
-  .nav-links{gap:4px;}
-  .nav-links li{display:none;}
-  .nav-links li:last-child{display:block;}
-  .nav-links li.nav-guide-li{display:block;}
-  .nav-links li.nav-academy-li{display:block;}
-  .nav-guide{padding:7px 11px!important;font-size:12px!important;white-space:nowrap!important;}
-  .nav-academy{padding:7px 11px!important;font-size:12px!important;white-space:nowrap!important;}
-  .nav-cta{
-    padding:7px 14px!important;font-size:13px!important;
-  }
-  .cta-full{display:none;}
-  .cta-short{display:inline;}
+  .nav-links{display:none!important;}
 
   /* SECTIONS */
   .section-inner{padding:56px 18px;}
@@ -1131,19 +1130,10 @@ section[style*="bg2"]{
   .plan-price{font-size:24px;}
   .trust-num{font-size:22px;}
   .hpc-metrics{grid-template-columns:repeat(3,1fr);}
-  /* NAV — tiny phones: emoji-only Academy + Bot Guide to fit logo + both + Join on one row */
+  /* NAV — tiny phones */
   nav{padding:0 12px;}
   .logo{font-size:14px;}
   .logo-mark{width:24px;height:24px;font-size:11px;}
-  .nav-links{gap:6px;}
-  .nav-guide{padding:6px 9px!important;font-size:11px!important;}
-  .nav-academy{padding:6px 9px!important;font-size:11px!important;}
-  .nav-cta{padding:6px 10px!important;font-size:11px!important;}
-  /* shrink Academy/Bot Guide to icon-only on very tiny screens */
-  .nav-academy{font-size:0!important;}
-  .nav-academy::before{content:"🎓";font-size:15px;}
-  .nav-guide{font-size:0!important;}
-  .nav-guide::before{content:"📖";font-size:15px;}
 }
 
 /* ── ANIMATIONS ── */
@@ -1223,8 +1213,11 @@ section[style*="bg2"]{
           📢 Join @StockSeasonSignals
         </a>
         <a href="https://t.me/StockSeasonBot" class="btn-secondary">
-          🤖 Open Bot Free
+          🤖 Open Bot — Pattern Dekho (Free)
         </a>
+      </div>
+      <div class="tg-help">
+        Telegram nahi hai? Koi baat nahi — <a href="https://telegram.org/" target="_blank" rel="noopener">free app, 30 sec mein download</a>, phir bot kholo.
       </div>
 
       <div class="hero-steps">
@@ -2053,9 +2046,9 @@ window.addEventListener('scroll',()=>{
   const burger = document.createElement('button');
   burger.innerHTML = '☰';
   burger.style.cssText = `
-    display:none;background:none;border:none;color:var(--text2);
-    font-size:22px;cursor:pointer;padding:4px 8px;
-    position:absolute;right:60px;top:50%;transform:translateY(-50%);
+    display:none;background:none;border:none;color:var(--text);
+    font-size:24px;cursor:pointer;padding:4px 8px;
+    position:absolute;right:18px;top:50%;transform:translateY(-50%);
     z-index:200;
   `;
   navEl.style.position = 'fixed';
@@ -2065,16 +2058,19 @@ window.addEventListener('scroll',()=>{
   const menu = document.createElement('div');
   menu.style.cssText = `
     display:none;position:fixed;inset:0;top:56px;
-    background:rgba(6,9,16,0.98);
+    background:#060910;
     z-index:150;padding:24px 18px;
-    flex-direction:column;gap:4px;
+    flex-direction:column;gap:4px;overflow-y:auto;
   `;
   const menuLinks = [
     {href:'#honest',  label:'What This Is'},
     {href:'#how',     label:'How It Works'},
     {href:'#features',label:'Features'},
     {href:'#health',  label:'Pattern Health'},
+    {href:'#academy', label:'🎓 Academy'},
     {href:'#plans',   label:'Plans'},
+    {href:'academy.html', label:'🎓 Open Academy (Free)'},
+    {href:'botguide.html', label:'📖 Bot Guide'},
     {href:'https://t.me/StockSeasonSignals', label:'📢 Join @StockSeasonSignals', primary:true},
     {href:'https://t.me/StockSeasonBot',     label:'🤖 Open Bot Free'},
   ];
@@ -2093,6 +2089,14 @@ window.addEventListener('scroll',()=>{
     a.addEventListener('click',()=>{ menu.style.display='none'; burger.innerHTML='☰'; open=false; });
     menu.appendChild(a);
   });
+  // Helpful note for users who don't have Telegram
+  const tgNote = document.createElement('div');
+  tgNote.style.cssText = `padding:14px 18px;margin-top:8px;font-size:12.5px;color:var(--text3);
+    border-top:1px solid rgba(255,255,255,0.06);line-height:1.6;`;
+  tgNote.innerHTML = 'Telegram nahi hai? Yeh free app hai — '+
+    '<a href="https://telegram.org/" style="color:var(--accent);text-decoration:underline;">30 sec mein download karo</a>, '+
+    'phir upar wale buttons kaam karenge.';
+  menu.appendChild(tgNote);
   document.body.appendChild(menu);
 
   let open = false;
