@@ -145,6 +145,13 @@ nav{
   white-space:nowrap!important;
 }
 .nav-cta:hover{opacity:0.85!important;}
+.nav-platform{
+  background:transparent!important;color:var(--accent)!important;
+  font-weight:600!important;padding:8px 14px!important;
+  border:1.5px solid var(--accent)!important;
+  border-radius:8px!important;white-space:nowrap!important;transition:all 0.2s!important;
+}
+.nav-platform:hover{background:rgba(0,212,170,0.08)!important;}
 .cta-short{display:none;}
 .cta-full{display:inline;}
 /* ── Bot Guide CTA — outline/ghost style (secondary, distinct from green Join) ── */
@@ -254,6 +261,15 @@ section{position:relative;z-index:1;}
   text-decoration:none;transition:all 0.2s;letter-spacing:-0.2px;
 }
 .btn-primary:hover{background:#00bfa0;transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,212,170,0.25);}
+.btn-platform{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;color:var(--accent);
+  font-weight:600;font-size:15px;
+  padding:13px 24px;border-radius:10px;
+  border:1.5px solid var(--accent);
+  text-decoration:none;transition:all 0.2s;letter-spacing:-0.2px;
+}
+.btn-platform:hover{background:rgba(0,212,170,0.08);transform:translateY(-1px);}
 .btn-secondary{
   display:inline-flex;align-items:center;gap:8px;
   background:transparent;color:var(--text2);
@@ -1181,6 +1197,7 @@ section[style*="bg2"]{
     <li class="nav-academy-li"><a href="academy.html" class="nav-academy">🎓 Academy</a></li>
     <li class="nav-guide-li"><a href="botguide.html" class="nav-guide">📖 Bot Guide</a></li>
     <li><a href="https://t.me/StockSeasonSignals" class="nav-cta"><span class="cta-full">Join @StockSeasonSignals ↗</span><span class="cta-short">Join ↗</span></a></li>
+    <li><a href="https://app.stockpatternai.com/platform" class="nav-platform">🖥️ Platform</a></li>
   </ul>
 </nav>
 
@@ -1209,7 +1226,10 @@ section[style*="bg2"]{
       </div>
 
       <div class="hero-actions">
-        <a href="https://t.me/StockSeasonSignals" class="btn-primary">
+        <a href="https://app.stockpatternai.com/platform" class="btn-primary">
+          🖥️ Open Web Platform
+        </a>
+        <a href="https://t.me/StockSeasonSignals" class="btn-platform">
           📢 Join @StockSeasonSignals
         </a>
         <a href="https://t.me/StockSeasonBot" class="btn-secondary">
@@ -1880,7 +1900,10 @@ section[style*="bg2"]{
     <h2>Start with proof.<br><em style="font-style:normal;color:var(--accent);">Not promises.</em></h2>
     <p>Join @StockSeasonSignals first. See real historical proof. Then decide if @StockSeasonBot is for you.</p>
     <div class="cta-actions">
-      <a href="https://t.me/StockSeasonSignals" class="btn-primary">
+      <a href="https://app.stockpatternai.com/platform" class="btn-primary">
+        🖥️ Open Web Platform
+      </a>
+      <a href="https://t.me/StockSeasonSignals" class="btn-platform">
         📢 Join @StockSeasonSignals
       </a>
       <a href="https://t.me/StockSeasonBot" class="btn-secondary">
