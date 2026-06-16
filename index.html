@@ -1176,9 +1176,49 @@ section[style*="bg2"]{
   .ticker-track{animation:none;}
   .hero-left,.hero-proof-card{animation:none;}
 }
+/* ── TELEGRAM INSTALL POPUP ── */
+.tg-popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);}
+.tg-popup{background:#141c26;border:1px solid rgba(0,212,170,0.2);border-radius:16px;padding:28px 24px;max-width:360px;width:100%;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.5);}
+.tg-popup-icon{font-size:40px;margin-bottom:12px;}
+.tg-popup-title{font-size:18px;font-weight:700;color:#e8edf5;margin-bottom:6px;}
+.tg-popup-sub{font-size:13px;color:#8a96a8;margin-bottom:20px;line-height:1.5;}
+.tg-popup-btns{display:flex;flex-direction:column;gap:10px;}
+.tg-dl-btn{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;transition:all .18s;}
+.tg-dl-btn.android{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);color:#22c55e;}
+.tg-dl-btn.android:hover{background:rgba(34,197,94,0.18);}
+.tg-dl-btn.ios{background:rgba(0,149,255,0.1);border:1px solid rgba(0,149,255,0.25);color:#60a5fa;}
+.tg-dl-btn.ios:hover{background:rgba(0,149,255,0.18);}
+.tg-dl-btn.desktop{background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);color:#00d4aa;}
+.tg-dl-btn.desktop:hover{background:rgba(0,212,170,0.15);}
+.tg-popup-close{margin-top:14px;font-size:12px;color:#4a5568;cursor:pointer;padding:6px;display:block;}
+.tg-popup-close:hover{color:#8a96a8;}
 </style>
 </head>
 <body>
+
+<!-- TELEGRAM INSTALL POPUP -->
+<div id="tg-popup-overlay" class="tg-popup-overlay" style="display:none;" onclick="if(event.target===this)closeTgPopup()">
+  <div class="tg-popup">
+    <div class="tg-popup-icon">📱</div>
+    <div class="tg-popup-title">Telegram App Chahiye</div>
+    <div class="tg-popup-sub" id="tg-popup-sub">@StockSeasonBot use karne ke liye Telegram app install karo — bilkul free hai.</div>
+    <div class="tg-popup-btns">
+      <a href="https://play.google.com/store/apps/details?id=org.telegram.messenger" target="_blank" class="tg-dl-btn android" onclick="closeTgPopupDelay()">
+        <span style="font-size:20px;">🤖</span>
+        <div style="text-align:left;"><div style="font-size:11px;opacity:.7;font-weight:400;">Android ke liye</div>Google Play Store</div>
+      </a>
+      <a href="https://apps.apple.com/app/telegram-messenger/id686449807" target="_blank" class="tg-dl-btn ios" onclick="closeTgPopupDelay()">
+        <span style="font-size:20px;">🍎</span>
+        <div style="text-align:left;"><div style="font-size:11px;opacity:.7;font-weight:400;">iPhone/iPad ke liye</div>Apple App Store</div>
+      </a>
+      <a href="https://desktop.telegram.org/" target="_blank" class="tg-dl-btn desktop" onclick="closeTgPopupDelay()">
+        <span style="font-size:20px;">💻</span>
+        <div style="text-align:left;"><div style="font-size:11px;opacity:.7;font-weight:400;">Windows/Mac/Linux ke liye</div>Telegram Desktop</div>
+      </a>
+    </div>
+    <span class="tg-popup-close" onclick="closeTgPopup()">✕ Band karo</span>
+  </div>
+</div>
 
 <canvas id="bg-canvas" style="position:fixed;inset:0;z-index:0;pointer-events:none;"></canvas>
 
@@ -1196,8 +1236,8 @@ section[style*="bg2"]{
     <li><a href="#plans">Plans</a></li>
     <li class="nav-academy-li"><a href="academy.html" class="nav-academy">🎓 Academy</a></li>
     <li class="nav-guide-li"><a href="botguide.html" class="nav-guide">📖 Bot Guide</a></li>
-    <li><a href="https://t.me/StockSeasonSignals" class="nav-cta"><span class="cta-full">Join @StockSeasonSignals ↗</span><span class="cta-short">Join ↗</span></a></li>
-    <li><a href="https://app.stockpatternai.com/platform" class="nav-platform">Login →</a></li>
+    <li><a href="#" onclick="openTg('StockSeasonSignals');return false;" class="nav-cta"><span class="cta-full">Join @StockSeasonSignals ↗</span><span class="cta-short">Join ↗</span></a></li>
+    <li><a href="https://app.stockpatternai.com/platform" class="nav-platform">🖥️ Platform</a></li>
   </ul>
 </nav>
 
@@ -1227,29 +1267,32 @@ section[style*="bg2"]{
 
       <div class="hero-actions">
         <a href="https://app.stockpatternai.com/platform" class="btn-primary">
-          🖥️ Open Platform — Free
+          🖥️ Open Web Platform
         </a>
-        <a href="https://t.me/StockSeasonBot" class="btn-platform">
-          🤖 Try Telegram Bot
+        <a href="#" onclick="openTg('StockSeasonSignals');return false;" class="btn-platform">
+          📢 Join @StockSeasonSignals
+        </a>
+        <a href="#" onclick="openTg('StockSeasonBot');return false;" class="btn-secondary">
+          🤖 Open Bot — Pattern Dekho (Free)
         </a>
       </div>
       <div class="tg-help">
-        Web platform pe signup free hai. Ya Telegram mein <a href="https://t.me/StockSeasonBot" target="_blank" rel="noopener">@StockSeasonBot</a> try karo — koi account nahi chahiye.
+        Telegram nahi hai? Koi baat nahi — <a href="https://telegram.org/" target="_blank" rel="noopener">free app, 30 sec mein download</a>, phir bot kholo.
       </div>
 
       <div class="hero-steps">
         <div class="hero-step">
           <div class="step-num">1</div>
-          <span><strong>Free signup</strong> — Platform pe account banao, koi payment nahi</span>
+          <span>Join <strong>@StockSeasonSignals</strong> — see real proof posts</span>
         </div>
         <div class="hero-step">
           <div class="step-num">2</div>
-          <span>Koi bhi stock search karo — <strong>20 saal ka seasonal data</strong> dekho</span>
+          <span>Decide if this approach makes sense for you</span>
         </div>
         <div class="hero-step">
           <div class="step-num">3</div>
           <span class="step-arrow">→</span>
-          <span>Entry window aane se pehle <strong>Watchlist</strong> mein add karo — track karo</span>
+          <span>Open <strong>@StockSeasonBot</strong> for deep analysis</span>
         </div>
       </div>
     </div>
@@ -1392,7 +1435,7 @@ section[style*="bg2"]{
       </div>
       <div style="margin-top:10px;font-size:12px;color:var(--text3);line-height:1.6;">
         Not all patterns are this clean. Many show losses. All data is shown as-is.
-        <a href="https://t.me/StockSeasonSignals" style="color:var(--accent);text-decoration:none;"> See all examples on channel →</a>
+        <a href="#" onclick="openTg('StockSeasonSignals');return false;" style="color:var(--accent);text-decoration:none;"> See all examples on channel →</a>
       </div>
     </div>
   </div>
@@ -1539,12 +1582,6 @@ section[style*="bg2"]{
         <div class="feat-desc">Dark-designed reports with Expectancy, Recency Score, Max Drawdown. Wins and losses both shown.</div>
         <span class="feat-status feat-live">✅ Live</span>
       </div>
-      <div class="feat-card reveal">
-        <div class="feat-icon" style="background:rgba(0,212,170,0.08);">🖥️</div>
-        <div class="feat-title">Web Platform</div>
-        <div class="feat-desc">Full dashboard — Stock Browser, Live Scanner, Watchlist, Market Alpha, Dark/Light mode. Desktop + mobile. No Telegram needed.</div>
-        <span class="feat-status feat-live">✅ Live</span>
-      </div>
       <div class="feat-card reveal" style="opacity:0.6;">
         <div class="feat-icon" style="background:rgba(0,149,255,0.06);">🎯</div>
         <div class="feat-title">Confidence Score</div>
@@ -1554,8 +1591,8 @@ section[style*="bg2"]{
       <div class="feat-card reveal" style="opacity:0.5;">
         <div class="feat-icon" style="background:rgba(255,255,255,0.03);">📡</div>
         <div class="feat-title">Live Validation</div>
-        <div class="feat-desc">EMA/RSI/Volume live confirmation before entry. Real-time signals on web platform.</div>
-        <span class="feat-status feat-live">✅ Live — Web Platform</span>
+        <div class="feat-desc">EMA/RSI/Volume live confirmation before entry. Requires Dhan API integration.</div>
+        <span class="feat-status feat-dev">⚫ In Development</span>
       </div>
       <div class="feat-card reveal" style="opacity:0.5;">
         <div class="feat-icon" style="background:rgba(255,255,255,0.03);">📰</div>
@@ -1742,7 +1779,7 @@ section[style*="bg2"]{
           <li class="off"><span class="feat-off">—</span>Monthly Windows &amp; Simulator</li>
           <li class="off"><span class="feat-off">—</span>Year-by-year proof &amp; PDF</li>
         </ul>
-        <a href="https://t.me/StockSeasonBot" class="plan-btn outline">Start Free</a>
+        <a href="#" onclick="openTg('StockSeasonBot');return false;" class="plan-btn outline">Start Free</a>
       </div>
       <div class="plan-card reveal">
         <div class="plan-tier">Basic</div>
@@ -1757,7 +1794,7 @@ section[style*="bg2"]{
           <li><span class="feat-on">✓</span>5yr proof · PDF/CSV export</li>
           <li><span class="feat-on">✓</span>⚡ Sharpness unlocked</li>
         </ul>
-        <a href="https://t.me/StockSeasonBot" class="plan-btn outline">Subscribe via UPI</a>
+        <a href="#" onclick="openTg('StockSeasonBot');return false;" class="plan-btn outline">Subscribe via UPI</a>
       </div>
       <div class="plan-card featured reveal">
         <div class="plan-popular">Most Popular</div>
@@ -1773,7 +1810,7 @@ section[style*="bg2"]{
           <li><span class="feat-on">✓</span>📈 Momentum unlocked</li>
           <li><span class="feat-on">✓</span>Priority support</li>
         </ul>
-        <a href="https://t.me/StockSeasonBot" class="plan-btn filled">Subscribe via UPI</a>
+        <a href="#" onclick="openTg('StockSeasonBot');return false;" class="plan-btn filled">Subscribe via UPI</a>
       </div>
       <div class="plan-card reveal">
         <div class="plan-tier">Personal</div>
@@ -1787,7 +1824,7 @@ section[style*="bg2"]{
           <li><span class="feat-on">✓</span>Direct founder access</li>
           <li><span class="feat-on">✓</span>@Staysettl on Telegram</li>
         </ul>
-        <a href="https://t.me/StockSeasonBot" class="plan-btn outline">Subscribe via UPI</a>
+        <a href="#" onclick="openTg('StockSeasonBot');return false;" class="plan-btn outline">Subscribe via UPI</a>
       </div>
     </div>
     <div style="text-align:center;margin-top:20px;font-size:12px;color:var(--text3);font-family:'DM Mono',monospace;">
@@ -1811,7 +1848,7 @@ section[style*="bg2"]{
       <div class="founder-name">Jnanendra</div>
       <div class="founder-handle">
         Kolkata, India &nbsp;·&nbsp;
-        <a href="https://t.me/Staysettl" target="_blank">@Staysettl on Telegram</a>
+        <a href="#" onclick="openTg('Staysettl');return false;" >@Staysettl on Telegram</a>
       </div>
       <p class="founder-story">
         After years of studying Indian markets and losing money to <strong>blind tips, operator calls, and guesswork</strong> — I started building what I wish had existed.
@@ -1843,21 +1880,21 @@ section[style*="bg2"]{
         </p>
       </div>
       <div class="feedback-right">
-        <a href="https://t.me/Staysettl" target="_blank" class="feedback-option">
+        <a href="#" onclick="openTg('Staysettl');return false;" class="feedback-option">
           <div class="feedback-icon">💡</div>
           <div>
             <div class="feedback-label">Suggest a feature</div>
             <div class="feedback-sub">What would make this more useful for you?</div>
           </div>
         </a>
-        <a href="https://t.me/Staysettl" target="_blank" class="feedback-option">
+        <a href="#" onclick="openTg('Staysettl');return false;" class="feedback-option">
           <div class="feedback-icon">🐛</div>
           <div>
             <div class="feedback-label">Report an issue</div>
             <div class="feedback-sub">Something broken or confusing?</div>
           </div>
         </a>
-        <a href="https://t.me/StockSeasonSignals" target="_blank" class="feedback-option">
+        <a href="#" onclick="openTg('StockSeasonSignals');return false;" class="feedback-option">
           <div class="feedback-icon">📢</div>
           <div>
             <div class="feedback-label">Join @StockSeasonSignals</div>
@@ -1904,10 +1941,13 @@ section[style*="bg2"]{
     <p>Join @StockSeasonSignals first. See real historical proof. Then decide if @StockSeasonBot is for you.</p>
     <div class="cta-actions">
       <a href="https://app.stockpatternai.com/platform" class="btn-primary">
-        🖥️ Open Platform — Free
+        🖥️ Open Web Platform
       </a>
-      <a href="https://t.me/StockSeasonSignals" class="btn-secondary">
+      <a href="#" onclick="openTg('StockSeasonSignals');return false;" class="btn-platform">
         📢 Join @StockSeasonSignals
+      </a>
+      <a href="#" onclick="openTg('StockSeasonBot');return false;" class="btn-secondary">
+        🤖 Open Bot Free
       </a>
     </div>
     <div class="disclaimer">
@@ -1924,9 +1964,9 @@ section[style*="bg2"]{
   <div class="footer-right">
     <a href="academy.html">🎓 Academy</a>
     <a href="botguide.html">📖 Bot Guide</a>
-    <a href="https://t.me/StockSeasonBot">Telegram Bot</a>
-    <a href="https://t.me/StockSeasonSignals">@StockSeasonSignals</a>
-    <a href="https://t.me/Staysettl">Contact</a>
+    <a href="#" onclick="openTg('StockSeasonBot');return false;">Telegram Bot</a>
+    <a href="#" onclick="openTg('StockSeasonSignals');return false;">@StockSeasonSignals</a>
+    <a href="#" onclick="openTg('Staysettl');return false;">Contact</a>
   </div>
 </footer>
 
@@ -2094,8 +2134,8 @@ window.addEventListener('scroll',()=>{
     {href:'#plans',   label:'Plans'},
     {href:'academy.html', label:'🎓 Open Academy (Free)'},
     {href:'botguide.html', label:'📖 Bot Guide'},
-    {href:'https://t.me/StockSeasonSignals', label:'📢 Join @StockSeasonSignals', primary:true},
-    {href:'https://t.me/StockSeasonBot',     label:'🤖 Open Bot Free'},
+    {href:'#',onclick:'openTg("StockSeasonSignals")', label:'📢 Join @StockSeasonSignals', primary:true},
+    {href:'#',onclick:'openTg("StockSeasonBot")',     label:'🤖 Open Bot Free'},
   ];
   menuLinks.forEach(l=>{
     const a = document.createElement('a');
@@ -2134,6 +2174,54 @@ window.addEventListener('scroll',()=>{
   window.addEventListener('resize', showBurger);
   showBurger();
 })();
+
+// ── SMART TELEGRAM LINKS ──
+function openTg(username){
+  // tg:// se seedha app mein try karo
+  var appUrl = 'tg://resolve?domain=' + username;
+  var fallbackShown = false;
+  
+  // App khulne ki koshish
+  window.location.href = appUrl;
+  
+  // 2.5 sec baad — agar app nahi khula toh install popup dikhao
+  var t = setTimeout(function(){
+    if(!document.hidden && !fallbackShown){
+      fallbackShown = true;
+      showTgPopup(username);
+    }
+  }, 2500);
+  
+  // Agar user app pe chala gaya — popup mat dikhao
+  document.addEventListener('visibilitychange', function handler(){
+    if(document.hidden){
+      clearTimeout(t);
+      fallbackShown = true;
+      document.removeEventListener('visibilitychange', handler);
+    }
+  });
+}
+
+function showTgPopup(username){
+  var names = {
+    'StockSeasonBot': '@StockSeasonBot — Pattern Analysis Bot',
+    'StockSeasonSignals': '@StockSeasonSignals — Free Proof Channel',
+    'Staysettl': '@Staysettl — Direct Contact'
+  };
+  var sub = document.getElementById('tg-popup-sub');
+  if(sub) sub.textContent = (names[username]||('@'+username)) + ' use karne ke liye Telegram app install karo — bilkul free hai.';
+  document.getElementById('tg-popup-overlay').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeTgPopup(){
+  document.getElementById('tg-popup-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function closeTgPopupDelay(){
+  setTimeout(closeTgPopup, 500);
+}
 </script>
 </body>
 </html>

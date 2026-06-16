@@ -289,16 +289,54 @@ footer a:hover{color:var(--accent);}
   .nav-cta{padding:8px 12px;font-size:12px;}
   .step{padding:18px;}
 }
+/* ── TELEGRAM INSTALL POPUP ── */
+.tg-popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);}
+.tg-popup{background:#141c26;border:1px solid rgba(0,212,170,0.2);border-radius:16px;padding:28px 24px;max-width:360px;width:100%;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.5);}
+.tg-popup-icon{font-size:40px;margin-bottom:12px;}
+.tg-popup-title{font-size:18px;font-weight:700;color:#e8edf5;margin-bottom:6px;}
+.tg-popup-sub{font-size:13px;color:#8a96a8;margin-bottom:20px;line-height:1.5;}
+.tg-popup-btns{display:flex;flex-direction:column;gap:10px;}
+.tg-dl-btn{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;transition:all .18s;}
+.tg-dl-btn.android{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);color:#22c55e;}
+.tg-dl-btn.ios{background:rgba(0,149,255,0.1);border:1px solid rgba(0,149,255,0.25);color:#60a5fa;}
+.tg-dl-btn.desktop{background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);color:#00d4aa;}
+.tg-popup-close{margin-top:14px;font-size:12px;color:#4a5568;cursor:pointer;padding:6px;display:block;}
+.tg-popup-close:hover{color:#8a96a8;}
 </style>
 </head>
 <body>
+
+<!-- TELEGRAM INSTALL POPUP -->
+<div id="tg-popup-overlay" class="tg-popup-overlay" style="display:none;" onclick="if(event.target===this)closeTgPopup()">
+  <div class="tg-popup">
+    <div class="tg-popup-icon">📱</div>
+    <div class="tg-popup-title">Telegram App Chahiye</div>
+    <div class="tg-popup-sub" id="tg-popup-sub">Bot use karne ke liye Telegram app install karo — bilkul free hai.</div>
+    <div class="tg-popup-btns">
+      <a href="https://play.google.com/store/apps/details?id=org.telegram.messenger" target="_blank" class="tg-dl-btn android" onclick="closeTgPopupDelay()">
+        <span style="font-size:20px;">🤖</span>
+        <div style="text-align:left;"><div style="font-size:11px;opacity:.7;font-weight:400;">Android ke liye</div>Google Play Store</div>
+      </a>
+      <a href="https://apps.apple.com/app/telegram-messenger/id686449807" target="_blank" class="tg-dl-btn ios" onclick="closeTgPopupDelay()">
+        <span style="font-size:20px;">🍎</span>
+        <div style="text-align:left;"><div style="font-size:11px;opacity:.7;font-weight:400;">iPhone/iPad ke liye</div>Apple App Store</div>
+      </a>
+      <a href="https://desktop.telegram.org/" target="_blank" class="tg-dl-btn desktop" onclick="closeTgPopupDelay()">
+        <span style="font-size:20px;">💻</span>
+        <div style="text-align:left;"><div style="font-size:11px;opacity:.7;font-weight:400;">Windows/Mac/Linux ke liye</div>Telegram Desktop</div>
+      </a>
+    </div>
+    <span class="tg-popup-close" onclick="closeTgPopup()">✕ Band karo</span>
+  </div>
+</div>
+
 <canvas id="bg-canvas"></canvas>
 
 <nav>
   <a class="logo" href="index.html">
     <span class="logo-mark">SP</span> StockPattern<span>AI</span>
   </a>
-  <a href="https://t.me/StockSeasonBot" class="nav-cta">🤖 Open Bot</a>
+  <a href="#" onclick="openTg('StockSeasonBot');return false;" class="nav-cta">🤖 Open Bot</a>
 </nav>
 
 <div class="wrap">
@@ -472,8 +510,7 @@ footer a:hover{color:var(--accent);}
       </div>
     </div>
     <p style="text-align:center;margin-top:20px;font-size:14px;color:var(--text2);">
-      Bot mein <code style="font-family:'DM Mono',monospace;color:var(--accent);">/plans</code> type karo ya 
-      <a href="https://app.stockpatternai.com/platform" style="color:var(--accent);text-decoration:none;">web platform</a> pe Plans & Pricing dekho.
+      Detail dekhne ke liye bot mein <code style="font-family:'DM Mono',monospace;color:var(--accent);">/plans</code> type karo.
       <br>Subscription = platform access only. Not investment advice.
     </p>
   </section>
@@ -491,20 +528,15 @@ footer a:hover{color:var(--accent);}
         <h3>Historical Pattern Engine + Pattern Health</h3>
         <p>20 saal ka data, Freshness / Sharpness / Momentum signals, honest proof. Sab abhi available.</p>
       </div>
-      <div class="ritem reveal">
-        <span class="rtag live">✅ LIVE NOW</span>
-        <h3>Web Platform — Full Dashboard</h3>
-        <p>Stock Browser, Live Scanner, Watchlist (PostgreSQL), Market Alpha, Dark/Light mode — sab live hai. <a href="https://app.stockpatternai.com/platform" style="color:var(--accent);text-decoration:none;">app.stockpatternai.com →</a></p>
-      </div>
-      <div class="ritem reveal">
-        <span class="rtag live">✅ LIVE NOW</span>
-        <h3>Live Technical Validation</h3>
-        <p>Seasonal pattern + live chart check (EMA, RSI, Volume) — web platform pe available. "Abhi entry ke liye sahi time hai?" ka jawab.</p>
-      </div>
       <div class="ritem soon reveal">
         <span class="rtag soon">🔵 COMING SOON</span>
         <h3>Confidence Score</h3>
-        <p>Har pattern ko ek single score (0-100) — taaki ek nazar mein pata chale kitna strong setup hai.</p>
+        <p>Har pattern ko ek single score (0-100) — taaki ek nazar mein pata chale kitna strong setup hai. Koi extra API nahi chahiye.</p>
+      </div>
+      <div class="ritem dev reveal">
+        <span class="rtag dev">⚫ IN DEVELOPMENT</span>
+        <h3>Live Technical Validation</h3>
+        <p>Seasonal pattern + live chart check (EMA, RSI, Volume) — "abhi entry ke liye sahi time hai?" ka jawab.</p>
       </div>
       <div class="ritem dev reveal">
         <span class="rtag dev">⚫ IN DEVELOPMENT</span>
@@ -522,10 +554,10 @@ footer a:hover{color:var(--accent);}
   <!-- CTA -->
   <div class="cta">
     <h2>Ready? Abhi try karo.</h2>
-    <p>Web platform pe <strong>free signup</strong> karo — ya bot mein <code style="font-family:'DM Mono',monospace;color:var(--accent);background:var(--bg3);padding:2px 8px;border-radius:6px;">RELIANCE</code> type karke dekho.</p>
+    <p>Bot kholo aur <code style="font-family:'DM Mono',monospace;color:var(--accent);background:var(--bg3);padding:2px 8px;border-radius:6px;">RELIANCE</code> type karke dekho.</p>
     <div class="btn-row">
-      <a href="https://app.stockpatternai.com/platform" class="btn-primary">🖥️ Open Platform — Free</a>
-      <a href="https://t.me/StockSeasonBot" class="btn-secondary">🤖 Open @StockSeasonBot</a>
+      <a href="#" onclick="openTg('StockSeasonBot');return false;" class="btn-primary">🤖 Open @StockSeasonBot</a>
+      <a href="#" onclick="openTg('StockSeasonSignals');return false;" class="btn-secondary">📢 Join Free Channel</a>
     </div>
   </div>
 
@@ -533,15 +565,15 @@ footer a:hover{color:var(--accent);}
   <div class="disc">
     ⚠️ <b>Educational only.</b> Past performance ≠ future results. We are not SEBI-registered.
     This is a historical data tool, not investment advice. Always use a stop loss.
-    Koi sawaal? Contact <a href="https://t.me/Staysettl" style="color:var(--accent);text-decoration:none;">@Staysettl</a>.
+    Koi sawaal? Contact <a href="#" onclick="openTg('Staysettl');return false;" style="color:var(--accent);text-decoration:none;">@Staysettl</a>.
   </div>
 
   <footer>
     © 2026 StockPattern AI · Not SEBI registered · Educational only<br>
     <a href="https://stockpatternai.com">stockpatternai.com</a> ·
-    <a href="https://t.me/StockSeasonBot">Bot</a> ·
-    <a href="https://t.me/StockSeasonSignals">Channel</a> ·
-    <a href="https://t.me/Staysettl">Contact</a>
+    <a href="#" onclick="openTg('StockSeasonBot');return false;">Bot</a> ·
+    <a href="#" onclick="openTg('StockSeasonSignals');return false;">Channel</a> ·
+    <a href="#" onclick="openTg('Staysettl');return false;">Contact</a>
     <br><span style="color:var(--text3);font-size:11px;">Powered by @StockSeasonBot</span>
   </footer>
 
@@ -616,6 +648,42 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
   el.dataset.delay = (i % 6) * 70;
   obs.observe(el);
 });
+
+// ── SMART TELEGRAM LINKS ──
+function openTg(username){
+  var appUrl = 'tg://resolve?domain=' + username;
+  var fallbackShown = false;
+  window.location.href = appUrl;
+  var t = setTimeout(function(){
+    if(!document.hidden && !fallbackShown){
+      fallbackShown = true;
+      showTgPopup(username);
+    }
+  }, 2500);
+  document.addEventListener('visibilitychange', function handler(){
+    if(document.hidden){
+      clearTimeout(t);
+      fallbackShown = true;
+      document.removeEventListener('visibilitychange', handler);
+    }
+  });
+}
+function showTgPopup(username){
+  var names = {
+    'StockSeasonBot': '@StockSeasonBot — Pattern Analysis Bot',
+    'StockSeasonSignals': '@StockSeasonSignals — Free Proof Channel',
+    'Staysettl': '@Staysettl — Direct Contact'
+  };
+  var sub = document.getElementById('tg-popup-sub');
+  if(sub) sub.textContent = (names[username]||('@'+username)) + ' use karne ke liye Telegram app install karo — bilkul free hai.';
+  document.getElementById('tg-popup-overlay').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeTgPopup(){
+  document.getElementById('tg-popup-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+function closeTgPopupDelay(){ setTimeout(closeTgPopup, 500); }
 </script>
 </body>
 </html>
