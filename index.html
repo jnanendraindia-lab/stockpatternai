@@ -1235,8 +1235,6 @@ section[style*="bg2"]{
     <li><a href="#health">Pattern Health</a></li>
     <li><a href="#plans">Plans</a></li>
     <li class="nav-academy-li"><a href="academy.html" class="nav-academy">🎓 Academy</a></li>
-    <li class="nav-guide-li"><a href="botguide.html" class="nav-guide">📖 Bot Guide</a></li>
-    <li><a href="#" onclick="openTg('StockSeasonSignals');return false;" class="nav-cta"><span class="cta-full">Join @StockSeasonSignals ↗</span><span class="cta-short">Join ↗</span></a></li>
     <li><a href="https://app.stockpatternai.com/platform" class="nav-platform">Login →</a></li>
   </ul>
 </nav>
@@ -1252,8 +1250,8 @@ section[style*="bg2"]{
 
       <h1>
         20 years of<br>
-        <em>seasonal patterns.</em><br>
-        Honest data.
+        <em>Historical Behaviour</em><br>
+        Intelligence. Honest Data.
       </h1>
 
       <p class="hero-sub">
@@ -1269,15 +1267,15 @@ section[style*="bg2"]{
         <a href="https://app.stockpatternai.com/platform" class="btn-primary">
           🖥️ Open Web Platform
         </a>
+        <a href="#" onclick="openTg('StockSeasonBot');return false;" class="btn-secondary">
+          🤖 Join @StockSeasonBot
+        </a>
         <a href="#" onclick="openTg('StockSeasonSignals');return false;" class="btn-platform">
           📢 Join @StockSeasonSignals
         </a>
-        <a href="#" onclick="openTg('StockSeasonBot');return false;" class="btn-secondary">
-          🤖 Open Bot — Pattern Dekho (Free)
-        </a>
       </div>
       <div class="tg-help">
-        Telegram nahi hai? Koi baat nahi — <a href="https://telegram.org/" target="_blank" rel="noopener">free app, 30 sec mein download</a>, phir bot kholo.
+        Don't have Telegram? No problem — <a href="https://telegram.org/" target="_blank" rel="noopener">free app, 30-second download</a>, then open the bot.
       </div>
 
       <div class="hero-steps">
@@ -1294,6 +1292,12 @@ section[style*="bg2"]{
           <span class="step-arrow">→</span>
           <span>Entry window aane se pehle <strong>Watchlist</strong> mein add karo — track karo</span>
         </div>
+      </div>
+
+      <div style="margin-top:24px;background:linear-gradient(135deg,rgba(245,200,66,0.10),rgba(0,212,170,0.05));border:1px solid rgba(245,200,66,0.35);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+        <span style="background:var(--gold);color:#000;font-size:10px;font-weight:800;letter-spacing:0.5px;padding:3px 10px;border-radius:20px;font-family:'DM Mono',monospace;">NEW</span>
+        <span style="font-size:13.5px;color:var(--text);">The <b style="color:var(--gold);">2026 Print Handbook</b> — 219 market-leader stocks, 20 years of seasonal history, bullish &amp; bearish both. Personal plan members also get a bonus digital archive covering 2,200+ NSE+BSE stocks. Limited print run.</span>
+        <a href="#plans" style="margin-left:auto;color:var(--gold);font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap;">Grab it →</a>
       </div>
     </div>
 
@@ -1604,6 +1608,30 @@ section[style*="bg2"]{
   </div>
 </section>
 
+<!-- BOT (secondary companion to the platform) -->
+<section style="background:var(--bg);border-top:1px solid var(--border);">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;max-width:560px;margin:0 auto 32px;">
+      <div class="section-label">// On the go</div>
+      <h2 class="section-title">The website is home.<br>The bot comes with you.</h2>
+      <p class="section-sub">Everything starts on the platform. @StockSeasonBot is a companion for quick checks on Telegram — not a replacement.</p>
+    </div>
+    <div class="feat-card reveal" style="max-width:620px;margin:0 auto;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <div class="feat-icon">🤖</div>
+        <div class="feat-title" style="margin:0;">@StockSeasonBot</div>
+      </div>
+      <div class="feat-desc" style="margin-bottom:18px;">Quick scans, daily forecasts, and pattern lookups — straight from Telegram. Full depth still lives on the website.</div>
+      <a href="#" onclick="openTg('StockSeasonBot');return false;" style="background:rgba(0,149,255,0.1);color:var(--accent2);border:1px solid rgba(0,149,255,0.3);font-size:13px;font-weight:600;padding:9px 16px;border-radius:8px;text-decoration:none;display:inline-block;margin-bottom:18px;">Open Bot (Free) →</a>
+      <div style="font-size:12.5px;color:var(--text2);margin-bottom:8px;">📖 New to the bot? Read the guide first:</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+        <a href="botguide.html" style="background:var(--bg3);border:1px solid var(--border2);color:var(--text);font-size:12.5px;padding:7px 13px;border-radius:7px;text-decoration:none;">🇬🇧 Bot Guide</a>
+      </div>
+      <span style="display:inline-block;font-size:11.5px;color:var(--text2);background:var(--bg3);border:1px solid var(--border);padding:5px 11px;border-radius:20px;">📢 @StockSeasonSignals — broadcast channel</span>
+    </div>
+  </div>
+</section>
+
 <!-- PATTERN HEALTH -->
 <section id="health" style="background:var(--bg);border-top:1px solid var(--border);">
   <div class="health-section">
@@ -1763,7 +1791,7 @@ section[style*="bg2"]{
     <div class="reveal" style="text-align:center;max-width:500px;margin:0 auto;">
       <div class="section-label">// Pricing</div>
       <h2 class="section-title">Start free.<br>No credit card.</h2>
-      <p class="section-sub" style="margin-top:12px;font-size:15px;">All plans on Telegram. Payment via UPI. Manual activation same day.</p>
+      <p class="section-sub" style="margin-top:12px;font-size:15px;">Activate via WhatsApp or Telegram. Manual confirmation, same day.</p>
     </div>
     <div class="plans-grid">
       <div class="plan-card reveal">
@@ -1794,7 +1822,7 @@ section[style*="bg2"]{
           <li><span class="feat-on">✓</span>5yr proof · PDF/CSV export</li>
           <li><span class="feat-on">✓</span>⚡ Sharpness unlocked</li>
         </ul>
-        <a href="#" onclick="openTg('StockSeasonBot');return false;" class="plan-btn outline">Subscribe via UPI</a>
+        <a href="#" onclick="openTg('StockSeasonBot');return false;" class="plan-btn outline">Message to Subscribe</a>
       </div>
       <div class="plan-card featured reveal">
         <div class="plan-popular">Most Popular</div>
@@ -1810,9 +1838,10 @@ section[style*="bg2"]{
           <li><span class="feat-on">✓</span>📈 Momentum unlocked</li>
           <li><span class="feat-on">✓</span>Priority support</li>
         </ul>
-        <a href="#" onclick="openTg('StockSeasonBot');return false;" class="plan-btn filled">Subscribe via UPI</a>
+        <a href="#" onclick="openTg('StockSeasonBot');return false;" class="plan-btn filled">Message to Subscribe</a>
       </div>
-      <div class="plan-card reveal">
+      <div class="plan-card reveal" style="border-color:rgba(245,200,66,0.4);background:linear-gradient(180deg,rgba(245,200,66,0.04) 0%,var(--surface) 100%);position:relative;">
+        <div class="plan-popular" style="background:var(--gold);">🎁 + Print Handbook</div>
         <div class="plan-tier">Personal</div>
         <div class="plan-price">₹9,999</div>
         <div class="plan-period">// 6 months · save 44%</div>
@@ -1823,12 +1852,14 @@ section[style*="bg2"]{
           <li><span class="feat-on">✓</span>Early access features</li>
           <li><span class="feat-on">✓</span>Direct founder access</li>
           <li><span class="feat-on">✓</span>@Staysettl on Telegram</li>
+          <li style="color:var(--gold);font-weight:600;">🎁 2026 Print Handbook (219 stocks)</li>
+          <li style="color:var(--gold);font-weight:600;">📄 Bonus: Digital archive — 2,200+ NSE+BSE stocks</li>
         </ul>
-        <a href="#" onclick="openTg('StockSeasonBot');return false;" class="plan-btn outline">Subscribe via UPI</a>
+        <a href="#" onclick="openTg('StockSeasonBot');return false;" class="plan-btn outline">Message to Subscribe</a>
       </div>
     </div>
     <div style="text-align:center;margin-top:20px;font-size:12px;color:var(--text3);font-family:'DM Mono',monospace;">
-      UPI payment → Send screenshot to @StockSeasonBot → Activated same day
+      To subscribe: WhatsApp 8100655677 or Telegram @Staysettl → activated same day
     </div>
     <div style="margin-top:16px;padding:14px 20px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--text3);text-align:center;line-height:1.7;max-width:700px;margin-left:auto;margin-right:auto;">
       <strong style="color:var(--text2);">Subscription = Platform access only.</strong> You are paying for access to historical data tools and platform features — not for investment advice or stock recommendations. We are not SEBI-registered. All information is educational.
