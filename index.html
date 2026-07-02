@@ -1265,7 +1265,7 @@ section[style*="bg2"]{
 
       <div class="hero-actions">
         <a href="https://app.stockpatternai.com/platform" class="btn-primary">
-          🖥️ Open Web Platform
+          🖥️ Login → Open Platform
         </a>
         <a href="#" onclick="openTg('StockSeasonBot');return false;" class="btn-secondary">
           🤖 Join @StockSeasonBot
@@ -2158,6 +2158,7 @@ window.addEventListener('scroll',()=>{
     flex-direction:column;gap:4px;overflow-y:auto;
   `;
   const menuLinks = [
+    {href:'https://app.stockpatternai.com/platform', label:'🖥️ Login → Platform', primary:true},
     {href:'#honest',  label:'What This Is'},
     {href:'#how',     label:'How It Works'},
     {href:'#features',label:'Features'},
@@ -2166,8 +2167,8 @@ window.addEventListener('scroll',()=>{
     {href:'#plans',   label:'Plans'},
     {href:'academy.html', label:'🎓 Open Academy (Free)'},
     {href:'botguide.html', label:'📖 Bot Guide'},
-    {href:'#',onclick:'openTg("StockSeasonSignals")', label:'📢 Join @StockSeasonSignals', primary:true},
-    {href:'#',onclick:'openTg("StockSeasonBot")',     label:'🤖 Open Bot Free'},
+    {href:'#',onclick:'openTg("StockSeasonBot")',     label:'🤖 Join @StockSeasonBot'},
+    {href:'#',onclick:'openTg("StockSeasonSignals")', label:'📢 Join @StockSeasonSignals'},
   ];
   menuLinks.forEach(l=>{
     const a = document.createElement('a');
@@ -2188,9 +2189,9 @@ window.addEventListener('scroll',()=>{
   const tgNote = document.createElement('div');
   tgNote.style.cssText = `padding:14px 18px;margin-top:8px;font-size:12.5px;color:var(--text3);
     border-top:1px solid rgba(255,255,255,0.06);line-height:1.6;`;
-  tgNote.innerHTML = 'Telegram nahi hai? Yeh free app hai — '+
-    '<a href="https://telegram.org/" style="color:var(--accent);text-decoration:underline;">30 sec mein download karo</a>, '+
-    'phir upar wale buttons kaam karenge.';
+  tgNote.innerHTML = "Don't have Telegram? It's a free app — "+
+    '<a href="https://telegram.org/" style="color:var(--accent);text-decoration:underline;">download in 30 seconds</a>, '+
+    'then the bot buttons above will work.';
   menu.appendChild(tgNote);
   document.body.appendChild(menu);
 
