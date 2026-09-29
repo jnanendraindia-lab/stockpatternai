@@ -318,9 +318,13 @@ footer a:hover{color:var(--accent);}
 <div id="tg-popup-overlay" class="tg-popup-overlay" style="display:none;" onclick="if(event.target===this)closeTgPopup()">
   <div class="tg-popup">
     <div class="tg-popup-icon">📱</div>
-    <div class="tg-popup-title">Telegram App Required</div>
-    <div class="tg-popup-sub" id="tg-popup-sub">To use the bot, install the Telegram app — it's completely free.</div>
+    <div class="tg-popup-title">Couldn't Open the Telegram App</div>
+    <div class="tg-popup-sub" id="tg-popup-sub">No worries — open it in your browser instead, or install the app below (completely free).</div>
     <div class="tg-popup-btns">
+      <a href="#" id="tg-popup-web" target="_blank" class="tg-dl-btn desktop" onclick="closeTgPopupDelay()">
+        <span style="font-size:20px;">🌐</span>
+        <div style="text-align:left;"><div style="font-size:11px;opacity:.7;font-weight:400;">No install needed</div>Open in Browser (Telegram Web)</div>
+      </a>
       <a href="https://play.google.com/store/apps/details?id=org.telegram.messenger" target="_blank" class="tg-dl-btn android" onclick="closeTgPopupDelay()">
         <span style="font-size:20px;">🤖</span>
         <div style="text-align:left;"><div style="font-size:11px;opacity:.7;font-weight:400;">For Android</div>Google Play Store</div>
@@ -461,8 +465,8 @@ footer a:hover{color:var(--accent);}
     </div>
     <div class="proof-demo reveal">
       <div class="pd-head">🏆 EXAMPLE — ₹1L per trade</div>
-      <div class="pd-row"><span class="yr">2025</span> <span class="pd-win">✅ +11.3% &nbsp; +₹11,350</span></div>
-      <div class="pd-row"><span class="yr">2024</span> <span class="pd-win">✅ +10.0% &nbsp; +₹10,020</span></div>
+      <div class="pd-row"><span class="yr">2025</span> <span class="pd-win">✅ +11.3% &nbsp; +₹11,300</span></div>
+      <div class="pd-row"><span class="yr">2024</span> <span class="pd-win">✅ +10.0% &nbsp; +₹10,000</span></div>
       <div class="pd-row"><span class="yr">2023</span> <span class="pd-win">✅ +8.4% &nbsp; +₹8,400</span></div>
       <div class="pd-row"><span class="yr">2022</span> <span class="pd-loss">❌ -3.2% &nbsp; -₹3,200</span></div>
       <div class="pd-row"><span class="yr">2021</span> <span class="pd-win">✅ +9.1% &nbsp; +₹9,100</span></div>
@@ -479,12 +483,12 @@ footer a:hover{color:var(--accent);}
       <p>Just understand these few words — the rest is easy.</p>
     </div>
     <div class="gloss">
-      <div class="gitem reveal"><b>Win Rate</b><span>How many times in 10 years the pattern has worked</span></div>
-      <div class="gitem reveal"><b>T1 / T2 / T3</b><span>Target — how far up/down it could go</span></div>
+      <div class="gitem reveal"><b>Win Rate</b><span>How often this pattern has historically worked, based on our full analysis window</span></div>
+      <div class="gitem reveal"><b>T1 / T2 / T3</b><span>Three target levels, in order — T1 is the nearest/most likely target, T2 and T3 are further, less frequently-reached targets</span></div>
       <div class="gitem reveal"><b>Historical Risk Reference</b><span>Historical average adverse move observed in this window</span></div>
-      <div class="gitem reveal"><b>RR Ratio</b><span>Risk vs Reward — higher = better deal</span></div>
+      <div class="gitem reveal"><b>RR Ratio</b><span>Reward ÷ Risk — e.g. 2:1 means the target is twice as far as the stop-loss. Higher = better deal</span></div>
       <div class="gitem reveal"><b>🔥 Freshness</b><span>Is the pattern working in recent years?</span></div>
-      <div class="gitem reveal"><b>A+ Grade</b><span>The most reliable pattern (95%+ historical)</span></div>
+      <div class="gitem reveal"><b>A+ Grade</b><span>The most reliable pattern grade (95%+ historical win rate) — past performance, not a guarantee</span></div>
     </div>
   </section>
 
@@ -500,8 +504,8 @@ footer a:hover{color:var(--accent);}
         <h3>🆓 Free</h3>
         <ul>
           <li>Analyze 2 stocks daily</li>
-          <li>10 years of data</li>
-          <li>Top pattern + 2-year proof</li>
+          <li>Built on our full 20-year pattern engine</li>
+          <li>Top pattern + 2-year visible proof</li>
           <li>Scanner (top 3 results)</li>
           <li>🔥 Freshness signal</li>
         </ul>
@@ -512,13 +516,14 @@ footer a:hover{color:var(--accent);}
           <li>10+ stocks daily (unlimited on VIP)</li>
           <li>4-6 patterns per stock</li>
           <li>Monthly Windows + ₹2L Simulator</li>
-          <li>PDF reports + full 10-year proof</li>
+          <li>PDF reports + full 10-year visible proof</li>
           <li>All timeframes + advanced stats</li>
         </ul>
       </div>
     </div>
     <p style="text-align:center;margin-top:20px;font-size:14px;color:var(--text2);">
-      To see details, type <code style="font-family:'DM Mono',monospace;color:var(--accent);">/plans</code> in the bot.
+      Every plan runs on the same 20-year pattern engine — the difference is how many years of the year-by-year proof table you can see (2 years on Free, 10 years on paid).
+      <br>To see details, type <code style="font-family:'DM Mono',monospace;color:var(--accent);">/plans</code> in the bot.
       <br>Subscription = platform access only. Not investment advice.
     </p>
   </section>
@@ -683,7 +688,9 @@ function showTgPopup(username){
     'Staysettl': '@Staysettl — Direct Contact'
   };
   var sub = document.getElementById('tg-popup-sub');
-  if(sub) sub.textContent = (names[username]||('@'+username)) + ' — install the Telegram app to use it, it\'s completely free.';
+  if(sub) sub.textContent = (names[username]||('@'+username)) + ' — open it in your browser now, or install the Telegram app, it\'s completely free.';
+  var webLink = document.getElementById('tg-popup-web');
+  if(webLink) webLink.href = 'https://t.me/' + username;
   document.getElementById('tg-popup-overlay').style.display = 'flex';
   document.body.style.overflow = 'hidden';
 }
