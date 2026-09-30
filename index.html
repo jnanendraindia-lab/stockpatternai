@@ -8,10 +8,25 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <style>
-  body { margin: 0; background: #ffffff; font-family: 'Public Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; color: #14171f; }
+  body { margin: 0; background: #ffffff; font-family: 'Public Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; color: #14171f; overflow-x: hidden; }
   a { color: inherit; text-decoration: none; }
   * { box-sizing: border-box; }
   .nav-links a:hover { color: #14171F; }
+
+  /* ── MOBILE RESPONSIVE OVERRIDES ── */
+  @media (max-width: 760px) {
+    .nav-links { display: none !important; }
+    .pad-section { padding-left: 18px !important; padding-right: 18px !important; }
+    .grid-2, .grid-3, .grid-pricing { grid-template-columns: 1fr !important; }
+    .grid-stats { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    .grid-stats > div:nth-child(2) { border-right: none !important; }
+    .proof-year-row { flex-wrap: wrap !important; }
+    .proof-year-row > div { flex: 1 1 30% !important; }
+  }
+  @media (max-width: 420px) {
+    .grid-stats { grid-template-columns: 1fr !important; }
+    .grid-stats > div { border-right: none !important; border-bottom: 1px solid #E4E7EC; }
+  }
 </style>
 </head>
 <body>
@@ -20,7 +35,7 @@
 
   <!-- LAUNCH OFFER BAR -->
   <a href="https://app.stockpatternai.com/platform" style="width: 100%; background: #1D4ED8; display: flex; justify-content: center;">
-    <div style="width: 100%; max-width: 1180px; padding: 12px 32px; display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;">
+    <div class="pad-section" style="width: 100%; max-width: 1180px; padding: 12px 32px; display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;">
       <span style="background: rgba(255,255,255,0.18); color: #ffffff; font-size: 11px; font-weight: 800; letter-spacing: 0.4px; padding: 4px 10px; border-radius: 999px;">LAUNCH OFFER</span>
       <span style="font-size: 14px; font-weight: 700; color: #ffffff;">Free VIP access for early users — until 5 Oct 2026.</span>
       <span style="font-size: 13px; color: #DCE6FF;">Sign up free, WhatsApp your details, activated in minutes.</span>
@@ -30,7 +45,7 @@
 
   <!-- HEADER -->
   <div style="width: 100%; border-bottom: 1px solid #E4E7EC; display: flex; justify-content: center;">
-    <div style="width: 100%; max-width: 1180px; padding: 20px 32px; display: flex; align-items: center; justify-content: space-between;">
+    <div class="pad-section" style="width: 100%; max-width: 1180px; padding: 20px 32px; display: flex; align-items: center; justify-content: space-between;">
       <div style="font-size: 19px; font-weight: 800; letter-spacing: -0.2px; color: #14171F;">StockPattern <span style="color: #1D4ED8;">AI</span></div>
       <div class="nav-links" style="display: flex; align-items: center; gap: 32px; font-size: 14px; font-weight: 600; color: #3F4652;">
         <a href="#proof">Real Proof</a>
@@ -44,10 +59,10 @@
   </div>
 
   <!-- HERO -->
-  <div style="width: 100%; display: flex; justify-content: center; padding: 88px 32px 64px;">
+  <div class="pad-section" style="width: 100%; display: flex; justify-content: center; padding: 88px 32px 64px;">
     <div style="width: 100%; max-width: 780px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 22px; margin: 0 auto;">
       <div style="border: 1px solid #1D4ED8; color: #1D4ED8; background: #EEF2FF; font-size: 12px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; padding: 7px 14px; border-radius: 999px;">NSE + BSE · Historical Data · 2005–2026</div>
-      <h1 style="margin: 0; font-size: 50px; line-height: 1.16; font-weight: 800; letter-spacing: -1px; color: #14171F;">20 years of historical seasonal patterns. <span style="color: #1D4ED8;">Honest data, plainly shown.</span></h1>
+      <h1 style="margin: 0; font-size: clamp(30px, 8vw, 50px); line-height: 1.16; font-weight: 800; letter-spacing: -1px; color: #14171F;">20 years of historical seasonal patterns. <span style="color: #1D4ED8;">Honest data, plainly shown.</span></h1>
       <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #4B5563; max-width: 620px;">Seasonal patterns from 2,200+ NSE &amp; BSE stocks. No predictions, no tips — just what actually happened, year by year.</p>
       <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #8A93A3; max-width: 560px;">Wins shown as wins. Losses shown as losses. Educational tool only — not SEBI-registered advice. Past performance ≠ future results.</p>
       <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 8px; text-align: center">
@@ -61,7 +76,7 @@
 
   <!-- STATS -->
   <div style="width: 100%; display: flex; justify-content: center; border-top: 1px solid #E4E7EC; border-bottom: 1px solid #E4E7EC; background: #FAFAFB;">
-    <div style="width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));">
+    <div class="grid-stats" style="width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));">
       <div style="padding: 32px 20px; text-align: center; border-right: 1px solid #E4E7EC;">
         <div style="font-size: 30px; font-weight: 800; color: #14171F;">89,000+</div>
         <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase; color: #8A93A3; margin-top: 4px;">Patterns in Database</div>
@@ -82,14 +97,14 @@
   </div>
 
   <!-- CLARITY FIRST -->
-  <div style="width: 100%; display: flex; justify-content: center; padding: 72px 32px;">
+  <div class="pad-section" style="width: 100%; display: flex; justify-content: center; padding: 72px 32px;">
     <div style="width: 100%; max-width: 900px; display: flex; flex-direction: column; gap: 32px; margin: 0 auto;">
       <div style="text-align: center; display: flex; flex-direction: column; gap: 8px; align-items: center;">
         <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: #1D4ED8;">Clarity First</div>
         <h2 style="margin: 0; font-size: 30px; font-weight: 800; color: #14171F;">What this is and isn't.</h2>
         <p style="margin: 0; font-size: 15px; color: #6B7280; max-width: 560px;">Built for traders who are tired of guesswork. Before you use this, know exactly what you're getting.</p>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px;">
+      <div class="grid-2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px;">
         <div style="background: #FBEAEC; border: 1px solid #F3D2D6; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 14px;">
           <div style="display: flex; align-items: flex-start; gap: 10px;"><span style="color: #B4232F; font-weight: 800;">✕</span><span style="font-size: 14px; color: #3F4652;">Not SEBI-registered financial advice</span></div>
           <div style="display: flex; align-items: flex-start; gap: 10px;"><span style="color: #B4232F; font-weight: 800;">✕</span><span style="font-size: 14px; color: #3F4652;">Not a "sure shot call" channel</span></div>
@@ -107,13 +122,13 @@
   </div>
 
   <!-- HOW IT WORKS -->
-  <div style="width: 100%; display: flex; justify-content: center; padding: 64px 32px; background: #FAFAFB; border-top: 1px solid #E4E7EC; border-bottom: 1px solid #E4E7EC;">
+  <div class="pad-section" style="width: 100%; display: flex; justify-content: center; padding: 64px 32px; background: #FAFAFB; border-top: 1px solid #E4E7EC; border-bottom: 1px solid #E4E7EC;">
     <div style="width: 100%; max-width: 1000px; display: flex; flex-direction: column; gap: 32px; margin: 0 auto;">
       <div style="text-align: center; display: flex; flex-direction: column; gap: 8px; align-items: center;">
         <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: #1D4ED8;">How It Works</div>
         <h2 style="margin: 0; font-size: 28px; font-weight: 800; color: #14171F;">How it's built. What's live now.</h2>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px;">
+      <div class="grid-2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px;">
         <div style="background: #ffffff; border: 1px solid #E4E7EC; border-radius: 12px; padding: 22px; display: flex; gap: 16px;">
           <div style="font-size: 22px; font-weight: 800; color: #D7DBE2;">01</div>
           <div style="display: flex; flex-direction: column; gap: 6px;">
@@ -151,7 +166,7 @@
   </div>
 
   <!-- PROOF -->
-  <div id="proof" style="width: 100%; display: flex; justify-content: center; padding: 72px 32px;">
+  <div class="pad-section" id="proof" style="width: 100%; display: flex; justify-content: center; padding: 72px 32px;">
     <div style="width: 100%; max-width: 1000px; display: flex; flex-direction: column; gap: 32px; margin: 0 auto;">
       <div style="text-align: center; display: flex; flex-direction: column; gap: 10px; align-items: center;">
         <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: #1D4ED8;">Real Historical Data</div>
@@ -159,7 +174,7 @@
         <p style="margin: 0; font-size: 15px; color: #6B7280; max-width: 560px;">A pattern isn't only useful when it says "buy." Both examples below: 10 years, 10 out of 10 — shown exactly as they happened.</p>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px;">
+      <div class="grid-2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px;">
 
         <div style="background: #ffffff; border: 1px solid #E4E7EC; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 1px 2px rgba(16,24,40,0.04);">
           <div style="display: flex; justify-content: space-between; align-items: flex-start;">
@@ -174,7 +189,7 @@
             <div><div style="font-size: 18px; font-weight: 800; color: #0F7B4D;">+17.6%</div><div style="font-size: 11px; color: #9AA2AF; text-transform: uppercase;">Avg Return</div></div>
             <div><div style="font-size: 18px; font-weight: 800; color: #14171F;">1:1.75</div><div style="font-size: 11px; color: #9AA2AF; text-transform: uppercase;">R:R</div></div>
           </div>
-          <div style="display: flex; gap: 8px;">
+          <div class="proof-year-row" style="display: flex; gap: 8px;">
             <div style="flex: 1; text-align: center;"><div style="font-size: 11px; color: #9AA2AF;">2021</div><div style="font-size: 13px; font-weight: 700; color: #0F7B4D;">+14.5%</div></div>
             <div style="flex: 1; text-align: center;"><div style="font-size: 11px; color: #9AA2AF;">2022</div><div style="font-size: 13px; font-weight: 700; color: #0F7B4D;">+1.9%</div></div>
             <div style="flex: 1; text-align: center;"><div style="font-size: 11px; color: #9AA2AF;">2023</div><div style="font-size: 13px; font-weight: 700; color: #0F7B4D;">+14.6%</div></div>
@@ -196,7 +211,7 @@
             <div><div style="font-size: 18px; font-weight: 800; color: #B4232F;">-12.5%</div><div style="font-size: 11px; color: #9AA2AF; text-transform: uppercase;">Avg Return</div></div>
             <div><div style="font-size: 18px; font-weight: 800; color: #14171F;">1:2.54</div><div style="font-size: 11px; color: #9AA2AF; text-transform: uppercase;">R:R</div></div>
           </div>
-          <div style="display: flex; gap: 8px;">
+          <div class="proof-year-row" style="display: flex; gap: 8px;">
             <div style="flex: 1; text-align: center;"><div style="font-size: 11px; color: #9AA2AF;">2021</div><div style="font-size: 13px; font-weight: 700; color: #B4232F;">-16.2%</div></div>
             <div style="flex: 1; text-align: center;"><div style="font-size: 11px; color: #9AA2AF;">2022</div><div style="font-size: 13px; font-weight: 700; color: #B4232F;">-15.7%</div></div>
             <div style="flex: 1; text-align: center;"><div style="font-size: 11px; color: #9AA2AF;">2023</div><div style="font-size: 13px; font-weight: 700; color: #B4232F;">-12.6%</div></div>
@@ -211,13 +226,13 @@
   </div>
 
   <!-- FEATURES -->
-  <div id="features" style="width: 100%; display: flex; justify-content: center; padding: 64px 32px; background: #FAFAFB; border-top: 1px solid #E4E7EC; border-bottom: 1px solid #E4E7EC;">
+  <div class="pad-section" id="features" style="width: 100%; display: flex; justify-content: center; padding: 64px 32px; background: #FAFAFB; border-top: 1px solid #E4E7EC; border-bottom: 1px solid #E4E7EC;">
     <div style="width: 100%; max-width: 1000px; display: flex; flex-direction: column; gap: 36px; margin: 0 auto;">
       <div style="text-align: center; display: flex; flex-direction: column; gap: 8px; align-items: center;">
         <h2 style="margin: 0; font-size: 28px; font-weight: 800; color: #14171F;">What's available right now.</h2>
         <p style="margin: 0; font-size: 15px; color: #6B7280;">Every feature below is labelled honestly — live is live, nothing pending is dressed up as done.</p>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;">
+      <div class="grid-3" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;">
 
         <div style="background: #ffffff; border: 1px solid #E4E7EC; border-radius: 12px; padding: 22px; display: flex; flex-direction: column; gap: 10px;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4" height="8"></rect><rect x="10" y="7" width="4" height="13"></rect><rect x="17" y="3" width="4" height="17"></rect></svg>
@@ -266,7 +281,7 @@
   </div>
 
   <!-- BEHAVIOR PROFILE -->
-  <div id="behavior" style="width: 100%; display: flex; justify-content: center; padding: 72px 32px;">
+  <div class="pad-section" id="behavior" style="width: 100%; display: flex; justify-content: center; padding: 72px 32px;">
     <div style="width: 100%; max-width: 1000px; display: flex; flex-direction: column; gap: 36px; margin: 0 auto;">
       <div style="text-align: center; display: flex; flex-direction: column; gap: 8px; align-items: center;">
         <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: #1D4ED8;">Strongest Signal on the Platform</div>
@@ -285,7 +300,7 @@
         </div>
       </div>
       <p style="margin: -16px 0 0; text-align: center; font-size: 12px; color: #9AA2AF;">Behavior Profile accuracy, tested across 288,736 historical pattern-years, NSE + BSE, out-of-sample walk-forward method.</p>
-      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;">
+      <div class="grid-3" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;">
         <div style="background: #ffffff; border: 1px solid #E4E7EC; border-radius: 12px; padding: 22px; display: flex; flex-direction: column; gap: 8px;">
           <div style="font-size: 15px; font-weight: 700; color: #14171F;">🔥 Freshness</div>
           <div style="font-size: 13px; color: #6B7280; line-height: 1.5;">Is this pattern still working recently, or is the win rate from years ago? Last 3 years' success rate tells the truth.</div>
@@ -306,12 +321,12 @@
   </div>
 
   <!-- ACADEMY -->
-  <div id="academy" style="width: 100%; display: flex; justify-content: center; padding: 64px 32px; background: #FAFAFB; border-top: 1px solid #E4E7EC; border-bottom: 1px solid #E4E7EC;">
+  <div class="pad-section" id="academy" style="width: 100%; display: flex; justify-content: center; padding: 64px 32px; background: #FAFAFB; border-top: 1px solid #E4E7EC; border-bottom: 1px solid #E4E7EC;">
     <div style="width: 100%; max-width: 720px; display: flex; flex-direction: column; gap: 18px; align-items: center; text-align: center; margin: 0 auto;">
       <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: #1D4ED8;">Free Learning</div>
       <h2 style="margin: 0; font-size: 28px; font-weight: 800; color: #14171F;">StockPattern AI Academy</h2>
       <p style="margin: 0; font-size: 15px; color: #6B7280; max-width: 560px;">From zero to expert — explained simply, step by step. What a share is, reading charts, fundamentals, technicals, and risk management. No jargon, no fear.</p>
-      <div style="display: flex; gap: 40px; margin-top: 6px;">
+      <div style="display: flex; gap: 40px; margin-top: 6px; flex-wrap: wrap; justify-content: center;">
         <div style="text-align: center;"><div style="font-size: 26px; font-weight: 800; color: #14171F;">8</div><div style="font-size: 11px; color: #9AA2AF; text-transform: uppercase;">Modules</div></div>
         <div style="text-align: center;"><div style="font-size: 26px; font-weight: 800; color: #14171F;">51</div><div style="font-size: 11px; color: #9AA2AF; text-transform: uppercase;">Chapters</div></div>
         <div style="text-align: center;"><div style="font-size: 26px; font-weight: 800; color: #1D4ED8;">₹0</div><div style="font-size: 11px; color: #9AA2AF; text-transform: uppercase;">Completely Free</div></div>
@@ -322,13 +337,13 @@
   </div>
 
   <!-- PRICING -->
-  <div id="pricing" style="width: 100%; display: flex; justify-content: center; padding: 72px 32px;">
+  <div class="pad-section" id="pricing" style="width: 100%; display: flex; justify-content: center; padding: 72px 32px;">
     <div style="width: 100%; max-width: 1080px; display: flex; flex-direction: column; gap: 32px; margin: 0 auto;">
       <div style="text-align: center; display: flex; flex-direction: column; gap: 8px; align-items: center;">
         <h2 style="margin: 0; font-size: 30px; font-weight: 800; color: #14171F;">Start free. No credit card.</h2>
         <p style="margin: 0; font-size: 15px; color: #6B7280;">Activate via WhatsApp or Telegram. Manual confirmation, same day.</p>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px;">
+      <div class="grid-pricing" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px;">
 
         <div style="background: #ffffff; border: 1px solid #E4E7EC; border-radius: 14px; padding: 22px; display: flex; flex-direction: column; gap: 12px;">
           <div style="font-size: 15px; font-weight: 700; color: #14171F;">Free</div>
@@ -389,7 +404,7 @@
   </div>
 
   <!-- FOUNDER NOTE -->
-  <div style="width: 100%; display: flex; justify-content: center; padding: 64px 32px;">
+  <div class="pad-section" style="width: 100%; display: flex; justify-content: center; padding: 64px 32px;">
     <div style="width: 100%; max-width: 720px; display: flex; flex-direction: column; gap: 16px; text-align: center; align-items: center; margin: 0 auto;">
       <div style="width: 44px; height: 44px; border-radius: 999px; background: #1D4ED8; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff"><path d="M9.983 3v7.391c0 5.704-3.881 9.29-9.983 10.609l-.995-2.151c2.432-.917 3.995-3.386 3.995-5.849h-4v-10h10zm14.017 0v7.391c0 5.704-3.882 9.29-9.983 10.609l-.995-2.151c2.432-.917 3.995-3.386 3.995-5.849h-4v-10h10z"></path></svg></div>
       <p style="margin: 0; font-size: 16px; line-height: 1.7; color: #3F4652;">"After years of studying Indian markets and losing money to blind tips and guesswork, I started building what I wish had existed — not a prediction system, not a guarantee, just honest historical seasonal patterns shown year by year, so you can make more informed decisions."</p>
@@ -398,14 +413,14 @@
   </div>
 
   <!-- BETA FEEDBACK -->
-  <div style="width: 100%; display: flex; justify-content: center; padding: 56px 32px; background: #FAFAFB; border-top: 1px solid #E4E7EC; border-bottom: 1px solid #E4E7EC;">
+  <div class="pad-section" style="width: 100%; display: flex; justify-content: center; padding: 56px 32px; background: #FAFAFB; border-top: 1px solid #E4E7EC; border-bottom: 1px solid #E4E7EC;">
     <div style="width: 100%; max-width: 1000px; display: flex; flex-direction: column; gap: 28px; margin: 0 auto;">
       <div style="text-align: center; display: flex; flex-direction: column; gap: 8px; align-items: center;">
         <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: #1D4ED8;">Early Beta</div>
         <h2 style="margin: 0; font-size: 24px; font-weight: 800; color: #14171F;">Help shape StockPattern AI.</h2>
         <p style="margin: 0; font-size: 14px; color: #6B7280; max-width: 560px;">This is not a finished product. If something is missing, confusing, or wrong — tell us. Your feedback directly shapes what gets built next.</p>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;">
+      <div class="grid-3" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;">
         <a href="https://t.me/StockSeasonBot" style="background: #ffffff; border: 1px solid #E4E7EC; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 4px;">
           <div style="font-size: 14px; font-weight: 700; color: #14171F;">Suggest a feature</div>
           <div style="font-size: 12px; color: #9AA2AF;">Message on Telegram →</div>
@@ -423,7 +438,7 @@
   </div>
 
   <!-- FINAL CTA -->
-  <div style="width: 100%; display: flex; justify-content: center; padding: 64px 32px;">
+  <div class="pad-section" style="width: 100%; display: flex; justify-content: center; padding: 64px 32px;">
     <div style="width: 100%; max-width: 640px; display: flex; flex-direction: column; gap: 18px; align-items: center; text-align: center; margin: 0 auto;">
       <h2 style="margin: 0; font-size: 26px; font-weight: 800; color: #14171F;">Start with proof. Not promises.</h2>
       <p style="margin: 0; font-size: 14px; color: #6B7280;">Join @StockSeasonSignals first. See real historical proof. Then decide if the platform is for you.</p>
@@ -437,7 +452,7 @@
 
   <!-- FOOTER -->
   <div style="width: 100%; background: #F7F8FA; border-top: 1px solid #E4E7EC; display: flex; justify-content: center;">
-    <div style="width: 100%; max-width: 1000px; padding: 40px 32px; display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center; margin: 0 auto;">
+    <div class="pad-section" style="width: 100%; max-width: 1000px; padding: 40px 32px; display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center; margin: 0 auto;">
       <div style="font-size: 15px; font-weight: 800; color: #14171F;">StockPattern <span style="color: #1D4ED8;">AI</span></div>
       <p style="margin: 0; font-size: 12px; line-height: 1.6; color: #9AA2AF; max-width: 640px;">Educational platform. All data is historical and for informational purposes only. Past performance does not guarantee future results. Not SEBI-registered investment advisors. Nothing here should be construed as financial advice.</p>
       <div style="font-size: 12px; color: #9AA2AF;">© 2026 StockPattern AI · NSE + BSE Seasonal Analytics · India</div>
